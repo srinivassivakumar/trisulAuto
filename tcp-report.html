@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TCP Issues Analysis Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .ip-container {
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .ip-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .issues {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        .issue-group h3 {
+            color: #333;
+            margin-top: 0;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .issue-group ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .issue-group li {
+            background: #f0f0f0;
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-left: 4px solid #4CAF50;
+            border-radius: 3px;
+        }
+        .internal-issue { border-left-color: #FF9800; }
+        .external-issue { border-left-color: #2196F3; }
+        .root-cause {
+            background: #fff3cd;
+            padding: 12px;
+            border-left: 4px solid #ffc107;
+            border-radius: 3px;
+            margin: 15px 0;
+        }
+        .solution {
+            background: #d1ecf1;
+            padding: 12px;
+            border-left: 4px solid #17a2b8;
+            border-radius: 3px;
+            margin: 15px 0;
+            white-space: pre-wrap;
+        }
+        .values {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 3px;
+            margin: 15px 0;
+            font-family: monospace;
+        }
+        .values-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .values-row:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <h1>🔍 TCP Issues Analysis Report</h1>
+    <p><strong>Generated:</strong> 3/4/2026, 4:59:12 pm</p>
+    <hr>
+
+    <div class="ip-container">
+        <!-- IP header with address -->
+        <div class="ip-header">📡 IP Address: 192.168.1.100</div>
+
+        <!-- Issues grid with internal and external columns -->
+        <div class="issues">
+            <div class="issue-group">
+                <!-- Internal network path issues -->
+                <h3>🔴 Internal Issues (6)</h3>
+                <ul>
+                    <li class="internal-issue">Avg Latency Internal</li><li class="internal-issue">Retrans Internal</li><li class="internal-issue">Retrans Rate Internal</li><li class="internal-issue">Poor Quality Flows</li><li class="internal-issue">Timeouts</li><li class="internal-issue">Unidirectional Flows</li>
+                </ul>
+            </div>
+
+            <div class="issue-group">
+                <!-- External WAN path issues -->
+                <h3>🔵 External Issues (5)</h3>
+                <ul>
+                    <li class="external-issue">Avg Latency External</li><li class="external-issue">Retrans External</li><li class="external-issue">Retrans Rate External</li><li class="external-issue">Poor Quality Flows</li><li class="external-issue">Unidirectional Flows</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Root cause from cookbook or fallback logic -->
+        <div class="root-cause">
+            <strong>⚠️ Probable Root Cause:</strong><br>
+            Issues detected in both internal and external paths. Possible causes: end-to-end network degradation, multiple failure points, or pervasive congestion.
+        </div>
+
+        <!-- Recommended remediation steps -->
+        <div class="solution">
+            <strong>✅ Recommended Solution:</strong><br>
+            1. Perform comprehensive network audit
+2. Check both internal and external gateway configurations
+3. Analyze traffic flow end-to-end
+4. Review capacity planning for both segments
+5. Implement monitoring across all network segments
+        </div>
+
+        <!-- Metric values for each detected issue -->
+        <div class="values">
+            <strong>📊 Metric Values:</strong><br>
+            <div class="values-row"><span>Avg Latency Internal</span><span><strong>455</strong></span></div><div class="values-row"><span>Avg Latency External</span><span><strong>134</strong></span></div><div class="values-row"><span>Retrans Internal</span><span><strong>432</strong></span></div><div class="values-row"><span>Retrans External</span><span><strong>307</strong></span></div><div class="values-row"><span>Retrans Rate Internal</span><span><strong>77</strong></span></div><div class="values-row"><span>Retrans Rate External</span><span><strong>141</strong></span></div><div class="values-row"><span>Poor Quality Flows</span><span><strong>319</strong></span></div><div class="values-row"><span>Timeouts</span><span><strong>282</strong></span></div><div class="values-row"><span>Unidirectional Flows</span><span><strong>488</strong></span></div>
+        </div>
+    </div>
+
+
+    <div class="ip-container">
+        <!-- IP header with address -->
+        <div class="ip-header">📡 IP Address: 192.168.1.101</div>
+
+        <!-- Issues grid with internal and external columns -->
+        <div class="issues">
+            <div class="issue-group">
+                <!-- Internal network path issues -->
+                <h3>🔴 Internal Issues (6)</h3>
+                <ul>
+                    <li class="internal-issue">Avg Latency Internal</li><li class="internal-issue">Retrans Internal</li><li class="internal-issue">Retrans Rate Internal</li><li class="internal-issue">Poor Quality Flows</li><li class="internal-issue">Timeouts</li><li class="internal-issue">Unidirectional Flows</li>
+                </ul>
+            </div>
+
+            <div class="issue-group">
+                <!-- External WAN path issues -->
+                <h3>🔵 External Issues (5)</h3>
+                <ul>
+                    <li class="external-issue">Avg Latency External</li><li class="external-issue">Retrans External</li><li class="external-issue">Retrans Rate External</li><li class="external-issue">Poor Quality Flows</li><li class="external-issue">Unidirectional Flows</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Root cause from cookbook or fallback logic -->
+        <div class="root-cause">
+            <strong>⚠️ Probable Root Cause:</strong><br>
+            Issues detected in both internal and external paths. Possible causes: end-to-end network degradation, multiple failure points, or pervasive congestion.
+        </div>
+
+        <!-- Recommended remediation steps -->
+        <div class="solution">
+            <strong>✅ Recommended Solution:</strong><br>
+            1. Perform comprehensive network audit
+2. Check both internal and external gateway configurations
+3. Analyze traffic flow end-to-end
+4. Review capacity planning for both segments
+5. Implement monitoring across all network segments
+        </div>
+
+        <!-- Metric values for each detected issue -->
+        <div class="values">
+            <strong>📊 Metric Values:</strong><br>
+            <div class="values-row"><span>Avg Latency Internal</span><span><strong>183</strong></span></div><div class="values-row"><span>Avg Latency External</span><span><strong>71</strong></span></div><div class="values-row"><span>Retrans Internal</span><span><strong>192</strong></span></div><div class="values-row"><span>Retrans External</span><span><strong>290</strong></span></div><div class="values-row"><span>Retrans Rate Internal</span><span><strong>61</strong></span></div><div class="values-row"><span>Retrans Rate External</span><span><strong>319</strong></span></div><div class="values-row"><span>Poor Quality Flows</span><span><strong>115</strong></span></div><div class="values-row"><span>Timeouts</span><span><strong>492</strong></span></div><div class="values-row"><span>Unidirectional Flows</span><span><strong>171</strong></span></div>
+        </div>
+    </div>
+
+
+    <div class="ip-container">
+        <!-- IP header with address -->
+        <div class="ip-header">📡 IP Address: 192.168.1.102</div>
+
+        <!-- Issues grid with internal and external columns -->
+        <div class="issues">
+            <div class="issue-group">
+                <!-- Internal network path issues -->
+                <h3>🔴 Internal Issues (6)</h3>
+                <ul>
+                    <li class="internal-issue">Avg Latency Internal</li><li class="internal-issue">Retrans Internal</li><li class="internal-issue">Retrans Rate Internal</li><li class="internal-issue">Poor Quality Flows</li><li class="internal-issue">Timeouts</li><li class="internal-issue">Unidirectional Flows</li>
+                </ul>
+            </div>
+
+            <div class="issue-group">
+                <!-- External WAN path issues -->
+                <h3>🔵 External Issues (5)</h3>
+                <ul>
+                    <li class="external-issue">Avg Latency External</li><li class="external-issue">Retrans External</li><li class="external-issue">Retrans Rate External</li><li class="external-issue">Poor Quality Flows</li><li class="external-issue">Unidirectional Flows</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Root cause from cookbook or fallback logic -->
+        <div class="root-cause">
+            <strong>⚠️ Probable Root Cause:</strong><br>
+            Issues detected in both internal and external paths. Possible causes: end-to-end network degradation, multiple failure points, or pervasive congestion.
+        </div>
+
+        <!-- Recommended remediation steps -->
+        <div class="solution">
+            <strong>✅ Recommended Solution:</strong><br>
+            1. Perform comprehensive network audit
+2. Check both internal and external gateway configurations
+3. Analyze traffic flow end-to-end
+4. Review capacity planning for both segments
+5. Implement monitoring across all network segments
+        </div>
+
+        <!-- Metric values for each detected issue -->
+        <div class="values">
+            <strong>📊 Metric Values:</strong><br>
+            <div class="values-row"><span>Avg Latency Internal</span><span><strong>436</strong></span></div><div class="values-row"><span>Avg Latency External</span><span><strong>386</strong></span></div><div class="values-row"><span>Retrans Internal</span><span><strong>198</strong></span></div><div class="values-row"><span>Retrans External</span><span><strong>86</strong></span></div><div class="values-row"><span>Retrans Rate Internal</span><span><strong>348</strong></span></div><div class="values-row"><span>Retrans Rate External</span><span><strong>290</strong></span></div><div class="values-row"><span>Poor Quality Flows</span><span><strong>493</strong></span></div><div class="values-row"><span>Timeouts</span><span><strong>386</strong></span></div><div class="values-row"><span>Unidirectional Flows</span><span><strong>194</strong></span></div>
+        </div>
+    </div>
+
+
+    <div class="ip-container">
+        <!-- IP header with address -->
+        <div class="ip-header">📡 IP Address: 192.168.1.103</div>
+
+        <!-- Issues grid with internal and external columns -->
+        <div class="issues">
+            <div class="issue-group">
+                <!-- Internal network path issues -->
+                <h3>🔴 Internal Issues (6)</h3>
+                <ul>
+                    <li class="internal-issue">Avg Latency Internal</li><li class="internal-issue">Retrans Internal</li><li class="internal-issue">Retrans Rate Internal</li><li class="internal-issue">Poor Quality Flows</li><li class="internal-issue">Timeouts</li><li class="internal-issue">Unidirectional Flows</li>
+                </ul>
+            </div>
+
+            <div class="issue-group">
+                <!-- External WAN path issues -->
+                <h3>🔵 External Issues (5)</h3>
+                <ul>
+                    <li class="external-issue">Avg Latency External</li><li class="external-issue">Retrans External</li><li class="external-issue">Retrans Rate External</li><li class="external-issue">Poor Quality Flows</li><li class="external-issue">Unidirectional Flows</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Root cause from cookbook or fallback logic -->
+        <div class="root-cause">
+            <strong>⚠️ Probable Root Cause:</strong><br>
+            Issues detected in both internal and external paths. Possible causes: end-to-end network degradation, multiple failure points, or pervasive congestion.
+        </div>
+
+        <!-- Recommended remediation steps -->
+        <div class="solution">
+            <strong>✅ Recommended Solution:</strong><br>
+            1. Perform comprehensive network audit
+2. Check both internal and external gateway configurations
+3. Analyze traffic flow end-to-end
+4. Review capacity planning for both segments
+5. Implement monitoring across all network segments
+        </div>
+
+        <!-- Metric values for each detected issue -->
+        <div class="values">
+            <strong>📊 Metric Values:</strong><br>
+            <div class="values-row"><span>Avg Latency Internal</span><span><strong>119</strong></span></div><div class="values-row"><span>Avg Latency External</span><span><strong>229</strong></span></div><div class="values-row"><span>Retrans Internal</span><span><strong>390</strong></span></div><div class="values-row"><span>Retrans External</span><span><strong>441</strong></span></div><div class="values-row"><span>Retrans Rate Internal</span><span><strong>393</strong></span></div><div class="values-row"><span>Retrans Rate External</span><span><strong>12</strong></span></div><div class="values-row"><span>Poor Quality Flows</span><span><strong>47</strong></span></div><div class="values-row"><span>Timeouts</span><span><strong>209</strong></span></div><div class="values-row"><span>Unidirectional Flows</span><span><strong>60</strong></span></div>
+        </div>
+    </div>
+
+
+    <div class="ip-container">
+        <!-- IP header with address -->
+        <div class="ip-header">📡 IP Address: 192.168.1.104</div>
+
+        <!-- Issues grid with internal and external columns -->
+        <div class="issues">
+            <div class="issue-group">
+                <!-- Internal network path issues -->
+                <h3>🔴 Internal Issues (6)</h3>
+                <ul>
+                    <li class="internal-issue">Avg Latency Internal</li><li class="internal-issue">Retrans Internal</li><li class="internal-issue">Retrans Rate Internal</li><li class="internal-issue">Poor Quality Flows</li><li class="internal-issue">Timeouts</li><li class="internal-issue">Unidirectional Flows</li>
+                </ul>
+            </div>
+
+            <div class="issue-group">
+                <!-- External WAN path issues -->
+                <h3>🔵 External Issues (5)</h3>
+                <ul>
+                    <li class="external-issue">Avg Latency External</li><li class="external-issue">Retrans External</li><li class="external-issue">Retrans Rate External</li><li class="external-issue">Poor Quality Flows</li><li class="external-issue">Unidirectional Flows</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Root cause from cookbook or fallback logic -->
+        <div class="root-cause">
+            <strong>⚠️ Probable Root Cause:</strong><br>
+            Issues detected in both internal and external paths. Possible causes: end-to-end network degradation, multiple failure points, or pervasive congestion.
+        </div>
+
+        <!-- Recommended remediation steps -->
+        <div class="solution">
+            <strong>✅ Recommended Solution:</strong><br>
+            1. Perform comprehensive network audit
+2. Check both internal and external gateway configurations
+3. Analyze traffic flow end-to-end
+4. Review capacity planning for both segments
+5. Implement monitoring across all network segments
+        </div>
+
+        <!-- Metric values for each detected issue -->
+        <div class="values">
+            <strong>📊 Metric Values:</strong><br>
+            <div class="values-row"><span>Avg Latency Internal</span><span><strong>68</strong></span></div><div class="values-row"><span>Avg Latency External</span><span><strong>455</strong></span></div><div class="values-row"><span>Retrans Internal</span><span><strong>282</strong></span></div><div class="values-row"><span>Retrans External</span><span><strong>184</strong></span></div><div class="values-row"><span>Retrans Rate Internal</span><span><strong>433</strong></span></div><div class="values-row"><span>Retrans Rate External</span><span><strong>23</strong></span></div><div class="values-row"><span>Poor Quality Flows</span><span><strong>318</strong></span></div><div class="values-row"><span>Timeouts</span><span><strong>464</strong></span></div><div class="values-row"><span>Unidirectional Flows</span><span><strong>242</strong></span></div>
+        </div>
+    </div>
+
+</body>
+</html>

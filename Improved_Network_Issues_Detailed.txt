@@ -1,0 +1,2361 @@
+**********************************************************************
+
+ENHANCED VERSION WITH DETAILED DIAGNOSTICS AND FIXES
+Lines 341-774 Improvement
+
+**********************************************************************
+
+
+Below are the **probable things going wrong** for each issue combination with **detailed root causes, diagnostic locations, and specific troubleshooting steps**.
+
+================================================================================
+2-ISSUE COMBINATIONS - DETAILED ANALYSIS
+================================================================================
+
+### LAT + RPKT (High delay + many retransmitted packets)
+
+**What's going wrong:**
+Network congestion or buffer overflow at intermediate hops. Queue buildup increases latency while full buffers drop packets requiring retransmission. May also indicate interface speed mismatch or oversubscribed uplinks.
+
+**Where to find the issue:**
+- Check switch/router interface statistics (show interface counters, queue depth)
+- Monitor bandwidth utilization on core/distribution layer switches (SNMP, NetFlow)
+- Review QoS policies and queue configurations
+- Check for jumbo frame mismatches between segments
+- Examine buffer allocation on switches handling this traffic
+- Look for egress queue drops in interface statistics
+
+**How to fix:**
+1. Identify congested links via SNMP monitoring (>80% utilization sustained)
+2. Implement or adjust QoS policies to prioritize critical traffic
+3. Upgrade link capacity on oversubscribed segments
+4. Enable flow control (IEEE 802.3x) if appropriate for environment
+5. Adjust buffer allocation on switches/routers
+6. Consider traffic shaping to smooth bursts
+7. Deploy LACP link aggregation for additional bandwidth
+8. Segment traffic using VLANs to isolate heavy consumers
+
+---
+
+### LAT + R% (High delay + high loss percentage)
+
+**What's going wrong:**
+Severe congestion or device overload. Egress queues are consistently full, causing both queueing delay and tail drops. Could also be a failing interface, duplex mismatch, or critically overloaded intermediate device (switch/router CPU, memory exhaustion).
+
+**Where to find the issue:**
+- Check interface error counters (CRC errors, output drops, collisions, runts, giants)
+- Verify duplex/speed settings on both ends (auto vs. hardcoded mismatches)
+- Monitor device CPU and memory utilization during problem periods
+- Review interface queue drop statistics (tail drops vs. WRED drops)
+- Check for hardware errors in switch/router logs
+- Verify cable integrity and port signal levels (for fiber, check dBm light levels)
+- Check interface flapping history
+
+**How to fix:**
+1. Verify and hardcode duplex/speed settings on both ends (eliminate auto-negotiation issues)
+2. Replace faulty cables or transceivers if physical errors detected
+3. Upgrade device resources or redistribute traffic if device CPU/memory maxed out
+4. Increase queue sizes where appropriate (within hardware limits)
+5. Implement Weighted Random Early Detection (WRED) to reduce tail drops
+6. Add parallel links and enable LACP for bandwidth aggregation
+7. Segment traffic using VLANs to isolate heavy users
+8. Replace aging hardware that cannot handle current traffic volumes
+
+---
+
+### LAT + PQF (High delay + sessions flagged poor)
+
+**What's going wrong:**
+Excessive queuing delay or jitter impacting application-layer performance. TCP connections remain established but experience degraded throughput and responsiveness. Often caused by bursty traffic patterns, inadequate QoS, or slow server/application responses compounding network delays.
+
+**Where to find the issue:**
+- Analyze jitter statistics on monitoring platforms
+- Check application server response times (APM tools, application logs)
+- Review queue depths and queueing algorithms (FIFO vs. WFQ vs. PQ)
+- Monitor packet inter-arrival variance
+- Check for microburst detection in switch analytics
+- Review server CPU/memory/disk I/O during poor quality periods
+- Correlate network delays with application transaction times
+
+**How to fix:**
+1. Implement priority queuing for latency-sensitive applications (VoIP, video, real-time apps)
+2. Configure traffic shaping to reduce microbursts
+3. Tune TCP window sizes on servers for better throughput
+4. Enable Low Latency Queuing (LLQ) for priority traffic
+5. Optimize application server performance (tune thread pools, connection pools, GC)
+6. Consider separating latency-sensitive traffic to dedicated VLANs with stricter QoS
+7. Implement application-level caching to reduce backend delays
+8. Add packet buffering capacity to handle short-term bursts
+
+---
+
+### LAT + TO (High delay + timeouts)
+
+**What's going wrong:**
+Packets are delayed beyond TCP Retransmission Timeout (RTO) values (typically 200ms-3s depending on configuration). This forces TCP to assume packet loss and trigger expensive retransmission timeouts. Can be caused by extreme congestion, device CPU overload freezing packet forwarding, or processing delays in security appliances (firewall deep packet inspection, IPS scanning).
+
+**Where to find the issue:**
+- Check maximum queue depths and peak latency values
+- Monitor firewall/IPS processing delays and session table utilization
+- Review device CPU spikes correlating with timeout periods
+- Check for routing loops or suboptimal path selection (traceroute analysis)
+- Examine security appliance logs for dropped/delayed sessions
+- Monitor application server backend database query times
+- Check for DNS resolution delays
+
+**How to fix:**
+1. Offload firewall/IPS to more powerful hardware or distribute load across multiple devices
+2. Tune firewall session timeout values appropriately for applications
+3. Optimize security policy rules (move frequently hit rules to top, remove unnecessary deep inspection)
+4. Increase device resources or optimize control plane protection
+5. Implement bypass mechanisms for trusted internal traffic
+6. Adjust TCP RTO parameters on servers if appropriate for environment (careful tuning required)
+7. Fix routing issues to prevent suboptimal paths (adjust metrics, fix routing protocols)
+8. Optimize slow database queries causing application-layer delays
+9. Enable hardware acceleration for crypto/inspection functions
+
+---
+
+### LAT + UNI (High delay + one-way traffic)
+
+**What's going wrong:**
+Asymmetric routing with return path failure or severe impairment. Forward packets arrive (slowly) but acknowledgments don't return properly, or return via a broken/severely congested path. Common causes include: stateful firewall session timeout, NAT state table exhaustion, asymmetric routing through different firewall contexts, or return path connection failures.
+
+**Where to find the issue:**
+- Use traceroute/tracepath in BOTH directions to identify asymmetry
+- Check firewall state tables for session exhaustion (show conn count)
+- Review NAT translation tables and timeout settings
+- Examine routing tables for asymmetric paths (different ingress/egress)
+- Check firewall logs for dropped return packets (stateful inspection failures)
+- Verify spanning tree topology hasn't changed unexpectedly
+- Review load balancer hash algorithm causing flow splits
+- Check for ECMP hash polarization
+
+**How to fix:**
+1. Implement symmetric routing using policy-based routing (PBR)
+2. Increase firewall state table sizes and adjust timeout values
+3. Configure connection tracking synchronization between redundant firewalls
+4. Ensure both directions traverse the same stateful devices
+5. Fix NAT pool exhaustion by expanding address pools
+6. Adjust load balancer hashing algorithms to maintain flow symmetry (5-tuple hashing)
+7. Enable TCP timestamp options for better PAWS (Protection Against Wrapped Sequences) handling
+8. Consider source-based routing to force path symmetry
+9. Fix spanning tree to ensure consistent L2 paths
+10. Implement stateful HA synchronization properly
+
+---
+
+### RPKT + R% (High retrans volume + high retrans rate)
+
+**What's going wrong:**
+Significant real packet loss on the wire. Root causes: physical layer problems (bad cable, dirty/damaged fiber, SFP transceiver issues), duplex mismatch (very common culprit showing as late collisions), congestion drops from sustained oversubscription, or faulty network interface card (NIC).
+
+**Where to find the issue:**
+- Check interface error counters (input/output errors, CRC, runts, giants, fragments)
+- Verify duplex and speed settings match EXACTLY on both ends
+- Test cable integrity with cable testers (TDR for copper, OTDR for fiber)
+- Check optical power levels (dBm) on fiber links (both TX and RX)
+- Review interface statistics for late collisions (classic duplex mismatch indicator)
+- Monitor NIC driver error logs on servers (/var/log/messages, Event Viewer)
+- Check switch port LED indicators for anomalies (error blinks)
+- Review environmental factors (temperature, power)
+
+**How to fix:**
+1. Replace faulty cables immediately (primary cause of physical errors - 70%+ of issues)
+2. Clean fiber connectors with proper cleaning tools and replace if damaged
+3. Hardcode duplex/speed settings to eliminate auto-negotiation issues (manual config on both sides)
+4. Replace faulty NICs or update to latest stable drivers
+5. Replace bad SFP/QSFP modules (verify compatibility with switch)
+6. Upgrade oversubscribed links immediately
+7. Check and eliminate sources of EMI interference for copper (fluorescent lights, motors, power cables)
+8. Verify proper grounding of all network equipment
+9. Check for cable bend radius violations
+10. Replace aging cables preemptively (copper >7 years, fiber if showing light level degradation)
+
+---
+
+### RPKT + PQF (Many retransmissions + poor flows)
+
+**What's going wrong:**
+Packet loss directly degrading application performance. Typically caused by bursty traffic patterns causing intermittent drops (microbursts exceeding buffer capacity in sub-second intervals), unstable wireless links, or interface errors. Unlike pure sustained congestion, this is often sporadic rather than continuous.
+
+**Where to find the issue:**
+- Enable microburst detection on switches (requires sub-second polling/streaming telemetry)
+- Check wireless signal strength (RSSI) and interference (if applicable)
+- Review buffer utilization graphs for spike patterns
+- Monitor interface error rates over time (trending analysis)
+- Check for intermittent CRC errors suggesting marginal cables
+- Analyze loss patterns (random vs. bursty) using packet capture timestamps
+- Review application error logs correlating with network loss events
+- Check for buffer exhaustion events in switch logs
+
+**How to fix:**
+1. Increase buffer sizes on affected switches/ports (within hardware capabilities)
+2. Implement traffic shaping/policing to smooth bursts
+3. Upgrade to switches with larger packet buffers (deep buffer switches)
+4. Fix wireless issues (adjust power levels, change channels, address interference sources)
+5. Replace marginal cables proactively (showing occasional but not constant errors)
+6. Implement admission control or rate limiting for burst-prone applications
+7. Use deep buffer switches for bursty traffic segments (data center, storage)
+8. Consider Explicit Congestion Notification (ECN) for compatible endpoints
+9. Deploy traffic smoothing at sources (application-level pacing)
+10. Separate bursty and steady traffic flows
+
+---
+
+### RPKT + TO (Many retransmissions + timeouts)
+
+**What's going wrong:**
+Sustained or high-frequency packet loss overwhelming TCP's fast retransmit/recovery mechanisms. Normal fast retransmit (3 duplicate ACKs) fails to recover packets, triggering expensive timeout-based recovery and exponential backoff. Indicates severe congestion, actively failing link, or critical device malfunction.
+
+**Where to find the issue:**
+- Monitor packet loss percentage over sliding time windows
+- Check for interface flapping in device logs
+- Review device health indicators (fans, temperature, PSU status)
+- Check for hardware errors in device diagnostics (ASIC errors, memory errors)
+- Monitor for sustained high utilization periods (>90% for extended time)
+- Review spanning tree convergence events (topology changes)
+- Check for broadcast/multicast storms or L2 loops
+- Look for link errors correlating with timeout events
+
+**How to fix:**
+1. **Emergency action**: Temporarily reduce traffic load (block non-critical sources, rate-limit)
+2. Identify and replace failing hardware immediately (cables, transceivers, NICs, switches)
+3. Fix spanning tree issues to prevent loops (BPDU guard, root guard, loop guard)
+4. Implement storm control to limit broadcast/multicast impact
+5. Increase link capacity urgently if sustained oversubscription confirmed
+6. Redistribute traffic across multiple paths (enable ECMP, LACP)
+7. Implement fast convergence protocols (RSTP instead of STP, BFD for fast failure detection)
+8. Add redundant links for critical paths with fast failover
+9. Deploy link monitoring (dying gasp detection, BFD)
+10. Implement graceful degradation mechanisms
+
+---
+
+### RPKT + UNI (Many retransmissions + one-way traffic)
+
+**What's going wrong:**
+Consistent packet loss in one specific direction (typically return/ACK path). Caused by: firewall/ACL rules dropping return traffic, asymmetric routing through mismatched security policy contexts, or directional link failures (one TX or RX pair failing in full-duplex operation).
+
+**Where to find the issue:**
+- Capture traffic with Wireshark/tcpdump on BOTH sides (compare SYN/SYN-ACK/ACK patterns)
+- Check firewall rule hit counters for drops (identify which rule is dropping)
+- Review ACL deny statistics (show access-list, counters)
+- Test connectivity in both directions independently (bi-directional ping, iperf)
+- Check interface TX/RX statistics for asymmetry (one direction showing errors)
+- Review firewall logs for state violations (sessions expired, out-of-window)
+- Verify NAT translation consistency (translation table inspection)
+- Check for unidirectional link failures (TX working, RX failing or vice versa)
+
+**How to fix:**
+1. Audit firewall rules for missing return traffic permits (stateful inspection may be failing)
+2. Add explicit return traffic permit rules if stateless filtering in use
+3. Fix ACLs to allow established connections in both directions (TCP established keyword)
+4. Configure NAT to properly maintain bidirectional state
+5. Replace unidirectional failed cables/transceivers (test both TX and RX)
+6. Ensure asymmetric routing doesn't split through different firewall contexts
+7. Implement connection tracking helpers for complex protocols (FTP, SIP, H.323)
+8. Fix interface hardware if TX or RX specifically failing (check optics independently)
+9. Configure reflexive ACLs for dynamic bidirectional permits
+10. Verify security zones allow bidirectional traffic flow
+
+---
+
+### R% + PQF (High retrans percentage + poor flows)
+
+**What's going wrong:**
+Loss ratio high enough (typically >1-2%) to significantly degrade TCP performance. Throughput reduced, latency increased due to retransmissions, applications stalling or performing poorly. Caused by sustained congestion, physical link instability, or aggressive drop policies without proper queue management.
+
+**Where to find the issue:**
+- Calculate exact retransmission percentage (retrans packets / total packets * 100)
+- Check actual TCP throughput vs. theoretical maximum for bandwidth-delay product
+- Monitor queue drop statistics (tail drops, WRED drops, ECN marks)
+- Review interface error rates over time
+- Check for marginal signal levels (near acceptable thresholds)
+- Analyze loss distribution (steady state vs. intermittent spikes)
+- Correlate loss events with specific applications or traffic types
+- Check effective window sizes being achieved
+
+**How to fix:**
+1. Target reducing loss to <0.1% for good TCP performance
+2. Fix physical layer issues first (cables, optics) - eliminates 70% of problems
+3. Tune queue management algorithms (implement RED/WRED instead of tail drop)
+4. Implement comprehensive QoS to protect sensitive flows
+5. Enable ECN on compatible hosts and network devices to signal congestion without drops
+6. Optimize TCP settings on endpoints (SACK, window scaling, timestamps)
+7. Consider Multipath TCP (MPTCP) where applicable for resilience
+8. Separate problematic traffic to isolated segments
+9. Implement active queue management (AQM) like PIE or CoDel
+10. Increase bandwidth or reduce traffic load
+
+---
+
+### R% + TO (High loss percentage + timeouts)
+
+**What's going wrong:**
+Severe packet drops (>5-10%) causing TCP retransmission mechanisms to completely fail, forcing timeout-driven recovery with exponential backoff. Critical network degradation from: link approaching complete failure, extreme persistent congestion, major device malfunction, or security attack (DDoS causing intentional packet drops/flooding).
+
+**Where to find the issue:**
+- Check link errors immediately (likely critical hardware fault)
+- Review device health and stability indicators comprehensively
+- Monitor for DoS/DDoS attack patterns (unusually high connection rates, SYN floods)
+- Check spanning tree status for reconvergence loops
+- Review broadcast/multicast storm indicators
+- Monitor device CPU for control plane overload (routing protocol updates, ARP, DHCP)
+- Check for routing instability (route flapping, BGP churn)
+- Look for environmental issues (overheating, power problems)
+
+**How to fix:**
+1. **EMERGENCY TRIAGE**: Quickly identify if single device/link responsible
+2. Bypass or fail over to backup path immediately (manual or automatic)
+3. Replace failing hardware on emergency basis (keep spares available)
+4. Implement rate limiting immediately if attack suspected
+5. Enable DoS protection features on edge devices (SYN cookies, connection limits)
+6. Fix routing protocol instabilities (adjust timers, implement dampening, fix hold-downs)
+7. Implement link bundling (LACP) for redundancy and increased capacity
+8. Deploy aggressive QoS to preserve critical traffic during incident
+9. Activate incident response procedures
+10. Consider temporary traffic black-holing for attack mitigation
+
+---
+
+### R% + UNI (High loss percentage + one-way flows)
+
+**What's going wrong:**
+Return traffic blocked, heavily dropped, or filtered, creating high retransmission rate as sending side never receives acknowledgments. Typical causes: firewall/ACL misconfiguration (allowing outbound but blocking inbound), routing black hole in return direction, stateful inspection failure (sessions not properly established), or RPF (Reverse Path Forwarding) check failures.
+
+**Where to find the issue:**
+- Perform bidirectional packet captures (confirm ACKs completely missing)
+- Check firewall drop counters categorized by rule
+- Review stateful inspection session tables (verify sessions exist)
+- Trace return path routing explicitly (may differ significantly from forward)
+- Check for RPF failures in device logs
+- Review NAT inside/outside interface configurations
+- Examine security zone policy mismatches (inter-zone vs. intra-zone)
+- Verify routing table contains return routes
+
+**How to fix:**
+1. Fix firewall rules to explicitly permit return traffic
+2. Add "established" connection permits in ACLs (permit tcp any any established)
+3. Fix stateful inspection timeout/table size issues
+4. Correct NAT configurations (verify inside/outside interface assignments)
+5. Disable or properly configure RPF if causing legitimate traffic drops
+6. Ensure routing symmetry or implement proper asymmetric path policies
+7. Add reflexive ACL entries for dynamic return traffic permits
+8. Verify all security zones allow required bidirectional flows
+9. Fix stateful firewall to properly track connections
+10. Implement connection state synchronization in HA deployments
+
+---
+
+### PQF + TO (Poor quality flows + timeouts)
+
+**What's going wrong:**
+Sessions progressively degrade then stall completely. Cumulative effect of sustained delay, intermittent drops, or poor application/server performance. Users experience initial "slowness" that escalates to "connection lost" or "timeout" errors. Often a combination of network AND application layer issues compounding each other.
+
+**Where to find the issue:**
+- Correlate poor quality flow metrics with timeout event timestamps
+- Monitor end-to-end application response times (APM solutions like AppDynamics, Dynatrace)
+- Check server resource utilization comprehensively (CPU, memory, disk I/O, network I/O)
+- Review database query execution times (slow query logs)
+- Monitor for memory leaks in applications (growing memory usage over time)
+- Check connection pool exhaustion on middleware/application servers
+- Review disk latency on storage systems (IOPS, queue depth)
+- Analyze application transaction traces
+
+**How to fix:**
+1. Profile comprehensive application performance to identify bottlenecks
+2. Optimize slow database queries (add indexes, rewrite queries, partition tables)
+3. Scale application servers horizontally (add more instances)
+4. Increase connection pool sizes appropriately
+5. Fix memory leaks in application code (code review, memory profilers)
+6. Upgrade storage to faster disks (SSD/NVMe) or add caching layer
+7. Implement distributed application-level caching (Redis, Memcached)
+8. Tune TCP keepalive settings to detect and cleanup stale connections earlier
+9. Improve network QoS specifically for application traffic flows
+10. Implement circuit breaker patterns and timeouts in application code
+11. Add application request queuing and backpressure mechanisms
+12. Consider microservices architecture to isolate failing components
+
+---
+
+### PQF + UNI (Poor flows + one-way communication)
+
+**What's going wrong:**
+Broken return path causing sessions to appear functional initially but failing to complete operations properly. Connections established but half-open, requests sent successfully but responses never arrive. Caused by: return path firewall blocking, asymmetric routing through different security contexts, or intermediate NAT/proxy failure losing bidirectional state.
+
+**Where to find the issue:**
+- Check for half-open TCP connections (SYN sent successfully, but no SYN-ACK received)
+- Review firewall state table for asymmetric or incomplete sessions
+- Trace return path explicitly (forward and return may be completely different)
+- Check load balancer session persistence/affinity settings
+- Review proxy/NAT translation tables for missing return mappings
+- Monitor for state synchronization failures in HA firewall pairs
+- Check DNS resolution differences that might affect forward vs. return paths
+- Verify application-level keepalives are working
+
+**How to fix:**
+1. Implement symmetric return path routing (PBR, routing metrics)
+2. Fix firewall configuration to allow both directions through same device/context
+3. Configure proper state synchronization in HA setups (stateful failover)
+4. Adjust load balancer persistence mechanisms (source IP, cookie-based)
+5. Fix NAT to properly maintain bidirectional state
+6. Ensure DNS resolves consistently for both directions of communication
+7. Implement policy-based routing to force path symmetry
+8. Add explicit return path permit rules in all security devices
+9. Configure connection tracking properly
+10. Verify proxy configurations maintain session state
+
+---
+
+### TO + UNI (Timeouts + one-way traffic)
+
+**What's going wrong:**
+Classic return-path complete failure. Packets sent successfully but acknowledgments never received, causing TCP to repeatedly retransmit and eventually exhaust retransmission attempts hitting RTO. Root causes: ACL explicitly blocking return traffic, firewall dropping established return sessions (stateful inspection failure), NAT state loss, or complete return path outage (link down, routing failure).
+
+**Where to find the issue:**
+- Packet capture clearly showing SYN but no SYN-ACK, or data packets but zero ACKs
+- Firewall logs explicitly showing drops on return interface
+- ACL hit counters on deny rules matching return traffic characteristics
+- NAT translation table missing expected entries
+- Routing table completely missing return routes (ip route check)
+- State table in firewall shows only one-way/half sessions
+- Asymmetric routing passing through different firewall policy contexts
+- Return path interface administratively down or physically disconnected
+
+**How to fix:**
+1. **PRIORITY 1**: Verify return path actually exists in routing tables
+2. Comprehensive audit and fix ACLs to permit return traffic
+3. Fix firewall rules (add explicit return permits or repair stateful inspection)
+4. Repair/rebuild NAT configuration for proper bidirectional translation
+5. Implement and verify stateful inspection functioning correctly
+6. Fix routing asymmetry using policy-based routing (PBR)
+7. Synchronize firewall state tables properly in HA configurations
+8. Add connection tracking for all required application-layer protocols
+9. Verify spanning tree not unexpectedly blocking return path
+10. Check for MAC address table issues on L2 switches
+11. Verify all intermediate devices forwarding return traffic
+12. Test return path connectivity independently
+
+================================================================================
+3-ISSUE COMBINATIONS - DETAILED ANALYSIS
+================================================================================
+
+### LAT + RPKT + R%
+
+**What's going wrong:**
+Severe congestion or heavy packet drops causing widespread network degradation. Delay is high due to queue buildup, loss volume is high (many retransmitted packets), and loss percentage is high, typically from buffer overflows, oversubscribed uplinks, or sustained microbursts overwhelming switch buffer capacity.
+
+**Where to find:**
+- Monitor queue depths across all switches in path
+- Check link utilization (sustained >90%)
+- Review QoS marking and queue assignment
+- Analyze traffic patterns for microbursts (sub-second spikes)
+- Check buffer pool allocation and exhaustion
+- Monitor tail-drop vs. WRED statistics
+
+**How to fix:**
+1. Emergency capacity expansion on congested segments
+2. Implement strict multi-class QoS
+3. Enable WRED/ECN to reduce synchronized TCP backoff
+4. Increase buffer allocations on core switches
+5. Deploy traffic shaping to smooth bursts
+6. Distribute load across ECMP paths
+7. Upgrade critical uplinks immediately
+8. Implement admission control for non-critical traffic
+
+---
+
+### LAT + RPKT + PQF
+
+**What's going wrong:**
+Delay combined with enough loss/jitter to degrade session quality, though loss rate may not be extreme. Often bursty congestion or intermittent interface errors impacting applications without sustained high loss percentages.
+
+**Where to find:**
+- Microburst detection (sub-second monitoring)
+- Intermittent interface errors
+- Jitter statistics and packet delay variation
+- Application performance metrics degradation
+- Sporadic buffer exhaustion events
+
+**How to fix:**
+1. Increase switch buffer depths
+2. Implement traffic shaping for bursty apps
+3. Replace marginal cables/transceivers
+4. Deploy application-aware QoS
+5. Upgrade to deep-buffer switches
+6. Implement ECN
+7. Separate sensitive traffic
+
+---
+
+### LAT + RPKT + TO
+
+**What's going wrong:**
+Congestion or device overload so severe that packets are delayed/dropped and TCP retransmission timers expire. Retransmissions escalate into full timeouts because the network cannot recover quickly enough.
+
+**Where to find:**
+- Device CPU/memory utilization spikes
+- Queue depths exceeding limits
+- Firewall/IPS session processing delays
+- Control plane resource contention
+- Packet processing delays
+
+**How to fix:**
+1. Offload or upgrade overloaded devices urgently
+2. Optimize security rule processing
+3. Tune TCP timers appropriately
+4. Implement traffic bypass for trusted flows
+5. Add hardware acceleration
+6. Fix control plane instabilities
+7. Increase link capacity
+8. Deploy fast failover
+
+---
+
+### LAT + RPKT + UNI
+
+**What's going wrong:**
+One direction (return path) impaired while forward path experiences delay/loss. Common with filtering plus congestion, or asymmetric routing with one path more degraded.
+
+**Where to find:**
+- Bidirectional traceroute showing asymmetry
+- Directional performance metric differences
+- Firewall processing asymmetry
+- Asymmetric routing tables
+- Directional link utilization differences
+
+**How to fix:**
+1. Implement PBR for symmetry
+2. Balance firewall processing bidirectionally
+3. Fix capacity on impaired direction
+4. Apply bidirectional QoS
+5. Add return path capacity
+6. Configure stateful devices for both directions
+7. Force symmetric routing
+
+---
+
+### LAT + R% + PQF
+
+**What's going wrong:**
+High delay plus high loss ratio causing widespread session degradation. Classic "bad user experience" from congestion/queue drops significantly impacting application performance.
+
+**Where to find:**
+- Correlation of latency with loss percentage
+- Application response time degradation
+- End-user experience metrics (MOS, page load)
+- Queue management effectiveness
+- QoS policy gaps
+
+**How to fix:**
+1. Comprehensive QoS implementation
+2. Emergency capacity upgrade
+3. Deploy WRED
+4. Separate critical traffic
+5. Implement strict priority queuing
+6. Add buffering capacity
+7. Enable ECN
+8. Deploy WAN optimization
+
+---
+
+### LAT + R% + TO
+
+**What's going wrong:**
+Extreme impairment with high delay and high loss leading to TCP backoff and completely stalled sessions. Severe congestion, failing link, or severely overloaded intermediate device.
+
+**Where to find:**
+- Critical device health issues
+- Sustained extreme utilization
+- Hardware failure indicators
+- Major queue drops
+- Control/data plane saturation
+
+**How to fix:**
+1. **CRITICAL**: Identify failing component immediately
+2. Emergency failover to backup path
+3. Replace failing hardware urgently
+4. Implement emergency traffic reduction
+5. Deploy aggressive prioritization
+6. Add redundant capacity
+7. Fast convergence protocols
+8. Incident response activation
+
+---
+
+### LAT + R% + UNI
+
+**What's going wrong:**
+Return traffic partially blocked/dropped while path has delay. Often firewall/ACL/state issues combined with queueing problems creating compound impairment.
+
+**Where to find:**
+- Firewall state issues
+- ACL drops on return path
+- NAT translation problems
+- Asymmetric delay measurements
+- Return path congestion
+
+**How to fix:**
+1. Fix firewall stateful inspection
+2. Repair ACLs for return traffic
+3. Fix NAT state maintenance
+4. Implement symmetric routing
+5. Add return path capacity
+6. Synchronize firewall states
+7. Fix routing asymmetry
+
+---
+
+### LAT + PQF + TO
+
+**What's going wrong:**
+Sessions degrade (poor quality) then stall (timeouts) from delay spikes and/or intermittent loss. Can be network congestion or slow/overloaded host not acknowledging promptly.
+
+**Where to find:**
+- Application server performance issues
+- Database query slowness
+- Network delay spikes
+- Server resource exhaustion
+- Combined network+app degradation
+
+**How to fix:**
+1. Profile application performance
+2. Optimize database queries
+3. Scale application tier
+4. Fix network congestion
+5. Implement app-level caching
+6. Tune TCP parameters
+7. Add server resources
+8. Implement circuit breakers
+
+---
+
+### LAT + PQF + UNI
+
+**What's going wrong:**
+Broken/blocked return path makes flows poor, and latency inflates because sessions hang waiting for responses. Points to routing/filtering issues more than pure congestion.
+
+**Where to find:**
+- Return path routing failures
+- Firewall return blocks
+- Asymmetric routing
+- Sessions hanging waiting for responses
+- Half-open connections
+
+**How to fix:**
+1. Fix return path routing
+2. Repair firewall return rules
+3. Implement symmetric routing
+4. Fix NAT bidirectional state
+5. Sync security device states
+6. Add return path permits
+7. Fix DNS consistency
+
+---
+
+### LAT + TO + UNI
+
+**What's going wrong:**
+Strong return-path failure signature causing timeouts. Latency appears high because traffic waits and retries endlessly. Common with ACL/firewall/NAT/state issues or asymmetric routing.
+
+**Where to find:**
+- Complete return path failure
+- Firewall blocking returns
+- NAT state loss
+- Routing table missing returns
+- Stateful inspection failures
+
+**How to fix:**
+1. **URGENT**: Verify return routes exist
+2. Fix firewall return permits
+3. Repair NAT state
+4. Fix ACLs
+5. Implement proper stateful inspection
+6. Force routing symmetry
+7. Sync HA states
+8. Add connection tracking
+
+---
+
+### RPKT + R% + PQF
+
+**What's going wrong:**
+Real packet loss (high rate + high volume) directly degrading many sessions. Points to physical errors, duplex mismatch, or heavy congestion drops.
+
+**Where to find:**
+- Physical layer errors (CRC, runts, giants)
+- Duplex mismatches (late collisions)
+- Cable/fiber problems
+- Heavy sustained drops
+- Interface degradation
+
+**How to fix:**
+1. Replace faulty cables immediately
+2. Fix duplex mismatches
+3. Replace bad transceivers
+4. Repair physical infrastructure
+5. Upgrade capacity
+6. Fix environmental issues
+7. Replace aging NICs
+8. Proper cable management
+
+---
+
+### RPKT + R% + TO
+
+**What's going wrong:**
+Severe sustained loss where retransmissions are frequent/numerous and still not recovering, causing flow timeouts. Likely failing link, major congestion, or hard packet drops.
+
+**Where to find:**
+- Link approaching failure
+- Extreme congestion sustained
+- Hardware malfunction
+- Critical error rates
+- Device health degradation
+
+**How to fix:**
+1. **EMERGENCY**: Replace failing link
+2. Emergency traffic reduction
+3. Bypass failed component
+4. Emergency capacity addition
+5. Implement redundancy
+6. Fast failover activation
+7. Aggressive prioritization
+8. Incident response
+
+---
+
+### RPKT + R% + UNI
+
+**What's going wrong:**
+Loss concentrated in one direction (ACK path broken) causing many retransmissions and high loss ratio. Strong filtering/routing asymmetry signal.
+
+**Where to find:**
+- Directional packet loss
+- ACL drops on return
+- Asymmetric filtering
+- Unidirectional link errors
+- Return path problems
+
+**How to fix:**
+1. Fix return path filtering
+2. Repair ACLs
+3. Fix asymmetric security policies
+4. Replace directional failed hardware
+5. Ensure bidirectional firewall rules
+6. Fix routing asymmetry
+7. Repair stateful inspection
+
+---
+
+### RPKT + PQF + TO
+
+**What's going wrong:**
+Bursty or sustained loss degrading flows and occasionally stalling them. Typical of microbursts/queue drops or intermittent interface errors.
+
+**Where to find:**
+- Microburst patterns
+- Intermittent errors
+- Buffer exhaustion spikes
+- Sporadic quality degradation
+- Timeout correlations
+
+**How to fix:**
+1. Increase buffer capacity
+2. Smooth traffic bursts
+3. Replace marginal components
+4. Implement admission control
+5. Deploy deep buffers
+6. Enable ECN
+7. Fix intermittent errors
+8. Traffic shaping
+
+---
+
+### RPKT + PQF + UNI
+
+**What's going wrong:**
+One-way impairment causes retransmissions; flow quality drops because sessions can't complete normally. Indicates ACL/firewall return traffic issues or asymmetric routing.
+
+**Where to find:**
+- Return traffic blocking
+- Incomplete sessions
+- Asymmetric drop patterns
+- Firewall return denies
+- Routing asymmetry issues
+
+**How to fix:**
+1. Fix return traffic rules
+2. Repair firewall policies
+3. Implement symmetric routing
+4. Fix ACL return permits
+5. Repair NAT state
+6. Add reflexive ACLs
+7. Connection tracking helpers
+
+---
+
+### RPKT + TO + UNI
+
+**What's going wrong:**
+Return path missing/blocked leads to repeated retransmissions that eventually timeout. Classic "ACKs not coming back" plus possible one-direction drops.
+
+**Where to find:**
+- Complete return path failure
+- Missing return routes
+- Firewall blocking ACKs
+- NAT state missing
+- Stateful inspection broken
+
+**How to fix:**
+1. Verify return routes exist
+2. Fix firewall return rules
+3. Repair NAT translation
+4. Fix ACLbreaking returns
+5. Implement stateful inspection
+6. Force symmetric paths
+7. Sync firewall states
+8. Fix routing
+
+---
+
+### R% + PQF + TO
+
+**What's going wrong:**
+High loss ratio degrading sessions and frequently stalling them. Indicates severe packet drops or unstable link causing real application impact.
+
+**Where to find:**
+- High sustained loss
+- Session quality degradation
+- Frequent timeout events
+- Link instability
+- Application failures
+
+**How to fix:**
+1. Fix high loss immediately
+2. Stabilize links
+3. Upgrade capacity
+4. Implement proper QoS
+5. Enable WRED/ECN
+6. Separate critical traffic
+7. Add redundancy
+8. Fix physical issues
+
+---
+
+### R% + PQF + UNI
+
+**What's going wrong:**
+One-way/return-path impairment creates high retrans rate and poor sessions. Strong sign of filtering/state/routing asymmetry rather than pure congestion.
+
+**Where to find:**
+- Return path filtering
+- Stateful inspection failures
+- Asymmetric routing
+- High directional loss
+- Policy mismatches
+
+**How to fix:**
+1. Fix return path policies
+2. Repair stateful inspection
+3. Implement symmetric routing
+4. Fix filtering asymmetry
+5. Repair state synchronization
+6. Add bidirectional rules
+7. Fix NAT state
+
+---
+
+### R% + TO + UNI
+
+**What's going wrong:**
+Very strong return-path failure signature where retrans rate climbs because ACKs don't arrive and sessions timeout. Caused by ACL/firewall/NAT/state/asymmetric routing.
+
+**Where to find:**
+- Return ACKs completely missing
+- Firewall dropping returns
+- NAT state failures
+- Routing missing returns
+- Complete return block
+
+**How to fix:**
+1. **CRITICAL**: Fix return path immediately
+2. Repair firewall return rules
+3. Fix NAT state completely
+4. Add return route
+5. Fix ACL returns
+6. Implement proper stateful inspection
+7. Force symmetry
+8. Sync HA states
+
+---
+
+### PQF + TO + UNI
+
+**What's going wrong:**
+Flows become poor then stall because communication is effectively one-way. Strongly indicates return traffic blockage or asymmetric routing (less about congestion, more about path/policy).
+
+**Where to find:**
+- Return path completely blocked
+- Policy preventing returns
+- Routing asymmetry severe
+- Sessions cannot complete
+- One-way communication only
+
+**How to fix:**
+1. Fix return path routing/policy
+2. Repair firewall return rules
+3. Implement symmetric access
+4. Fix complete return blockage
+5. Add return permits everywhere
+6. Repair stateful devices
+7. Force symmetric routing
+8. Check all path segments
+
+================================================================================
+4-ISSUE COMBINATIONS - DETAILED ANALYSIS
+================================================================================
+
+### LAT + RPKT + R% + PQF
+
+**What's going wrong:**
+Classic severe congestion or heavy drops causing widespread degraded sessions. High delay + high loss (rate and volume) degrading many flows from queue/buffer drops, oversubscribed links, or microbursts.
+
+**Where to find:**
+- Widespread network degradation
+- Multiple congestion indicators
+- Heavy sustained drops
+- Poor application performance
+- Critical capacity issues
+
+**How to fix:**
+1. Emergency capacity upgrade
+2. Comprehensive QoS deployment
+3. Traffic engineering
+4. Load distribution
+5. Buffer optimization
+6. WRED/ECN implementation
+7. Critical traffic separation
+8. Infrastructure upgrade
+
+---
+
+### LAT + RPKT + R% + TO
+
+**What's going wrong:**
+Extreme impairment where loss is so frequent and heavy that TCP cannot recover and hits timeouts. Major congestion, failing link, or overloaded switching/forwarding path.
+
+**Where to find:**
+- Critical infrastructure failure
+- Extreme sustained loss
+- Device malfunction
+- Complete performance collapse
+- Widespread timeouts
+
+**How to fix:**
+1. **EMERGENCY**: Identify failing component
+2. Immediate failover
+3. Emergency hardware replacement
+4. Emergency traffic reduction
+5. Critical prioritization only
+6. Bypass failures
+7. Redundancy activation
+8. Full incident response
+
+---
+
+### LAT + RPKT + R% + UNI
+
+**What's going wrong:**
+Loss is heavy and concentrated in one direction (ACK/return path issues) while also experiencing delay. Points strongly to routing/filtering asymmetry plus additional congestion/drops.
+
+**Where to find:**
+- Return path severely impaired
+- Asymmetric performance
+- Directional failures
+- Combined routing and congestion issues
+- Filtering plus capacity problems
+
+**How to fix:**
+1. Fix return path completely
+2. Repair asymmetric routing
+3. Fix filtering issues
+4. Add return path capacity
+5. Implement symmetric design
+6. Fix congestion on return
+7. Comprehensive path repair
+
+---
+
+### LAT + RPKT + PQF + TO
+
+**What's going wrong:**
+Delay + enough loss to degrade flows and occasionally stall them. Bursty congestion/microbursts or intermittent interface errors escalating into timeouts.
+
+**Where to find:**
+- Combined congestion and quality issues
+- Intermittent severe impairment
+- Burst-related problems
+- Escalating degradation
+- Timeout escalation
+
+**How to fix:**
+1. Fix burst handling
+2. Increase buffers
+3. Smooth traffic
+4. Fix intermittent issues
+5. Implement admission control
+6. Upgrade capacity
+7. Deploy traffic shaping
+8. Fix quality issues
+
+---
+
+### LAT + RPKT + PQF + UNI
+
+**What's going wrong:**
+One-way impairment plus delay/loss causes session degradation. Often firewall/ACL/state issues on return path combined with congestion or intermittent drops.
+
+**Where to find:**
+- Return path policy issues
+- Combined filtering and congestion
+- Asymmetric impairment
+- Security device problems
+- State synchronization failures
+
+**How to fix:**
+1. Fix return path policies
+2. Repair firewall rules
+3. Fix congestion
+4. Sync security states
+5. Implement symmetric routing
+6. Fix combined issues
+7. Comprehensive repair
+
+---
+
+### LAT + RPKT + TO + UNI
+
+**What's going wrong:**
+Return path impaired leading to repeated retransmissions that timeout, and latency appears high because flows hang and retry. Classic policy/routing issue with severe impact.
+
+**Where to find:**
+- Return path failure severe
+- Policy blocking returns
+- Routing asymmetry critical
+- Repeated timeout patterns
+- Connection hangs
+
+**How to fix:**
+1. **URGENT**: Fix return path
+2. Repair all blocking policies
+3. Implement symmetric routing
+4. Fix timeouts
+5. Comprehensive return path repair
+6. State synchronization
+7. Connection tracking
+8. Full path verification
+
+---
+
+### LAT + R% + PQF + TO
+
+**What's going wrong:**
+High delay + high loss ratio degrading many flows and frequently stalling them. Severe congestion/queue drops or unstable link causing broad application pain.
+
+**Where to find:**
+- Widespread application impact
+- User complaints widespread
+- Multiple severe symptoms
+- Infrastructure stress
+- Critical capacity shortage
+
+**How to fix:**
+1. Emergency network triage
+2. Immediate capacity addition
+3. Aggressive QoS
+4. Traffic reduction
+5. Infrastructure upgrade
+6. Redundancy deployment
+7. Comprehensive congestion fix
+8. Application protection
+
+---
+
+### LAT + R% + PQF + UNI
+
+**What's going wrong:**
+Return-path impairment drives retransmissions and poor flows while latency inflates due to stalls/backoff. Strong sign of firewall/ACL/NAT/state or asymmetric routing with added delay.
+
+**Where to find:**
+- Return path policy problems
+- Stateful device issues
+- NAT problems
+- Asymmetric routing
+- Combined impairments
+
+**How to fix:**
+1. Fix return path policies completely
+2. Repair stateful inspection
+3. Fix NAT state
+4. Implement symmetry
+5. Sync all security devices
+6. Comprehensive policy repair
+7. Connection tracking fix
+
+---
+
+### LAT + R% + TO + UNI
+
+**What's going wrong:**
+Strongest return-path failure signature: retrans rate rises because ACKs don't return, sessions timeout, and latency balloons due to waiting/backoff. Usually filtering/state/routing asymmetry.
+
+**Where to find:**
+- Complete return path failure
+- Critical policy problems
+- Severe routing asymmetry
+- State completely broken
+- Maximum impairment
+
+**How to fix:**
+1. **CRITICAL**: Complete return path rebuild
+2. Fix all filtering
+3. Repair routing completely
+4. Fix state everywhere
+5. Force symmetry
+6. Rebuild policies
+7. Complete verification
+8. Test bidirectionally
+
+---
+
+### LAT + PQF + TO + UNI
+
+**What's going wrong:**
+Flows degrade and stall mainly because communication is effectively one-way. Latency looks high because connections wait and retry. Points to return traffic blockage/asymmetric routing more than pure congestion.
+
+**Where to find:**
+- One-way communication only
+- Return completely blocked
+- Policy preventing bidirectional
+- Routing one-way only
+- Sessions cannot complete
+
+**How to fix:**
+1. Fix return blockage completely
+2. Implement bidirectional policies
+3. Fix routing symmetry
+4. Remove all return blocks
+5. Comprehensive path repair
+6. Verify bidirectional flow
+7. Test end-to-end
+
+---
+
+### RPKT + R% + PQF + TO
+
+**What's going wrong:**
+Severe sustained packet loss: high retrans volume and rate degrade many flows and still lead to timeouts. Typically failing link/duplex/physical errors or extreme congestion drops.
+
+**Where to find:**
+- Physical infrastructure failure
+- Duplex mismatch
+- Cable failure
+- Extreme congestion
+- Hardware malfunction
+
+**How to fix:**
+1. Replace failing infrastructure immediately
+2. Fix duplex issues
+3. Replace cables
+4. Fix physical layer
+5. Add capacity
+6. Hardware replacement
+7. Infrastructure repair
+8. Redundancy deployment
+
+---
+
+### RPKT + R% + PQF + UNI
+
+**What's going wrong:**
+One-direction loss creates high retrans rate and volume, degrading flows. Strong filtering/routing asymmetry signature, possibly with additional intermittent drops.
+
+**Where to find:**
+- Directional severe loss
+- Asymmetric filtering
+- Return path drops
+- Combined directional issues
+- Routing plus filtering problems
+
+**How to fix:**
+1. Fix return direction completely
+2. Repair asymmetric policies
+3. Fix directional loss
+4. Implement symmetry
+5. Repair filtering
+6. Fix routing
+7. Complete directional repair
+
+---
+
+### RPKT + R% + TO + UNI
+
+**What's going wrong:**
+ACK/return path is missing or heavily dropped: retransmissions explode (rate+volume) and sessions timeout. Classic firewall/ACL/NAT/state or asymmetric routing failure case.
+
+**Where to find:**
+- Return path catastrophic failure
+- ACKs completely missing
+- Firewall blocking all returns
+- NAT completely failed
+- Routing missing returns
+
+**How to fix:**
+1. **EMERGENCY**: Fix return path immediately
+2. Repair all firewall rules
+3. Rebuild NAT
+4. Add return routes
+5. Fix ACLs
+6. Complete state repair
+7. Force symmetry
+8. Verify every hop
+
+---
+
+### RPKT + PQF + TO + UNI
+
+**What's going wrong:**
+One-way impairment causes repeated retransmissions, flows degrade, then stall. Indicates return-path blocking or asymmetric routing, sometimes with bursty drops.
+
+**Where to find:**
+- Return path blocked
+- Flows degrading then failing
+- Asymmetric impairment
+- Policy blocking
+- Combined issues
+
+**How to fix:**
+1. Fix return path
+2. Repair policies
+3. Implement symmetry
+4. Fix bursts
+5. Comprehensive repair
+6. Remove blocks
+7. Verify bidirectional
+
+---
+
+### R% + PQF + TO + UNI
+
+**What's going wrong:**
+Return-path impairment drives high retrans rate, poor flow quality, and timeouts. Essentially "connections can't complete normally" pattern dominated by policy/routing issues.
+
+**Where to find:**
+- Return path policy problems severe
+- Connections failing
+- Quality then timeout pattern
+- Policy-driven failures
+- Routing asymmetry
+
+**How to fix:**
+1. Fix all return policies
+2. Repair routing
+3. Implement proper symmetry
+4. Fix state issues
+5. Complete policy repair
+6. Connection tracking fix
+7. Comprehensive verification
+
+================================================================================
+5-ISSUE COMBINATIONS - DETAILED ANALYSIS
+================================================================================
+
+### LAT + RPKT + R% + PQF + TO
+
+**What's going wrong:**
+Severe internal congestion or major link instability. Delay is high, packet loss is both heavy and frequent, sessions degrade widely, and TCP hits timeouts. Broad internal network degradation from oversubscribed uplinks, heavy buffer drops, failing interface, or extreme microbursts.
+
+**Where to find:**
+- Widespread network failure
+- Multiple simultaneous issues
+- Critical infrastructure problems
+- Severe capacity shortage
+- Major component failure
+
+**How to fix:**
+1. **EMERGENCY RESPONSE**: Full network triage
+2. Identify and isolate failure domain
+3. Emergency capacity addition
+4. Emergency hardware replacement
+5. Implement emergency QoS
+6. Aggressive traffic reduction
+7. Failover to backup infrastructure
+8. Full incident response activation
+9. Executive escalation
+10. Vendor emergency support
+
+---
+
+### LAT + RPKT + R% + PQF + UNI
+
+**What's going wrong:**
+Significant packet loss and degraded sessions combined with one-way communication impairment. Likely return-path blocking or asymmetric routing plus additional congestion or drops. Strong routing/filtering problem layered on top of loss.
+
+**Where to find:**
+- Return path severely compromised
+- Heavy loss plus asymmetry
+- Multiple failure modes
+- Complex combined issues
+- Infrastructure and policy problems
+
+**How to fix:**
+1. Fix return path issues first
+2. Repair congestion issues
+3. Fix routing/filtering
+4. Comprehensive capacity upgrade
+5. Policy repair complete
+6. State synchronization
+7. Symmetry implementation
+8. Full path verification
+9. Load testing after repair
+
+---
+
+### LAT + RPKT + R% + TO + UNI
+
+**What's going wrong:**
+Return traffic impaired or blocked, causing high retransmissions and timeouts, while latency inflates due to repeated retries and backoff. Strong signature of return-path failure (ACL/firewall/NAT/state/asymmetry) with heavy packet loss.
+
+**Where to find:**
+- Return path catastrophic
+- Multiple timeout sources
+- Heavy loss plus blocking
+- Critical policy failures
+- State synchronization broken
+
+**How to fix:**
+1. **CRITICAL**: Fix return path immediately
+2. Repair all blocking policies
+3. Fix loss issues
+4. Rebuild state mechanisms
+5. Implement complete symmetry
+6. Comprehensive congestion fix
+7. Full policy audit and repair
+8. Complete verification
+9. Continuous monitoring
+10. Preventive measures
+
+---
+
+### LAT + RPKT + PQF + TO + UNI
+
+**What's going wrong:**
+One-way impairment causing retransmissions, degraded sessions, and eventual timeouts, with latency appearing high due to stalled connections. Dominated by return-path issues, possibly combined with intermittent drops.
+
+**Where to find:**
+- Return path problems dominant
+- Quality degradation
+- Connection stalls
+- Policy blocking
+- Combined network and policy issues
+
+**How to fix:**
+1. Fix return path completely
+2. Repair all policies
+3. Fix intermittent drops
+4. Implement symmetry
+5. Comprehensive quality improvement
+6. Connection tracking
+7. State repair
+8. Full testing
+
+---
+
+### LAT + R% + PQF + TO + UNI
+
+**What's going wrong:**
+High retransmission ratio caused primarily by return-path failure, degrading flows and leading to timeouts; latency spikes due to waiting/backoff. Strong routing/filtering/state problem with severe application impact.
+
+**Where to find:**
+- Return path policy failures
+- High retrans from ACK loss
+- Application failures
+- User impact severe
+- Combined symptoms
+
+**How to fix:**
+1. Fix return policies urgently
+2. Repair filtering completely
+3. Fix routing asymmetry
+4. Rebuild state mechanisms
+5. Comprehensive return path repair
+6. Application protection
+7. Quality restoration
+8. User experience validation
+
+---
+
+### RPKT + R% + PQF + TO + UNI
+
+**What's going wrong:**
+Severe one-direction packet loss. Retransmissions are high in both rate and volume, flows degrade, and sessions timeout because acknowledgments are not returning. Classic return-path blockage or asymmetric routing failure, possibly compounded by link instability.
+
+**Where to find:**
+- One-direction catastrophic loss
+- ACKs not returning
+- Return path blocked
+- Possible physical issues
+- Combined failures
+
+**How to fix:**
+1. **EMERGENCY**: Fix return path
+2. Verify physical layer
+3. Repair all policies
+4. Fix routing completely
+5. Replace any failing hardware
+6. Comprehensive infrastructure audit
+7. Complete policy repair
+8. Full symmetry implementation
+9. Extensive testing
+10. Monitoring enhancement
+
+---
+
+================================================================================
+6-ISSUE COMBINATION - COMPLETE FAILURE ANALYSIS
+================================================================================
+
+### LAT + RPKT + R% + PQF + TO + UNI
+
+**What's going wrong:**
+This is the "everything is broken" TCP signature for that IP path and time window. You have:
+- Very high delay (LAT)
+- Heavy packet loss (R% + RPKT)
+- Flows broadly degraded (PQF)
+- Connections stalling (TO)
+- Traffic effectively one-way for some sessions (UNI)
+
+**Most likely root problem:**
+A return-path failure or policy/routing issue (ACL/firewall/NAT/state/asymmetric routing) combined with severe congestion/drops or an unstable link. This is not just "slow" — it's a path integrity issue causing ACKs to not come back reliably, while the network is also dropping/queueing heavily, leading to widespread session failure.
+
+**Where to find:**
+- Complete network and policy failure
+- Return path catastrophic
+- Severe congestion concurrent
+- Multiple infrastructure failures
+- Combined policy and capacity problems
+- Possible security incident
+- Major routing failure
+- Critical device malfunction
+
+**Troubleshooting Priority:**
+
+**1. IMMEDIATE (0-5 minutes):**
+- Verify return path exists at all (routing table check)
+- Check if this is affecting single host, subnet, or widespread
+- Check for DoS/DDoS attack indicators
+- Verify critical infrastructure up (links, devices)
+- Check for recent changes (config, routing, firmware)
+
+**2. URGENT (5-30 minutes):**
+- Packet capture on both ends (prove ACKs missing)
+- Firewall log review (identify what's dropping)
+- Routing table verification (forward and return)
+- Device health check (CPU, memory, errors)
+- Link error check (physical layer)
+- Identify single point of failure
+
+**3. CRITICAL FIXES (30-60 minutes):**
+- Fix return path blocking (firewall/ACL/routing)
+- Address capacity issues if present
+- Replace failing hardware if identified
+- Fix state synchronization if HA issue
+- Implement emergency traffic reduction
+- Activate backup paths if available
+
+**4. COMPREHENSIVE REPAIR (1-4 hours):**
+- Complete policy audit and repair
+- Capacity upgrade if needed
+- Infrastructure replacement if failing
+- Complete symmetry implementation
+- State mechanism repair/rebuild
+- Connection tracking fixes
+- Comprehensive testing
+- Load validation
+
+**5. ROOT CAUSE AND PREVENTION (Post-incident):**
+- Full root cause analysis
+- Implement monitoring gaps
+- Add redundancy where missing
+- Policy review and documentation
+- Capacity planning
+- Change control review
+- Preventive maintenance
+- Training and runbooks
+
+**How to fix completely:**
+1. **EMERGENCY RESPONSE ACTIVATION**
+2. Establish incident command
+3. Isolate failure domain immediately
+4. Fix return path as absolute priority
+5. Address any capacity failures concurrently
+6. Replace any failing hardware
+7. Repair all policy blocks
+8. Implement routing symmetry
+9. Rebuild state mechanisms
+10. Comprehensive verification testing
+11. Phased restoration
+12. Continuous monitoring
+13. Root cause documentation
+14. Implement preventive measures
+15. Post-incident review
+
+
+================================================================================
+================================================================================
+
+                         EXTERNAL ISSUES SECTION
+
+================================================================================
+================================================================================
+
+
+**EXTERNAL ISSUES LEGEND:**
+
+RPKT = Retrans External pkts (packet count)
+R% = Retrans External percent (retransmission rate)
+LAT = Avg Latency External (microseconds)
+PQF = Poor Quality Flows (WAN-caused)
+UNI = Unidirectional flows
+
+**SCOPE:**
+External issues occur between your network edge and external destinations (Internet, partner networks, cloud providers, remote sites). These typically involve ISP circuits, WAN links, last-mile connectivity, service provider networks, or internet backbone issues.
+
+
+================================================================================
+2-ISSUE COMBINATIONS - EXTERNAL/WAN DETAILED ANALYSIS
+================================================================================
+
+### LAT + RPKT (High external delay + many retransmitted packets)
+
+**What's going wrong:**
+WAN circuit congestion or ISP network congestion causing both propagation delay and packet drops. Last-mile link oversubscription, ISP backbone congestion, or inadequate circuit bandwidth for traffic volume. Can also indicate issues with WAN optimization devices, CPE (Customer Premises Equipment) router overload, or poor routing through ISP network.
+
+**Where to find the issue:**
+- Check WAN circuit utilization (SNMP polling on edge routers)
+- Monitor ISP SLA metrics (latency, loss, jitter reports)
+- Review NetFlow/sFlow data for external traffic patterns
+- Check CPE/edge router CPU and memory utilization
+- Examine ISP-provided performance dashboards
+- Review BGP route selection (AS path length, suboptimal routing)
+- Check for WAN optimization device issues
+- Monitor cloud provider network metrics (AWS CloudWatch, Azure Monitor)
+
+**How to fix:**
+1. Verify circuit bandwidth is adequate for current traffic volume
+2. Contact ISP to investigate network congestion or routing issues
+3. Request ISP circuit upgrade if consistently oversubscribed
+4. Implement or tune WAN QoS (prioritize critical traffic)
+5. Review and optimize BGP route selection (adjust local preference, AS path prepending)
+6. Enable traffic shaping to smooth bursts and respect circuit CIR
+7. Deploy SD-WAN for intelligent path selection across multiple circuits
+8. Implement application-level caching or WAN optimization
+9. Consider adding secondary ISP circuit for load distribution
+10. Enable compression for compatible traffic types
+
+---
+
+### LAT + R% (High external delay + high loss percentage)
+
+**What's going wrong:**
+Severe ISP network issues or critical last-mile circuit problems. Could be failing WAN circuit hardware, ISP backbone congestion, routing through congested peering points, or physical layer issues on leased line. Degraded wireless backhaul (LTE/5G), satellite link weather interference, or ISP equipment malfunction.
+
+**Where to find the issue:**
+- Check circuit error rates on WAN interfaces (CRC, carrier transitions)
+- Review ISP trouble tickets and maintenance notifications
+- Monitor WAN circuit quality metrics (MOS scores, R-factor)
+- Check for carrier signal loss or degradation
+- Review ISP peering relationships and congestion points
+- Examine wireless signal strength (if wireless WAN)
+- Check satellite link statistics (if satellite)
+- Monitor optical power levels on fiber circuits (if accessible)
+- Review ISP BGP community attributes indicating congestion
+
+**How to fix:**
+1. Open emergency ticket with ISP immediately (reference SLA)
+2. Request ISP circuit testing (loopback tests, BERT testing)
+3. If last-mile issue, request ISP dispatch technician
+4. Failover automatically to backup circuit if available
+5. Replace CPE equipment if showing errors
+6. Request ISP re-route traffic through less congested paths
+7. For wireless, request different channel or frequency
+8. For satellite, wait for weather to clear or adjust antenna
+9. Upgrade circuit type if chronic issues (DSL → fiber, for example)
+10. Implement diverse path routing through different ISPs
+11. Document all issues for SLA credit claims
+
+---
+
+### LAT + PQF (High external delay + poor quality WAN flows)
+
+**What's going wrong:**
+Excessive WAN propagation delay combined with jitter or inconsistent performance degrading application quality. Long geographic distance to destinations, traffic routing through congested internet exchange points, or variable latency due to dynamic routing changes. Can be caused by ISP traffic engineering, peering relationship changes, or suboptimal CDN/cloud region selection.
+
+**Where to find the issue:**
+- Analyze traceroute patterns to affected destinations (path changes)
+- Monitor jitter statistics specifically on WAN links
+- Check application performance from different geographic locations
+- Review CDN performance metrics (edge location latency)
+- Examine ISP BGP updates frequency (route flapping)
+- Monitor RTT variation over time (standard deviation)
+- Check for asymmetric routing (forward vs. return path latency differences)
+- Review cloud provider region latency (ping to availability zones)
+
+**How to fix:**
+1. Select geographically closer cloud regions or CDN edge locations
+2. Implement BGP route optimization with ISP (prefer lower latency paths)
+3. Deploy content caching closer to users (edge caching)
+4. Use SD-WAN for application-aware routing (select best path dynamically)
+5. Enable TCP optimization features on WAN edge (window scaling, SACK)
+6. Implement WAN acceleration for latency-sensitive applications
+7. Request ISP investigate routing path optimization
+8. Consider deploying regional data centers to reduce distance
+9. Use Anycast DNS to direct users to nearest service endpoints
+10. Implement application-level retransmission optimization
+
+---
+
+### LAT + UNI (High external delay + one-way traffic)
+
+**What's going wrong:**
+Asymmetric routing through WAN with return path severely impaired or completely broken. Forward traffic routes successfully (slowly) through one ISP path, but return traffic blocked, lost, or routed through different degraded path. Common with: multihomed BGP configurations with asymmetric policies, NAT traversal failures through carrier-grade NAT (CGNAT), firewall return traffic blocking at ISP edge, or return path outage with no automatic failover.
+
+**Where to find the issue:**
+- Perform bidirectional traceroute (forward and reverse paths)
+- Check BGP advertisements received vs. originated (AS path asymmetry)
+- Review NAT traversal logs on edge routers
+- Monitor firewall state tables for asymmetric sessions
+- Check ISP-provided traffic flow analysis (NetFlow from ISP)
+- Examine CGNAT logs if applicable (ISP-side NAT)
+- Review dual-ISP routing policies for asymmetry
+- Check for RPF (Reverse Path Forwarding) drops at ISP edge
+- Monitor for route leaks or BGP misconfiguration
+
+**How to fix:**
+1. Implement symmetric BGP routing using communities or local preference
+2. Configure proper source-based routing for multihomed scenarios
+3. Work with ISP to fix CGNAT traversal issues
+4. Adjust BGP export policies to ensure return path viability
+5. Implement policy-based routing to force symmetric paths
+6. Fix NAT configuration for bidirectional traffic flow
+7. Request ISP disable RPF if causing legitimate traffic drops
+8. Use BGP AS path prepending carefully to control return paths
+9. Deploy SD-WAN with application-aware symmetric routing
+10. Implement connection tracking across both ISP circuits
+
+---
+
+### RPKT + R% (High external retrans volume + high retrans rate)
+
+**What's going wrong:**
+Significant packet loss occurring in WAN/ISP network. Root causes: ISP network congestion, failing last-mile circuit hardware (modem, ONT, wireless radio), poor wireless signal quality, ISP backbone overload, or physical layer issues on leased lines. Can also be caused by ISP rate limiting/policing exceeding your committed information rate (CIR), or peering point congestion.
+
+**Where to find the issue:**
+- Check WAN interface error statistics (input/output drops, errors)
+- Monitor circuit utilization vs. CIR/EIR limits
+- Review ISP bandwidth graphs (check for policer drops)
+- Check physical layer indicators (sync speed, SNR, signal strength)
+- Examine ISP peering point performance metrics
+- Monitor packet loss patterns (random vs. correlated)
+- Check for ISP traffic shaping or rate limiting
+- Review wireless link quality metrics (RSSI, CINR, bit error rate)
+- Analyze loss correlation with time of day (ISP congestion patterns)
+
+**How to fix:**
+1. Open ticket with ISP to investigate packet loss
+2. Request ISP circuit testing and diagnostics
+3. Verify traffic staying within contracted CIR/EIR limits
+4. Upgrade circuit bandwidth if consistently exceeding CIR
+5. Replace failing CPE equipment (modem, router, wireless radio)
+6. For wireless, request different frequency or upgrade equipment
+7. Request ISP re-route through less congested backbone paths
+8. Implement QoS to stay within CIR for critical traffic
+9. Add secondary circuit for redundancy and load distribution
+10. If ISP issue persists, escalate or consider ISP change
+11. Enable forward error correction (FEC) if available
+12. Document for SLA credit claims
+
+---
+
+### RPKT + PQF (Many external retrans + poor WAN quality flows)
+
+**What's going wrong:**
+WAN packet loss directly degrading application performance over external connections. Bursty Internet traffic patterns exceeding momentary circuit capacity, ISP packet buffer exhaustion, oversubscribed ISP shared access (cable, DSL contention), or ISP traffic prioritization policies affecting your traffic class negatively.
+
+**Where to find the issue:**
+- Monitor burst traffic patterns on WAN links (sub-second granularity)
+- Check circuit utilization vs. available bandwidth (sustained vs. burst)
+- Review ISP service type (shared vs. dedicated) and contention ratios
+- Analyze application quality metrics over WAN (VoIP MOS, video quality)
+- Monitor ISP provided QoS markings and treatment
+- Check for ISP transparent proxy or traffic optimization interference
+- Review time-of-day performance patterns (neighbor contention)
+- Examine application error rates correlating with network events
+
+**How to fix:**
+1. Implement traffic shaping to smooth application-generated bursts
+2. Upgrade from shared access (DSL/cable) to dedicated circuit
+3. Request ISP QoS class upgrade for critical applications
+4. Deploy application-level QoS (DSCP marking) honored by ISP
+5. Implement WAN optimization to reduce bandwidth requirements
+6. Add burst capacity via secondary circuit or burstable bandwidth option
+7. Schedule bandwidth-intensive operations during off-peak hours
+8. Deploy edge caching to reduce WAN traffic volume
+9. Compress traffic where possible
+10. Consider SD-WAN to leverage multiple circuits effectively
+
+---
+
+### RPKT + UNI (Many external retrans + one-way traffic)
+
+**What's going wrong:**
+Packet loss concentrated in one direction across WAN, typically return path from external networks. ISP ingress filtering dropping return traffic (BCP 38 anti-spoofing filters misconfigured), asymmetric routing with return path through different ISP experiencing issues, CGNAT state table issues losing return mappings, or BGP route filtering blocking return advertisements.
+
+**Where to find the issue:**
+- Perform directional packet captures (outbound vs. inbound comparison)
+- Check ISP ingress filtering logs
+- Review BGP route advertisements (what you advertise vs. what's visible globally)
+- Monitor NAT/CGNAT translation table state
+- Perform looking glass queries to verify route propagation
+- Check for ISP ACL or firewall drops on return traffic
+- Review BGP communities for route filtering
+- Examine asymmetric AS paths (forward vs. return)
+- Test connectivity from multiple external vantage points
+
+**How to fix:**
+1. Work with ISP to fix ingress filtering if blocking legitimate traffic
+2. Verify BGP route advertisements are propagating correctly
+3. Fix BGP route filtering (adjust prefix lists, AS path filters)
+4. Request ISP fix CGNAT state table issues
+5. Implement proper BGP communities for routing policy control
+6. Ensure return traffic not blocked by ISP anti-DDoS measures
+7. Fix asymmetric routing by adjusting BGP policies
+8. Register proper route objects in IRR (Internet Routing Registry)
+9. Implement route monitoring to detect propagation issues
+10. Consider anycast for better bidirectional routing
+
+---
+
+### R% + PQF (High external retrans percentage + poor WAN quality)
+
+**What's going wrong:**
+WAN loss percentage high enough (>1-2%) to severely degrade TCP and application performance over external links. Sustained ISP network congestion, chronic circuit oversubscription, ISP SLA violations, or inherently lossy link types (satellite with high BER, long-distance wireless).
+
+**Where to find the issue:**
+- Calculate exact retransmission percentage for external traffic
+- Compare actual vs. ISP SLA guarantees (loss, latency, jitter)
+- Monitor TCP throughput achieved vs. theoretical maximum
+- Review end-user application performance complaints
+- Check ISP SLA reports and compare to actual measurements
+- Analyze link type characteristics (satellite, wireless, fiber)
+- Monitor queue drops vs. interface errors (circuit vs. CPE issue)
+- Review application timeouts and transaction failures
+
+**How to fix:**
+1. Document SLA violations and submit to ISP for credits/resolution
+2. Request emergency ISP investigation and resolution
+3. Upgrade circuit bandwidth to reduce congestion
+4. Implement TCP optimization (window scaling, SACK, larger buffers)
+5. Deploy WAN optimization appliances
+6. Enable forward error correction for lossy link types
+7. Consider link type upgrade (satellite → terrestrial, wireless → fiber)
+8. Implement application-level error correction
+9. Use UDP-based alternatives for loss-tolerant applications
+10. Deploy SD-WAN to dynamically route around poor-performing links
+11. Enable protocol acceleration for WAN traffic
+
+---
+
+### R% + UNI (High external loss percentage + one-way flows)
+
+**What's going wrong:**
+High retransmission rate due to return traffic being heavily dropped or completely blocked by ISP/external network. BGP route not properly advertised or filtered by upstream AS, severe ingress filtering at ISP edge blocking return packets, ISP anti-DDoS measures incorrectly blocking legitimate return traffic, or CGNAT complete failure losing all return state.
+
+**Where to find the issue:**
+- Verify BGP routes visible in global routing table (looking glass)
+- Check ISP BGP session status and advertised/received routes
+- Monitor ISP anti-DDoS system logs
+- Review CGNAT status and state table health
+- Perform route propagation testing from multiple locations
+- Check for ISP route dampening affecting your prefixes
+- Examine BGP AS path filters at upstream providers
+- Monitor for BGP hijack attempts affecting your space
+- Review RPKI validation status (ROV - Route Origin Validation)
+
+**How to fix:**
+1. **URGENT**: Verify BGP routes advertised and propagating globally
+2. Contact ISP immediately if routes not propagating
+3. Request ISP whitelist you in anti-DDoS systems
+4. Fix BGP configuration errors (wrong AS path, communities)
+5. Implement RPKI ROAs (Route Origin Authorizations) correctly
+6. Request ISP fix CGNAT if completely failing
+7. Verify prefix registration in IRR databases
+8. Fix AS path filters at upstream providers
+9. Implement BGP route monitoring and alerting
+10. Consider IP renumbering if addresses have reputation issues
+11. Deploy DDoS mitigation service (Cloudflare, Akamai) for return path protection
+
+---
+
+### PQF + UNI (Poor WAN quality + one-way traffic)
+
+**What's going wrong:**
+External flows experiencing poor quality and communication is effectively one-way. Usually indicates return path routing failure or severe impairment combined with forward path degradation. BGP routing asymmetry with return path through congested/broken ISP, CGNAT expiring sessions prematurely, or firewall at ISP edge blocking established return traffic.
+
+**Where to find the issue:**
+- Analyze application session establishment patterns (connections hang)
+- Check for half-open TCP connections to external hosts
+- Review ISP firewall/security appliance logs
+- Monitor CGNAT session timeout settings vs. application requirements
+- Examine BGP path asymmetry (traceroute forward vs. reverse)
+- Check for ISP stateful firewall session exhaustion
+- Review load balancer or proxy settings at ISP edge
+- Monitor DNS resolution consistency for external services
+
+**How to fix:**
+1. Work with ISP to extend CGNAT session timeouts
+2. Request ISP fix stateful firewall blocking established sessions
+3. Implement BGP routing policies for more symmetric paths
+4. Enable TCP keepalives to maintain CGNAT/firewall state
+5. Fix application timeout settings to accommodate WAN latency
+6. Request ISP investigate return path routing
+7. Deploy SD-WAN for application awareness and automatic recovery
+8. Implement connection health monitoring and automatic re-establishment
+9. Use VPN tunnel to maintain consistent bidirectional path
+10. Consider direct cloud connectivity (AWS Direct Connect, Azure ExpressRoute)
+
+
+================================================================================
+3-ISSUE COMBINATIONS - EXTERNAL/WAN DETAILED ANALYSIS
+================================================================================
+
+### LAT + RPKT + R%
+
+**What's going wrong:**
+Severe WAN/ISP congestion causing high delay and significant packet loss (both volume and percentage). ISP backbone severely oversubscribed, circuit bandwidth grossly inadequate for traffic volume, or ISP network experiencing major issues. Can indicate poor peering relationships forcing traffic through congested paths.
+
+**Where to find:**
+- Sustained high circuit utilization (>90%)
+- ISP backbone congestion indicators
+- Excessive queue depths at WAN edge
+- Poor peering point performance
+- Circuit CIR/EIR limit violations
+- ISP network health degradation
+
+**How to fix:**
+1. Emergency circuit bandwidth upgrade request to ISP
+2. Implement strict WAN QoS to protect critical traffic
+3. Activate secondary circuit for load distribution
+4. Request ISP re-route through better peering
+5. Deploy traffic shaping to respect CIR limits
+6. Consider SD-WAN for multi-path utilization
+7. Open priority ticket with ISP
+8. Document for SLA credits
+9. Prepare business case for dedicated circuits
+10. Implement WAN optimization immediately
+
+---
+
+### LAT + RPKT + PQF
+
+**What's going wrong:**
+WAN delay combined with intermittent loss degrading application quality. Often caused by ISP traffic bursts, shared access medium contention (cable, DSL), or variable ISP routing creating jitter and occasional packet drops.
+
+**Where to find:**
+- Bursty circuit utilization patterns
+- Shared access contention (time-of-day correlation)
+- ISP routing path changes (BGP updates)
+- Jitter statistics high
+- Application quality degradation patterns
+- ISP buffer exhaustion events
+
+**How to fix:**
+1. Upgrade to dedicated circuit from shared access
+2. Implement burst absorption via local buffering
+3. Deploy WAN optimization for traffic smoothing
+4. Request ISP QoS priority for critical applications
+5. Schedule bandwidth-intensive operations off-peak
+6. Add secondary circuit for redundancy
+7. Implement application-level caching
+8. Enable traffic compression
+9. Request ISP stable routing policies
+
+---
+
+### LAT + RPKT + UNI
+
+**What's going wrong:**
+WAN delay plus loss with one-way traffic pattern indicates asymmetric routing with return path experiencing worse conditions than forward path. Common with multihomed BGP where outbound and inbound use different ISPs with different performance characteristics.
+
+**Where to find:**
+- BGP AS path asymmetry (forward vs. return)
+- Different ISPs handling each direction
+- Return path through congested ISP
+- NAT/firewall return path issues
+- Asymmetric circuit quality
+- ISP-specific performance differences
+
+**How to fix:**
+1. Implement BGP policies for symmetric routing
+2. Use traffic engineering to control return paths
+3. Deploy SD-WAN for intelligent bidirectional path selection
+4. Request better ISP for return path traffic
+5. Adjust BGP local preference to influence return paths
+6. Fix NAT/firewall asymmetry issues
+7. Monitor and enforce path symmetry
+8. Consider using single ISP for critical applications
+
+---
+
+### LAT + R% + PQF
+
+**What's going wrong:**
+High WAN latency plus high loss rate causing widespread poor application quality. ISP SLA violations, long-distance circuit with poor quality, or satellite/wireless link with inherent limitations. Classic "bad WAN experience" from inadequate or poor-quality circuit.
+
+**Where to find:**
+- ISP SLA metrics violations
+- Circuit type limitations (satellite, wireless)
+- Geographic distance excessive
+- Sustained poor performance metrics
+- User complaints widespread
+- Application failures common
+
+**How to fix:**
+1. Document and escalate ISP SLA violations
+2. Request ISP circuit type upgrade
+3. Deploy WAN acceleration technology
+4. Implement protocol optimization (TCP proxying)
+5. Add geographically closer points of presence
+6. Deploy content delivery networks (CDNs)
+7. Consider circuit replacement or ISP change
+8. Implement application-level optimizations
+9. Use compression extensively
+10. Deploy regional caching infrastructure
+
+---
+
+### LAT + R% + UNI
+
+**What's going wrong:**
+High latency and loss on WAN with unidirectional traffic indicates return path severely degraded or blocked. BGP route not propagating properly for return traffic, ISP ingress filtering issues, or CGNAT failures affecting return path.
+
+**Where to find:**
+- BGP route propagation failures
+- ISP ingress filtering blocking returns
+- CGNAT state issues
+- Asymmetric path with return degraded
+- Route advertisements not visible globally
+- Firewall dropping return traffic
+
+**How to fix:**
+1. **URGENT**: Verify BGP routes propagating globally
+2. Fix route advertisement issues immediately
+3. Work with ISP on ingress filter corrections
+4. Repair CGNAT if failing
+5. Implement proper BGP communities
+6. Fix routing asymmetry
+7. Verify RPKI ROAs correctly configured
+8. Monitor route propagation continuously
+
+---
+
+### LAT + PQF + UNI
+
+**What's going wrong:**
+Poor WAN quality combined with one-way traffic and high latency. Return path routing failure or severe impairment causing sessions to degrade and fail to complete. Often BGP routing issues combined with ISP path selection problems.
+
+**Where to find:**
+- Failed or incomplete sessions
+- BGP routing asymmetry severe
+- ISP path selection poor
+- Return path blocked or degraded
+- Application timeouts common
+- Half-open connections prevalent
+
+**How to fix:**
+1. Fix return path routing immediately
+2. Implement symmetric BGP policies
+3. Work with ISP on path optimization
+4. Deploy SD-WAN for automatic recovery
+5. Fix bidirectional routing
+6. Implement connection monitoring
+7. Enable automatic path failover
+8. Request ISP investigate return path
+
+---
+
+### RPKT + R% + PQF
+
+**What's going wrong:**
+Real WAN packet loss (high rate and volume) directly degrading application performance. ISP circuit quality issues, last-mile physical problems, or sustained ISP backbone congestion creating measurable application impact.
+
+**Where to find:**
+- Circuit physical layer errors
+- ISP network quality degradation
+- Last-mile issues (CPE, cabling)
+- Application performance severely impacted
+- User experience poor
+- High error rates sustained
+
+**How to fix:**
+1. Request ISP emergency circuit testing
+2. Replace CPE if showing errors
+3. Request technician dispatch for last-mile
+4. Open priority ISP ticket
+5. Document for SLA credits
+6. Activate backup circuit if available
+7. Implement aggressive QoS
+8. Consider emergency ISP change if chronic
+9. Deploy WAN optimization
+10. Implement application-level error recovery
+
+---
+
+### RPKT + R% + UNI
+
+**What's going wrong:**
+WAN loss concentrated in one direction (return path) causing high retransmission rates. ISP ingress filtering issues, BGP route filtering blocking returns, or unidirectional circuit failure in return direction.
+
+**Where to find:**
+- Directional packet loss pattern
+- Return path specifically affected
+- ISP filtering issues
+- BGP route propagation asymmetric
+- Unidirectional physical issues
+- CGNAT dropping return traffic
+
+**How to fix:**
+1. Fix BGP return path advertisements
+2. Work with ISP on ingress filtering
+3. Repair directional circuit issues
+4. Fix CGNAT state problems
+5. Verify route propagation
+6. Implement monitoring for return path
+7. Fix asymmetric filtering
+8. Deploy bidirectional health checks
+
+---
+
+### RPKT + PQF + UNI
+
+**What's going wrong:**
+One-way WAN impairment causing retransmissions and poor application quality. Return traffic blocked, filtered, or severely impaired while forward path delivers (poorly). Common with ISP policy issues or BGP misconfiguration.
+
+**Where to find:**
+- Return traffic blocked or filtered
+- ISP policy affecting return path
+- BGP misconfiguration
+- Application sessions incomplete
+- Asymmetric ISP performance
+- One-way connectivity indicators
+
+**How to fix:**
+1. Fix ISP return traffic policies
+2. Repair BGP configuration
+3. Implement symmetric routing
+4. Work with ISP on policy corrections
+5. Fix filtering issues
+6. Deploy connection tracking
+7. Monitor bidirectional performance
+8. Implement automatic recovery
+
+---
+
+### R% + PQF + UNI
+
+**What's going wrong:**
+High WAN loss rate combined with poor quality and one-way traffic. Strong indication of return path complete failure or severe ISP routing/filtering issues preventing proper bidirectional communication.
+
+**Where to find:**
+- Return path catastrophic failure
+- ISP routing completely broken for returns
+- BGP advertisements not propagating
+- CGNAT completely failed
+- Severe filtering blocking returns
+- One-way communication only possible
+
+**How to fix:**
+1. **CRITICAL**: Fix return path immediately
+2. Emergency ISP escalation
+3. Verify BGP routes globally
+4. Fix CGNAT if failed
+5. Repair all filtering issues
+6. Implement proper route propagation
+7. Deploy monitoring for route health
+8. Consider backup ISP activation
+9. Document for major SLA credits
+10. Prepare for ISP change if unresolved
+
+
+================================================================================
+4-ISSUE COMBINATIONS - EXTERNAL/WAN DETAILED ANALYSIS
+================================================================================
+
+### LAT + RPKT + R% + PQF
+
+**What's going wrong:**
+Severe WAN circuit degradation with high latency, heavy packet loss, and poor application quality. Critical ISP issues, circuit approaching failure, or massive ISP network congestion. This represents significant external connectivity problems requiring immediate attention.
+
+**Where to find:**
+- Multiple ISP SLA violations
+- Circuit quality critically degraded
+- Widespread application failures
+- ISP backbone issues
+- Circuit capacity completely inadequate
+- Possible ISP network outage
+
+**How to fix:**
+1. **EMERGENCY**: Open critical ticket with ISP
+2. Immediately failover to backup circuit
+3. Request emergency ISP escalation
+4. Document all SLA violations comprehensively
+5. Implement emergency traffic prioritization
+6. Activate disaster recovery circuits
+7. Deploy aggressive QoS limiting non-critical traffic
+8. Consider temporary alternative connectivity
+9. Prepare executive communication
+10. Initiate ISP contract review/replacement planning
+
+---
+
+### LAT + RPKT + R% + UNI
+
+**What's going wrong:**
+Severe WAN loss and delay with unidirectional traffic pattern. Return path catastrophically failed while forward path barely functioning. Critical BGP routing failure, ISP return path outage, or complete CGNAT/filtering failure blocking all return traffic.
+
+**Where to find:**
+- Return path completely non-functional
+- BGP routes not propagating for returns
+- ISP suffering major routing failures
+- CGNAT completely failed
+- Severe ISP backbone issues
+- Possible ISP network partition
+
+**How to fix:**
+1. **CRITICAL ISP ESCALATION**: Emergency response required
+2. Verify BGP routes in global routing table immediately
+3. Contact ISP emergency support
+4. Activate backup ISP/circuit immediately
+5. Implement temporary routing workarounds
+6. Fix BGP advertisement issues urgently
+7. Request ISP bypass normal support channels
+8. Document for major SLA credits
+9. Prepare for potential ISP change
+10. Implement comprehensive monitoring
+
+---
+
+### LAT + RPKT + PQF + UNI
+
+**What's going wrong:**
+WAN latency, loss, and quality issues combined with one-way traffic. Asymmetric ISP routing with return path severely degraded or blocked, combined with forward path congestion. Multiple ISP or peering issues affecting bidirectional connectivity.
+
+**Where to find:**
+- Asymmetric ISP performance
+- Return path blocked or severely degraded
+- Forward path congested
+- Multiple peering issues
+- BGP routing suboptimal
+- ISP policy issues affecting traffic
+
+**How to fix:**
+1. Fix return path routing urgently
+2. Work with ISP on path optimization
+3. Implement BGP traffic engineering
+4. Deploy SD-WAN for multi-path resilience
+5. Request ISP peering improvements
+6. Fix bidirectional routing
+7. Activate backup circuits
+8. Document ISP issues comprehensively
+9. Implement automatic failover
+10. Consider multi-ISP architecture
+
+---
+
+### LAT + R% + PQF + UNI
+
+**What's going wrong:**
+High latency and loss rate with poor quality and one-way traffic. Complete external connectivity degradation indicating massive ISP issues, return path blocked while forward path barely functional. Requires emergency intervention.
+
+**Where to find:**
+- ISP experiencing major failures
+- Return path non-functional
+- Forward path severely degraded
+- Multiple SLA violations
+- Possible ISP network outage
+- BGP routing catastrophic
+
+**How to fix:**
+1. **EMERGENCY RESPONSE**: Activate incident response
+2. Failover to backup ISP immediately
+3. Emergency ISP escalation to highest level
+4. Fix return path as absolute priority
+5. Implement emergency routing changes
+6. Deploy all backup connectivity options
+7. Document everything for SLA claims
+8. Communicate to stakeholders
+9. Prepare for extended ISP issues
+10. Plan ISP replacement if necessary
+
+---
+
+### RPKT + R% + PQF + UNI
+
+**What's going wrong:**
+Severe WAN packet loss (rate and volume) with poor quality and one-way traffic. Return path experiencing catastrophic loss or complete blockage while forward path has severe loss. Critical ISP issues requiring immediate action.
+
+**Where to find:**
+- Directional catastrophic loss
+- Return path completely impaired
+- ISP filtering or routing failures
+- Circuit physical failures
+- BGP advertisements broken
+- Possible security incident (DDoS, BGP hijack)
+
+**How to fix:**
+1. **CRITICAL**: Emergency ISP support engagement
+2. Verify not under attack (DDoS, BGP hijack)
+3. Fix BGP route propagation immediately
+4. Request ISP emergency investigation
+5. Activate all backup paths
+6. Implement emergency traffic restrictions
+7. Fix filtering and routing issues
+8. Document for major SLA credits
+9. Consider temporary ISP bypass (cellular, other)
+10. Prepare incident report and escalation
+
+
+================================================================================
+5-ISSUE COMBINATION - COMPLETE EXTERNAL FAILURE ANALYSIS
+================================================================================
+
+### LAT + RPKT + R% + PQF + UNI
+
+**What's going wrong:**
+Complete WAN/external connectivity catastrophic failure. This is the "everything is broken externally" signature:
+- Very high WAN latency (LAT)
+- Heavy packet loss (RPKT + R%)
+- Application quality severely degraded (PQF)
+- Communication effectively one-way (UNI)
+
+**Most likely root problems:**
+1. **Major ISP Network Outage**: ISP backbone failure, massive routing issues
+2. **Critical Circuit Failure**: Last-mile complete failure, CPE catastrophic malfunction
+3. **BGP Routing Catastrophe**: Routes not propagating, return path completely blocked
+4. **CGNAT Complete Failure**: All NAT state lost, return traffic impossible
+5. **DDoS Attack**: Being attacked or ISP under attack affecting service
+6. **BGP Hijack**: Your prefixes hijacked or misrouted globally
+7. **ISP Peering Failure**: Major peering point down affecting connectivity
+8. **Multiple Concurrent Failures**: Several issues compounding
+
+**Where to find:**
+- ISP status page showing outages
+- BGP looking glass showing route issues
+- Multiple monitoring sources all failing
+- Widespread user reports
+- ISP support acknowledging issues
+- News of ISP network problems
+- BGP route monitoring alerts
+- DDoS detection systems alerting
+
+**Troubleshooting Priority:**
+
+**1. IMMEDIATE (0-5 minutes):**
+- Check ISP status page and social media
+- Verify BGP routes in global routing table (looking glass)
+- Check if affecting single site or multiple sites
+- Verify circuit physical status (lights, sync)
+- Check for attack indicators (DDoS, BGP hijack)
+- Review recent changes (BGP config, circuit changes)
+- Verify backup circuits functional
+
+**2. URGENT (5-15 minutes):**
+- Open emergency P1 ticket with ISP
+- Activate all backup connectivity (secondary ISP, cellular, etc.)
+- Verify with ISP network operations center (NOC)
+- Check BGP route propagation from multiple vantage points
+- Review ISP maintenance bulletins
+- Escalate to ISP account manager
+- Activate business continuity procedures
+
+**3. EMERGENCY RESPONSE (15-60 minutes):**
+- Implement failover to backup ISP/circuits
+- Deploy emergency routing changes (BGP, static routes)
+- Communicate to stakeholders about outage
+- Enable disaster recovery connectivity
+- Implement traffic restrictions (critical only)
+- Document everything for SLA claims
+- Consider temporary cellular/satellite backup
+- Engage vendor emergency support if needed
+
+**4. CRITICAL FIXES (1-4 hours):**
+- Work with ISP engineers on root cause
+- Fix BGP routing if configuration issue
+- Replace failed CPE equipment if applicable
+- Implement CGNAT workarounds if ISP issue
+- Fix any local configuration mistakes
+- Verify fix using multiple test points
+- Gradually restore traffic
+- Monitor stability carefully
+
+**5. RECOVERY AND PREVENTION (Post-incident):**
+- Complete incident post-mortem
+- File formal SLA credit claims with documentation
+- Review and update disaster recovery procedures
+- Implement additional monitoring
+- Consider ISP diversity if not present
+- Deploy SD-WAN for automatic failover
+- Review network architecture for single points of failure
+- Implement better redundancy
+- Update runbooks based on lessons learned
+- Consider ISP contract renewal or replacement
+
+**How to fix completely:**
+1. **ACTIVATE EMERGENCY RESPONSE PLAN**
+2. Engage ISP emergency support immediately (P1 ticket, phone escalation)
+3. Verify nature of failure (ISP-side, last-mile, CPE, BGP, attack)
+4. Activate ALL backup connectivity options available
+5. Implement emergency failover procedures
+6. If ISP issue, push for immediate escalation to their NOC
+7. If BGP issue, fix route advertisements immediately
+8. If attack, engage DDoS mitigation services
+9. If circuit failure, request emergency dispatch
+10. Document every Detail for SLA credits
+11. Communicate status to all stakeholders
+12. If prolonged, consider emergency alternative connectivity
+13. Once resolved, thoroughly test before declaring recovery
+14. Conduct comprehensive post-incident review
+15. Implement improvements to prevent recurrence
+
+**ISP SLA Credit Documentation Checklist:**
+- Exact start and end times of issues
+- All ticket numbers and communications
+- Performance metrics before, during, after
+- Business impact assessment
+- List of affected applications/users
+- Monitoring data and screenshots
+- Comparison to SLA guarantees
+- Duration of each SLA violation
+- Request for service credits per contract terms
+
+**When to Consider ISP Change:**
+- Chronic or repeated outages
+- ISP unable to meet SLA consistently
+- Poor support responsiveness
+- Circuit quality persistently poor
+- ISP unwilling to provide adequate credits
+- Business impact too severe to tolerate
+- Better alternatives available
+- Cost/benefit analysis favors change

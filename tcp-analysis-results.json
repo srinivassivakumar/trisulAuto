@@ -1,0 +1,157 @@
+[
+  {
+    "ip": "192.168.1.100",
+    "internalIssues": [
+      "Avg Latency Internal",
+      "Retrans Internal",
+      "Retrans Rate Internal",
+      "Poor Quality Flows",
+      "Timeouts",
+      "Unidirectional Flows"
+    ],
+    "externalIssues": [
+      "Avg Latency External",
+      "Retrans External",
+      "Retrans Rate External",
+      "Poor Quality Flows",
+      "Unidirectional Flows"
+    ],
+    "values": {
+      "Avg Latency Internal": 455,
+      "Avg Latency External": 134,
+      "Retrans Internal": 432,
+      "Retrans External": 307,
+      "Retrans Rate Internal": 77,
+      "Retrans Rate External": 141,
+      "Poor Quality Flows": 319,
+      "Timeouts": 282,
+      "Unidirectional Flows": 488
+    },
+    "probableRootCause": "Issues detected in both internal and external paths. Possible causes: end-to-end network degradation, multiple failure points, or pervasive congestion.",
+    "recommendedSolution": "1. Perform comprehensive network audit\n2. Check both internal and external gateway configurations\n3. Analyze traffic flow end-to-end\n4. Review capacity planning for both segments\n5. Implement monitoring across all network segments"
+  },
+  {
+    "ip": "192.168.1.101",
+    "internalIssues": [
+      "Avg Latency Internal",
+      "Retrans Internal",
+      "Retrans Rate Internal",
+      "Poor Quality Flows",
+      "Timeouts",
+      "Unidirectional Flows"
+    ],
+    "externalIssues": [
+      "Avg Latency External",
+      "Retrans External",
+      "Retrans Rate External",
+      "Poor Quality Flows",
+      "Unidirectional Flows"
+    ],
+    "values": {
+      "Avg Latency Internal": 183,
+      "Avg Latency External": 71,
+      "Retrans Internal": 192,
+      "Retrans External": 290,
+      "Retrans Rate Internal": 61,
+      "Retrans Rate External": 319,
+      "Poor Quality Flows": 115,
+      "Timeouts": 492,
+      "Unidirectional Flows": 171
+    },
+    "probableRootCause": "Issues detected in both internal and external paths. Possible causes: end-to-end network degradation, multiple failure points, or pervasive congestion.",
+    "recommendedSolution": "1. Perform comprehensive network audit\n2. Check both internal and external gateway configurations\n3. Analyze traffic flow end-to-end\n4. Review capacity planning for both segments\n5. Implement monitoring across all network segments"
+  },
+  {
+    "ip": "192.168.1.102",
+    "internalIssues": [
+      "Avg Latency Internal",
+      "Retrans Internal",
+      "Retrans Rate Internal",
+      "Poor Quality Flows",
+      "Timeouts",
+      "Unidirectional Flows"
+    ],
+    "externalIssues": [
+      "Avg Latency External",
+      "Retrans External",
+      "Retrans Rate External",
+      "Poor Quality Flows",
+      "Unidirectional Flows"
+    ],
+    "values": {
+      "Avg Latency Internal": 436,
+      "Avg Latency External": 386,
+      "Retrans Internal": 198,
+      "Retrans External": 86,
+      "Retrans Rate Internal": 348,
+      "Retrans Rate External": 290,
+      "Poor Quality Flows": 493,
+      "Timeouts": 386,
+      "Unidirectional Flows": 194
+    },
+    "probableRootCause": "Issues detected in both internal and external paths. Possible causes: end-to-end network degradation, multiple failure points, or pervasive congestion.",
+    "recommendedSolution": "1. Perform comprehensive network audit\n2. Check both internal and external gateway configurations\n3. Analyze traffic flow end-to-end\n4. Review capacity planning for both segments\n5. Implement monitoring across all network segments"
+  },
+  {
+    "ip": "192.168.1.103",
+    "internalIssues": [
+      "Avg Latency Internal",
+      "Retrans Internal",
+      "Retrans Rate Internal",
+      "Poor Quality Flows",
+      "Timeouts",
+      "Unidirectional Flows"
+    ],
+    "externalIssues": [
+      "Avg Latency External",
+      "Retrans External",
+      "Retrans Rate External",
+      "Poor Quality Flows",
+      "Unidirectional Flows"
+    ],
+    "values": {
+      "Avg Latency Internal": 119,
+      "Avg Latency External": 229,
+      "Retrans Internal": 390,
+      "Retrans External": 441,
+      "Retrans Rate Internal": 393,
+      "Retrans Rate External": 12,
+      "Poor Quality Flows": 47,
+      "Timeouts": 209,
+      "Unidirectional Flows": 60
+    },
+    "probableRootCause": "Issues detected in both internal and external paths. Possible causes: end-to-end network degradation, multiple failure points, or pervasive congestion.",
+    "recommendedSolution": "1. Perform comprehensive network audit\n2. Check both internal and external gateway configurations\n3. Analyze traffic flow end-to-end\n4. Review capacity planning for both segments\n5. Implement monitoring across all network segments"
+  },
+  {
+    "ip": "192.168.1.104",
+    "internalIssues": [
+      "Avg Latency Internal",
+      "Retrans Internal",
+      "Retrans Rate Internal",
+      "Poor Quality Flows",
+      "Timeouts",
+      "Unidirectional Flows"
+    ],
+    "externalIssues": [
+      "Avg Latency External",
+      "Retrans External",
+      "Retrans Rate External",
+      "Poor Quality Flows",
+      "Unidirectional Flows"
+    ],
+    "values": {
+      "Avg Latency Internal": 68,
+      "Avg Latency External": 455,
+      "Retrans Internal": 282,
+      "Retrans External": 184,
+      "Retrans Rate Internal": 433,
+      "Retrans Rate External": 23,
+      "Poor Quality Flows": 318,
+      "Timeouts": 464,
+      "Unidirectional Flows": 242
+    },
+    "probableRootCause": "Issues detected in both internal and external paths. Possible causes: end-to-end network degradation, multiple failure points, or pervasive congestion.",
+    "recommendedSolution": "1. Perform comprehensive network audit\n2. Check both internal and external gateway configurations\n3. Analyze traffic flow end-to-end\n4. Review capacity planning for both segments\n5. Implement monitoring across all network segments"
+  }
+]
