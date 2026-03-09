@@ -29,6 +29,29 @@
             font-weight: bold;
             margin-bottom: 15px;
         }
+        .classification-badge {
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .classification-internal-network-issue {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            color: #856404;
+        }
+        .classification-external---wan-issue {
+            background-color: #d1ecf1;
+            border: 2px solid #17a2b8;
+            color: #0c5460;
+        }
+        .classification-internal-and-external-issue {
+            background-color: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
         .issues {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -87,12 +110,17 @@
 </head>
 <body>
     <h1>🔍 TCP Issues Analysis Report</h1>
-    <p><strong>Generated:</strong> 3/4/2026, 4:59:12 pm</p>
+    <p><strong>Generated:</strong> 3/6/2026, 11:11:03 am</p>
     <hr>
 
     <div class="ip-container">
         <!-- IP header with address -->
         <div class="ip-header">📡 IP Address: 192.168.1.100</div>
+
+        <!-- Issue Classification Badge -->
+        <div class="classification-badge classification-internal-and-external-issue">
+            <strong>🏷️ Classification:</strong> Internal and External Issue
+        </div>
 
         <!-- Issues grid with internal and external columns -->
         <div class="issues">
@@ -141,6 +169,11 @@
         <!-- IP header with address -->
         <div class="ip-header">📡 IP Address: 192.168.1.101</div>
 
+        <!-- Issue Classification Badge -->
+        <div class="classification-badge classification-internal-and-external-issue">
+            <strong>🏷️ Classification:</strong> Internal and External Issue
+        </div>
+
         <!-- Issues grid with internal and external columns -->
         <div class="issues">
             <div class="issue-group">
@@ -187,6 +220,11 @@
     <div class="ip-container">
         <!-- IP header with address -->
         <div class="ip-header">📡 IP Address: 192.168.1.102</div>
+
+        <!-- Issue Classification Badge -->
+        <div class="classification-badge classification-internal-and-external-issue">
+            <strong>🏷️ Classification:</strong> Internal and External Issue
+        </div>
 
         <!-- Issues grid with internal and external columns -->
         <div class="issues">
@@ -235,6 +273,11 @@
         <!-- IP header with address -->
         <div class="ip-header">📡 IP Address: 192.168.1.103</div>
 
+        <!-- Issue Classification Badge -->
+        <div class="classification-badge classification-internal-and-external-issue">
+            <strong>🏷️ Classification:</strong> Internal and External Issue
+        </div>
+
         <!-- Issues grid with internal and external columns -->
         <div class="issues">
             <div class="issue-group">
@@ -281,6 +324,11 @@
     <div class="ip-container">
         <!-- IP header with address -->
         <div class="ip-header">📡 IP Address: 192.168.1.104</div>
+
+        <!-- Issue Classification Badge -->
+        <div class="classification-badge classification-internal-and-external-issue">
+            <strong>🏷️ Classification:</strong> Internal and External Issue
+        </div>
 
         <!-- Issues grid with internal and external columns -->
         <div class="issues">

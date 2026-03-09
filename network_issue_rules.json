@@ -1,0 +1,2017 @@
+{
+    "rules": [
+        {
+            "issue_name": "**********************************************************************",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": []
+        },
+        {
+            "issue_name": "LAT + RPKT",
+            "metrics": [
+                "LAT",
+                "RPKT"
+            ],
+            "problem": "Network congestion or buffer overflow at intermediate hops. Queue buildup increases latency while full buffers drop packets requiring retransmission. May also indicate interface speed mismatch or oversubscribed uplinks.",
+            "diagnostics": [
+                "Check switch/router interface statistics (show interface counters, queue depth)",
+                "Monitor bandwidth utilization on core/distribution layer switches (SNMP, NetFlow)",
+                "Review QoS policies and queue configurations",
+                "Check for jumbo frame mismatches between segments",
+                "Examine buffer allocation on switches handling this traffic",
+                "Look for egress queue drops in interface statistics"
+            ],
+            "fix": [
+                "1. Identify congested links via SNMP monitoring (>80% utilization sustained)",
+                "2. Implement or adjust QoS policies to prioritize critical traffic",
+                "3. Upgrade link capacity on oversubscribed segments",
+                "4. Enable flow control (IEEE 802.3x) if appropriate for environment",
+                "5. Adjust buffer allocation on switches/routers",
+                "6. Consider traffic shaping to smooth bursts",
+                "7. Deploy LACP link aggregation for additional bandwidth",
+                "8. Segment traffic using VLANs to isolate heavy consumers",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + R%",
+            "metrics": [],
+            "problem": "Severe congestion or device overload. Egress queues are consistently full, causing both queueing delay and tail drops. Could also be a failing interface, duplex mismatch, or critically overloaded intermediate device (switch/router CPU, memory exhaustion).",
+            "diagnostics": [
+                "Check interface error counters (CRC errors, output drops, collisions, runts, giants)",
+                "Verify duplex/speed settings on both ends (auto vs. hardcoded mismatches)",
+                "Monitor device CPU and memory utilization during problem periods",
+                "Review interface queue drop statistics (tail drops vs. WRED drops)",
+                "Check for hardware errors in switch/router logs",
+                "Verify cable integrity and port signal levels (for fiber, check dBm light levels)",
+                "Check interface flapping history"
+            ],
+            "fix": [
+                "1. Verify and hardcode duplex/speed settings on both ends (eliminate auto-negotiation issues)",
+                "2. Replace faulty cables or transceivers if physical errors detected",
+                "3. Upgrade device resources or redistribute traffic if device CPU/memory maxed out",
+                "4. Increase queue sizes where appropriate (within hardware limits)",
+                "5. Implement Weighted Random Early Detection (WRED) to reduce tail drops",
+                "6. Add parallel links and enable LACP for bandwidth aggregation",
+                "7. Segment traffic using VLANs to isolate heavy users",
+                "8. Replace aging hardware that cannot handle current traffic volumes",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + PQF",
+            "metrics": [
+                "LAT"
+            ],
+            "problem": "Excessive queuing delay or jitter impacting application-layer performance. TCP connections remain established but experience degraded throughput and responsiveness. Often caused by bursty traffic patterns, inadequate QoS, or slow server/application responses compounding network delays.",
+            "diagnostics": [
+                "Analyze jitter statistics on monitoring platforms",
+                "Check application server response times (APM tools, application logs)",
+                "Review queue depths and queueing algorithms (FIFO vs. WFQ vs. PQ)",
+                "Monitor packet inter-arrival variance",
+                "Check for microburst detection in switch analytics",
+                "Review server CPU/memory/disk I/O during poor quality periods",
+                "Correlate network delays with application transaction times"
+            ],
+            "fix": [
+                "1. Implement priority queuing for latency-sensitive applications (VoIP, video, real-time apps)",
+                "2. Configure traffic shaping to reduce microbursts",
+                "3. Tune TCP window sizes on servers for better throughput",
+                "4. Enable Low Latency Queuing (LLQ) for priority traffic",
+                "5. Optimize application server performance (tune thread pools, connection pools, GC)",
+                "6. Consider separating latency-sensitive traffic to dedicated VLANs with stricter QoS",
+                "7. Implement application-level caching to reduce backend delays",
+                "8. Add packet buffering capacity to handle short-term bursts",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + TO",
+            "metrics": [
+                "LAT",
+                "TO"
+            ],
+            "problem": "Packets are delayed beyond TCP Retransmission Timeout (RTO) values (typically 200ms-3s depending on configuration). This forces TCP to assume packet loss and trigger expensive retransmission timeouts. Can be caused by extreme congestion, device CPU overload freezing packet forwarding, or processing delays in security appliances (firewall deep packet inspection, IPS scanning).",
+            "diagnostics": [
+                "Check maximum queue depths and peak latency values",
+                "Monitor firewall/IPS processing delays and session table utilization",
+                "Review device CPU spikes correlating with timeout periods",
+                "Check for routing loops or suboptimal path selection (traceroute analysis)",
+                "Examine security appliance logs for dropped/delayed sessions",
+                "Monitor application server backend database query times",
+                "Check for DNS resolution delays"
+            ],
+            "fix": [
+                "1. Offload firewall/IPS to more powerful hardware or distribute load across multiple devices",
+                "2. Tune firewall session timeout values appropriately for applications",
+                "3. Optimize security policy rules (move frequently hit rules to top, remove unnecessary deep inspection)",
+                "4. Increase device resources or optimize control plane protection",
+                "5. Implement bypass mechanisms for trusted internal traffic",
+                "6. Adjust TCP RTO parameters on servers if appropriate for environment (careful tuning required)",
+                "7. Fix routing issues to prevent suboptimal paths (adjust metrics, fix routing protocols)",
+                "8. Optimize slow database queries causing application-layer delays",
+                "9. Enable hardware acceleration for crypto/inspection functions",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + UNI",
+            "metrics": [
+                "TO"
+            ],
+            "problem": "Asymmetric routing with return path failure or severe impairment. Forward packets arrive (slowly) but acknowledgments don't return properly, or return via a broken/severely congested path. Common causes include: stateful firewall session timeout, NAT state table exhaustion, asymmetric routing through different firewall contexts, or return path connection failures.",
+            "diagnostics": [
+                "Use traceroute/tracepath in BOTH directions to identify asymmetry",
+                "Check firewall state tables for session exhaustion (show conn count)",
+                "Review NAT translation tables and timeout settings",
+                "Examine routing tables for asymmetric paths (different ingress/egress)",
+                "Check firewall logs for dropped return packets (stateful inspection failures)",
+                "Verify spanning tree topology hasn't changed unexpectedly",
+                "Review load balancer hash algorithm causing flow splits",
+                "Check for ECMP hash polarization"
+            ],
+            "fix": [
+                "1. Implement symmetric routing using policy-based routing (PBR)",
+                "2. Increase firewall state table sizes and adjust timeout values",
+                "3. Configure connection tracking synchronization between redundant firewalls",
+                "4. Ensure both directions traverse the same stateful devices",
+                "5. Fix NAT pool exhaustion by expanding address pools",
+                "6. Adjust load balancer hashing algorithms to maintain flow symmetry (5-tuple hashing)",
+                "7. Enable TCP timestamp options for better PAWS (Protection Against Wrapped Sequences) handling",
+                "8. Consider source-based routing to force path symmetry",
+                "9. Fix spanning tree to ensure consistent L2 paths",
+                "10. Implement stateful HA synchronization properly",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + R%",
+            "metrics": [],
+            "problem": "Significant real packet loss on the wire. Root causes: physical layer problems (bad cable, dirty/damaged fiber, SFP transceiver issues), duplex mismatch (very common culprit showing as late collisions), congestion drops from sustained oversubscription, or faulty network interface card (NIC).",
+            "diagnostics": [
+                "Check interface error counters (input/output errors, CRC, runts, giants, fragments)",
+                "Verify duplex and speed settings match EXACTLY on both ends",
+                "Test cable integrity with cable testers (TDR for copper, OTDR for fiber)",
+                "Check optical power levels (dBm) on fiber links (both TX and RX)",
+                "Review interface statistics for late collisions (classic duplex mismatch indicator)",
+                "Monitor NIC driver error logs on servers (/var/log/messages, Event Viewer)",
+                "Check switch port LED indicators for anomalies (error blinks)",
+                "Review environmental factors (temperature, power)"
+            ],
+            "fix": [
+                "1. Replace faulty cables immediately (primary cause of physical errors - 70%+ of issues)",
+                "2. Clean fiber connectors with proper cleaning tools and replace if damaged",
+                "3. Hardcode duplex/speed settings to eliminate auto-negotiation issues (manual config on both sides)",
+                "4. Replace faulty NICs or update to latest stable drivers",
+                "5. Replace bad SFP/QSFP modules (verify compatibility with switch)",
+                "6. Upgrade oversubscribed links immediately",
+                "7. Check and eliminate sources of EMI interference for copper (fluorescent lights, motors, power cables)",
+                "8. Verify proper grounding of all network equipment",
+                "9. Check for cable bend radius violations",
+                "10. Replace aging cables preemptively (copper >7 years, fiber if showing light level degradation)",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + PQF",
+            "metrics": [],
+            "problem": "Packet loss directly degrading application performance. Typically caused by bursty traffic patterns causing intermittent drops (microbursts exceeding buffer capacity in sub-second intervals), unstable wireless links, or interface errors. Unlike pure sustained congestion, this is often sporadic rather than continuous.",
+            "diagnostics": [
+                "Enable microburst detection on switches (requires sub-second polling/streaming telemetry)",
+                "Check wireless signal strength (RSSI) and interference (if applicable)",
+                "Review buffer utilization graphs for spike patterns",
+                "Monitor interface error rates over time (trending analysis)",
+                "Check for intermittent CRC errors suggesting marginal cables",
+                "Analyze loss patterns (random vs. bursty) using packet capture timestamps",
+                "Review application error logs correlating with network loss events",
+                "Check for buffer exhaustion events in switch logs"
+            ],
+            "fix": [
+                "1. Increase buffer sizes on affected switches/ports (within hardware capabilities)",
+                "2. Implement traffic shaping/policing to smooth bursts",
+                "3. Upgrade to switches with larger packet buffers (deep buffer switches)",
+                "4. Fix wireless issues (adjust power levels, change channels, address interference sources)",
+                "5. Replace marginal cables proactively (showing occasional but not constant errors)",
+                "6. Implement admission control or rate limiting for burst-prone applications",
+                "7. Use deep buffer switches for bursty traffic segments (data center, storage)",
+                "8. Consider Explicit Congestion Notification (ECN) for compatible endpoints",
+                "9. Deploy traffic smoothing at sources (application-level pacing)",
+                "10. Separate bursty and steady traffic flows",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + TO",
+            "metrics": [
+                "TO"
+            ],
+            "problem": "Sustained or high-frequency packet loss overwhelming TCP's fast retransmit/recovery mechanisms. Normal fast retransmit (3 duplicate ACKs) fails to recover packets, triggering expensive timeout-based recovery and exponential backoff. Indicates severe congestion, actively failing link, or critical device malfunction.",
+            "diagnostics": [
+                "Monitor packet loss percentage over sliding time windows",
+                "Check for interface flapping in device logs",
+                "Review device health indicators (fans, temperature, PSU status)",
+                "Check for hardware errors in device diagnostics (ASIC errors, memory errors)",
+                "Monitor for sustained high utilization periods (>90% for extended time)",
+                "Review spanning tree convergence events (topology changes)",
+                "Check for broadcast/multicast storms or L2 loops",
+                "Look for link errors correlating with timeout events"
+            ],
+            "fix": [
+                "1. **Emergency action**: Temporarily reduce traffic load (block non-critical sources, rate-limit)",
+                "2. Identify and replace failing hardware immediately (cables, transceivers, NICs, switches)",
+                "3. Fix spanning tree issues to prevent loops (BPDU guard, root guard, loop guard)",
+                "4. Implement storm control to limit broadcast/multicast impact",
+                "5. Increase link capacity urgently if sustained oversubscription confirmed",
+                "6. Redistribute traffic across multiple paths (enable ECMP, LACP)",
+                "7. Implement fast convergence protocols (RSTP instead of STP, BFD for fast failure detection)",
+                "8. Add redundant links for critical paths with fast failover",
+                "9. Deploy link monitoring (dying gasp detection, BFD)",
+                "10. Implement graceful degradation mechanisms",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + UNI",
+            "metrics": [
+                "UNI"
+            ],
+            "problem": "Consistent packet loss in one specific direction (typically return/ACK path). Caused by: firewall/ACL rules dropping return traffic, asymmetric routing through mismatched security policy contexts, or directional link failures (one TX or RX pair failing in full-duplex operation).",
+            "diagnostics": [
+                "Capture traffic with Wireshark/tcpdump on BOTH sides (compare SYN/SYN-ACK/ACK patterns)",
+                "Check firewall rule hit counters for drops (identify which rule is dropping)",
+                "Review ACL deny statistics (show access-list, counters)",
+                "Test connectivity in both directions independently (bi-directional ping, iperf)",
+                "Check interface TX/RX statistics for asymmetry (one direction showing errors)",
+                "Review firewall logs for state violations (sessions expired, out-of-window)",
+                "Verify NAT translation consistency (translation table inspection)",
+                "Check for unidirectional link failures (TX working, RX failing or vice versa)"
+            ],
+            "fix": [
+                "1. Audit firewall rules for missing return traffic permits (stateful inspection may be failing)",
+                "2. Add explicit return traffic permit rules if stateless filtering in use",
+                "3. Fix ACLs to allow established connections in both directions (TCP established keyword)",
+                "4. Configure NAT to properly maintain bidirectional state",
+                "5. Replace unidirectional failed cables/transceivers (test both TX and RX)",
+                "6. Ensure asymmetric routing doesn't split through different firewall contexts",
+                "7. Implement connection tracking helpers for complex protocols (FTP, SIP, H.323)",
+                "8. Fix interface hardware if TX or RX specifically failing (check optics independently)",
+                "9. Configure reflexive ACLs for dynamic bidirectional permits",
+                "10. Verify security zones allow bidirectional traffic flow",
+                ""
+            ]
+        },
+        {
+            "issue_name": "R% + PQF",
+            "metrics": [
+                "LAT"
+            ],
+            "problem": "Loss ratio high enough (typically >1-2%) to significantly degrade TCP performance. Throughput reduced, latency increased due to retransmissions, applications stalling or performing poorly. Caused by sustained congestion, physical link instability, or aggressive drop policies without proper queue management.",
+            "diagnostics": [
+                "Calculate exact retransmission percentage (retrans packets / total packets * 100)",
+                "Check actual TCP throughput vs. theoretical maximum for bandwidth-delay product",
+                "Monitor queue drop statistics (tail drops, WRED drops, ECN marks)",
+                "Review interface error rates over time",
+                "Check for marginal signal levels (near acceptable thresholds)",
+                "Analyze loss distribution (steady state vs. intermittent spikes)",
+                "Correlate loss events with specific applications or traffic types",
+                "Check effective window sizes being achieved"
+            ],
+            "fix": [
+                "1. Target reducing loss to <0.1% for good TCP performance",
+                "2. Fix physical layer issues first (cables, optics) - eliminates 70% of problems",
+                "3. Tune queue management algorithms (implement RED/WRED instead of tail drop)",
+                "4. Implement comprehensive QoS to protect sensitive flows",
+                "5. Enable ECN on compatible hosts and network devices to signal congestion without drops",
+                "6. Optimize TCP settings on endpoints (SACK, window scaling, timestamps)",
+                "7. Consider Multipath TCP (MPTCP) where applicable for resilience",
+                "8. Separate problematic traffic to isolated segments",
+                "9. Implement active queue management (AQM) like PIE or CoDel",
+                "10. Increase bandwidth or reduce traffic load",
+                ""
+            ]
+        },
+        {
+            "issue_name": "R% + TO",
+            "metrics": [
+                "TO"
+            ],
+            "problem": "Severe packet drops (>5-10%) causing TCP retransmission mechanisms to completely fail, forcing timeout-driven recovery with exponential backoff. Critical network degradation from: link approaching complete failure, extreme persistent congestion, major device malfunction, or security attack (DDoS causing intentional packet drops/flooding).",
+            "diagnostics": [
+                "Check link errors immediately (likely critical hardware fault)",
+                "Review device health and stability indicators comprehensively",
+                "Monitor for DoS/DDoS attack patterns (unusually high connection rates, SYN floods)",
+                "Check spanning tree status for reconvergence loops",
+                "Review broadcast/multicast storm indicators",
+                "Monitor device CPU for control plane overload (routing protocol updates, ARP, DHCP)",
+                "Check for routing instability (route flapping, BGP churn)",
+                "Look for environmental issues (overheating, power problems)"
+            ],
+            "fix": [
+                "1. **EMERGENCY TRIAGE**: Quickly identify if single device/link responsible",
+                "2. Bypass or fail over to backup path immediately (manual or automatic)",
+                "3. Replace failing hardware on emergency basis (keep spares available)",
+                "4. Implement rate limiting immediately if attack suspected",
+                "5. Enable DoS protection features on edge devices (SYN cookies, connection limits)",
+                "6. Fix routing protocol instabilities (adjust timers, implement dampening, fix hold-downs)",
+                "7. Implement link bundling (LACP) for redundancy and increased capacity",
+                "8. Deploy aggressive QoS to preserve critical traffic during incident",
+                "9. Activate incident response procedures",
+                "10. Consider temporary traffic black-holing for attack mitigation",
+                ""
+            ]
+        },
+        {
+            "issue_name": "R% + UNI",
+            "metrics": [
+                "R%",
+                "TO"
+            ],
+            "problem": "Return traffic blocked, heavily dropped, or filtered, creating high retransmission rate as sending side never receives acknowledgments. Typical causes: firewall/ACL misconfiguration (allowing outbound but blocking inbound), routing black hole in return direction, stateful inspection failure (sessions not properly established), or RPF (Reverse Path Forwarding) check failures.",
+            "diagnostics": [
+                "Perform bidirectional packet captures (confirm ACKs completely missing)",
+                "Check firewall drop counters categorized by rule",
+                "Review stateful inspection session tables (verify sessions exist)",
+                "Trace return path routing explicitly (may differ significantly from forward)",
+                "Check for RPF failures in device logs",
+                "Review NAT inside/outside interface configurations",
+                "Examine security zone policy mismatches (inter-zone vs. intra-zone)",
+                "Verify routing table contains return routes"
+            ],
+            "fix": [
+                "1. Fix firewall rules to explicitly permit return traffic",
+                "2. Add \"established\" connection permits in ACLs (permit tcp any any established)",
+                "3. Fix stateful inspection timeout/table size issues",
+                "4. Correct NAT configurations (verify inside/outside interface assignments)",
+                "5. Disable or properly configure RPF if causing legitimate traffic drops",
+                "6. Ensure routing symmetry or implement proper asymmetric path policies",
+                "7. Add reflexive ACL entries for dynamic return traffic permits",
+                "8. Verify all security zones allow required bidirectional flows",
+                "9. Fix stateful firewall to properly track connections",
+                "10. Implement connection state synchronization in HA deployments",
+                ""
+            ]
+        },
+        {
+            "issue_name": "PQF + TO",
+            "metrics": [
+                "LAT",
+                "PQF",
+                "TO"
+            ],
+            "problem": "Sessions progressively degrade then stall completely. Cumulative effect of sustained delay, intermittent drops, or poor application/server performance. Users experience initial \"slowness\" that escalates to \"connection lost\" or \"timeout\" errors. Often a combination of network AND application layer issues compounding each other.",
+            "diagnostics": [
+                "Correlate poor quality flow metrics with timeout event timestamps",
+                "Monitor end-to-end application response times (APM solutions like AppDynamics, Dynatrace)",
+                "Check server resource utilization comprehensively (CPU, memory, disk I/O, network I/O)",
+                "Review database query execution times (slow query logs)",
+                "Monitor for memory leaks in applications (growing memory usage over time)",
+                "Check connection pool exhaustion on middleware/application servers",
+                "Review disk latency on storage systems (IOPS, queue depth)",
+                "Analyze application transaction traces"
+            ],
+            "fix": [
+                "1. Profile comprehensive application performance to identify bottlenecks",
+                "2. Optimize slow database queries (add indexes, rewrite queries, partition tables)",
+                "3. Scale application servers horizontally (add more instances)",
+                "4. Increase connection pool sizes appropriately",
+                "5. Fix memory leaks in application code (code review, memory profilers)",
+                "6. Upgrade storage to faster disks (SSD/NVMe) or add caching layer",
+                "7. Implement distributed application-level caching (Redis, Memcached)",
+                "8. Tune TCP keepalive settings to detect and cleanup stale connections earlier",
+                "9. Improve network QoS specifically for application traffic flows",
+                "10. Implement circuit breaker patterns and timeouts in application code",
+                "11. Add application request queuing and backpressure mechanisms",
+                "12. Consider microservices architecture to isolate failing components",
+                ""
+            ]
+        },
+        {
+            "issue_name": "PQF + UNI",
+            "metrics": [],
+            "problem": "Broken return path causing sessions to appear functional initially but failing to complete operations properly. Connections established but half-open, requests sent successfully but responses never arrive. Caused by: return path firewall blocking, asymmetric routing through different security contexts, or intermediate NAT/proxy failure losing bidirectional state.",
+            "diagnostics": [
+                "Check for half-open TCP connections (SYN sent successfully, but no SYN-ACK received)",
+                "Review firewall state table for asymmetric or incomplete sessions",
+                "Trace return path explicitly (forward and return may be completely different)",
+                "Check load balancer session persistence/affinity settings",
+                "Review proxy/NAT translation tables for missing return mappings",
+                "Monitor for state synchronization failures in HA firewall pairs",
+                "Check DNS resolution differences that might affect forward vs. return paths",
+                "Verify application-level keepalives are working"
+            ],
+            "fix": [
+                "1. Implement symmetric return path routing (PBR, routing metrics)",
+                "2. Fix firewall configuration to allow both directions through same device/context",
+                "3. Configure proper state synchronization in HA setups (stateful failover)",
+                "4. Adjust load balancer persistence mechanisms (source IP, cookie-based)",
+                "5. Fix NAT to properly maintain bidirectional state",
+                "6. Ensure DNS resolves consistently for both directions of communication",
+                "7. Implement policy-based routing to force path symmetry",
+                "8. Add explicit return path permit rules in all security devices",
+                "9. Configure connection tracking properly",
+                "10. Verify proxy configurations maintain session state",
+                ""
+            ]
+        },
+        {
+            "issue_name": "TO + UNI",
+            "metrics": [
+                "TO"
+            ],
+            "problem": "Classic return-path complete failure. Packets sent successfully but acknowledgments never received, causing TCP to repeatedly retransmit and eventually exhaust retransmission attempts hitting RTO. Root causes: ACL explicitly blocking return traffic, firewall dropping established return sessions (stateful inspection failure), NAT state loss, or complete return path outage (link down, routing failure).",
+            "diagnostics": [
+                "Packet capture clearly showing SYN but no SYN-ACK, or data packets but zero ACKs",
+                "Firewall logs explicitly showing drops on return interface",
+                "ACL hit counters on deny rules matching return traffic characteristics",
+                "NAT translation table missing expected entries",
+                "Routing table completely missing return routes (ip route check)",
+                "State table in firewall shows only one-way/half sessions",
+                "Asymmetric routing passing through different firewall policy contexts",
+                "Return path interface administratively down or physically disconnected"
+            ],
+            "fix": [
+                "1. **PRIORITY 1**: Verify return path actually exists in routing tables",
+                "2. Comprehensive audit and fix ACLs to permit return traffic",
+                "3. Fix firewall rules (add explicit return permits or repair stateful inspection)",
+                "4. Repair/rebuild NAT configuration for proper bidirectional translation",
+                "5. Implement and verify stateful inspection functioning correctly",
+                "6. Fix routing asymmetry using policy-based routing (PBR)",
+                "7. Synchronize firewall state tables properly in HA configurations",
+                "8. Add connection tracking for all required application-layer protocols",
+                "9. Verify spanning tree not unexpectedly blocking return path",
+                "10. Check for MAC address table issues on L2 switches",
+                "11. Verify all intermediate devices forwarding return traffic",
+                "12. Test return path connectivity independently",
+                "================================================================================",
+                "3-ISSUE COMBINATIONS - DETAILED ANALYSIS",
+                "================================================================================"
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + R%",
+            "metrics": [
+                "RPKT"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Emergency capacity expansion on congested segments",
+                "2. Implement strict multi-class QoS",
+                "3. Enable WRED/ECN to reduce synchronized TCP backoff",
+                "4. Increase buffer allocations on core switches",
+                "5. Deploy traffic shaping to smooth bursts",
+                "6. Distribute load across ECMP paths",
+                "7. Upgrade critical uplinks immediately",
+                "8. Implement admission control for non-critical traffic",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + PQF",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Increase switch buffer depths",
+                "2. Implement traffic shaping for bursty apps",
+                "3. Replace marginal cables/transceivers",
+                "4. Deploy application-aware QoS",
+                "5. Upgrade to deep-buffer switches",
+                "6. Implement ECN",
+                "7. Separate sensitive traffic",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + TO",
+            "metrics": [
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Offload or upgrade overloaded devices urgently",
+                "2. Optimize security rule processing",
+                "3. Tune TCP timers appropriately",
+                "4. Implement traffic bypass for trusted flows",
+                "5. Add hardware acceleration",
+                "6. Fix control plane instabilities",
+                "7. Increase link capacity",
+                "8. Deploy fast failover",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + UNI",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Implement PBR for symmetry",
+                "2. Balance firewall processing bidirectionally",
+                "3. Fix capacity on impaired direction",
+                "4. Apply bidirectional QoS",
+                "5. Add return path capacity",
+                "6. Configure stateful devices for both directions",
+                "7. Force symmetric routing",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + R% + PQF",
+            "metrics": [
+                "LAT"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Comprehensive QoS implementation",
+                "2. Emergency capacity upgrade",
+                "3. Deploy WRED",
+                "4. Separate critical traffic",
+                "5. Implement strict priority queuing",
+                "6. Add buffering capacity",
+                "7. Enable ECN",
+                "8. Deploy WAN optimization",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + R% + TO",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. **CRITICAL**: Identify failing component immediately",
+                "2. Emergency failover to backup path",
+                "3. Replace failing hardware urgently",
+                "4. Implement emergency traffic reduction",
+                "5. Deploy aggressive prioritization",
+                "6. Add redundant capacity",
+                "7. Fast convergence protocols",
+                "8. Incident response activation",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + R% + UNI",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix firewall stateful inspection",
+                "2. Repair ACLs for return traffic",
+                "3. Fix NAT state maintenance",
+                "4. Implement symmetric routing",
+                "5. Add return path capacity",
+                "6. Synchronize firewall states",
+                "7. Fix routing asymmetry",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + PQF + TO",
+            "metrics": [
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Profile application performance",
+                "2. Optimize database queries",
+                "3. Scale application tier",
+                "4. Fix network congestion",
+                "5. Implement app-level caching",
+                "6. Tune TCP parameters",
+                "7. Add server resources",
+                "8. Implement circuit breakers",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + PQF + UNI",
+            "metrics": [
+                "LAT"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix return path routing",
+                "2. Repair firewall return rules",
+                "3. Implement symmetric routing",
+                "4. Fix NAT bidirectional state",
+                "5. Sync security device states",
+                "6. Add return path permits",
+                "7. Fix DNS consistency",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + TO + UNI",
+            "metrics": [
+                "LAT",
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. **URGENT**: Verify return routes exist",
+                "2. Fix firewall return permits",
+                "3. Repair NAT state",
+                "4. Fix ACLs",
+                "5. Implement proper stateful inspection",
+                "6. Force routing symmetry",
+                "7. Sync HA states",
+                "8. Add connection tracking",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + R% + PQF",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Replace faulty cables immediately",
+                "2. Fix duplex mismatches",
+                "3. Replace bad transceivers",
+                "4. Repair physical infrastructure",
+                "5. Upgrade capacity",
+                "6. Fix environmental issues",
+                "7. Replace aging NICs",
+                "8. Proper cable management",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + R% + TO",
+            "metrics": [
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. **EMERGENCY**: Replace failing link",
+                "2. Emergency traffic reduction",
+                "3. Bypass failed component",
+                "4. Emergency capacity addition",
+                "5. Implement redundancy",
+                "6. Fast failover activation",
+                "7. Aggressive prioritization",
+                "8. Incident response",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + R% + UNI",
+            "metrics": [
+                "UNI"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix return path filtering",
+                "2. Repair ACLs",
+                "3. Fix asymmetric security policies",
+                "4. Replace directional failed hardware",
+                "5. Ensure bidirectional firewall rules",
+                "6. Fix routing asymmetry",
+                "7. Repair stateful inspection",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + PQF + TO",
+            "metrics": [
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Increase buffer capacity",
+                "2. Smooth traffic bursts",
+                "3. Replace marginal components",
+                "4. Implement admission control",
+                "5. Deploy deep buffers",
+                "6. Enable ECN",
+                "7. Fix intermittent errors",
+                "8. Traffic shaping",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + PQF + UNI",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix return traffic rules",
+                "2. Repair firewall policies",
+                "3. Implement symmetric routing",
+                "4. Fix ACL return permits",
+                "5. Repair NAT state",
+                "6. Add reflexive ACLs",
+                "7. Connection tracking helpers",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + TO + UNI",
+            "metrics": [
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Verify return routes exist",
+                "2. Fix firewall return rules",
+                "3. Repair NAT translation",
+                "4. Fix ACLbreaking returns",
+                "5. Implement stateful inspection",
+                "6. Force symmetric paths",
+                "7. Sync firewall states",
+                "8. Fix routing",
+                ""
+            ]
+        },
+        {
+            "issue_name": "R% + PQF + TO",
+            "metrics": [
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix high loss immediately",
+                "2. Stabilize links",
+                "3. Upgrade capacity",
+                "4. Implement proper QoS",
+                "5. Enable WRED/ECN",
+                "6. Separate critical traffic",
+                "7. Add redundancy",
+                "8. Fix physical issues",
+                ""
+            ]
+        },
+        {
+            "issue_name": "R% + PQF + UNI",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix return path policies",
+                "2. Repair stateful inspection",
+                "3. Implement symmetric routing",
+                "4. Fix filtering asymmetry",
+                "5. Repair state synchronization",
+                "6. Add bidirectional rules",
+                "7. Fix NAT state",
+                ""
+            ]
+        },
+        {
+            "issue_name": "R% + TO + UNI",
+            "metrics": [
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. **CRITICAL**: Fix return path immediately",
+                "2. Repair firewall return rules",
+                "3. Fix NAT state completely",
+                "4. Add return route",
+                "5. Fix ACL returns",
+                "6. Implement proper stateful inspection",
+                "7. Force symmetry",
+                "8. Sync HA states",
+                ""
+            ]
+        },
+        {
+            "issue_name": "PQF + TO + UNI",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix return path routing/policy",
+                "2. Repair firewall return rules",
+                "3. Implement symmetric access",
+                "4. Fix complete return blockage",
+                "5. Add return permits everywhere",
+                "6. Repair stateful devices",
+                "7. Force symmetric routing",
+                "8. Check all path segments",
+                "================================================================================",
+                "4-ISSUE COMBINATIONS - DETAILED ANALYSIS",
+                "================================================================================"
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + R% + PQF",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Emergency capacity upgrade",
+                "2. Comprehensive QoS deployment",
+                "3. Traffic engineering",
+                "4. Load distribution",
+                "5. Buffer optimization",
+                "6. WRED/ECN implementation",
+                "7. Critical traffic separation",
+                "8. Infrastructure upgrade",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + R% + TO",
+            "metrics": [
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. **EMERGENCY**: Identify failing component",
+                "2. Immediate failover",
+                "3. Emergency hardware replacement",
+                "4. Emergency traffic reduction",
+                "5. Critical prioritization only",
+                "6. Bypass failures",
+                "7. Redundancy activation",
+                "8. Full incident response",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + R% + UNI",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix return path completely",
+                "2. Repair asymmetric routing",
+                "3. Fix filtering issues",
+                "4. Add return path capacity",
+                "5. Implement symmetric design",
+                "6. Fix congestion on return",
+                "7. Comprehensive path repair",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + PQF + TO",
+            "metrics": [
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix burst handling",
+                "2. Increase buffers",
+                "3. Smooth traffic",
+                "4. Fix intermittent issues",
+                "5. Implement admission control",
+                "6. Upgrade capacity",
+                "7. Deploy traffic shaping",
+                "8. Fix quality issues",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + PQF + UNI",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix return path policies",
+                "2. Repair firewall rules",
+                "3. Fix congestion",
+                "4. Sync security states",
+                "5. Implement symmetric routing",
+                "6. Fix combined issues",
+                "7. Comprehensive repair",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + TO + UNI",
+            "metrics": [
+                "LAT",
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. **URGENT**: Fix return path",
+                "2. Repair all blocking policies",
+                "3. Implement symmetric routing",
+                "4. Fix timeouts",
+                "5. Comprehensive return path repair",
+                "6. State synchronization",
+                "7. Connection tracking",
+                "8. Full path verification",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + R% + PQF + TO",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Emergency network triage",
+                "2. Immediate capacity addition",
+                "3. Aggressive QoS",
+                "4. Traffic reduction",
+                "5. Infrastructure upgrade",
+                "6. Redundancy deployment",
+                "7. Comprehensive congestion fix",
+                "8. Application protection",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + R% + PQF + UNI",
+            "metrics": [
+                "LAT"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix return path policies completely",
+                "2. Repair stateful inspection",
+                "3. Fix NAT state",
+                "4. Implement symmetry",
+                "5. Sync all security devices",
+                "6. Comprehensive policy repair",
+                "7. Connection tracking fix",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + R% + TO + UNI",
+            "metrics": [
+                "LAT",
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. **CRITICAL**: Complete return path rebuild",
+                "2. Fix all filtering",
+                "3. Repair routing completely",
+                "4. Fix state everywhere",
+                "5. Force symmetry",
+                "6. Rebuild policies",
+                "7. Complete verification",
+                "8. Test bidirectionally",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + PQF + TO + UNI",
+            "metrics": [
+                "LAT"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix return blockage completely",
+                "2. Implement bidirectional policies",
+                "3. Fix routing symmetry",
+                "4. Remove all return blocks",
+                "5. Comprehensive path repair",
+                "6. Verify bidirectional flow",
+                "7. Test end-to-end",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + R% + PQF + TO",
+            "metrics": [
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Replace failing infrastructure immediately",
+                "2. Fix duplex issues",
+                "3. Replace cables",
+                "4. Fix physical layer",
+                "5. Add capacity",
+                "6. Hardware replacement",
+                "7. Infrastructure repair",
+                "8. Redundancy deployment",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + R% + PQF + UNI",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix return direction completely",
+                "2. Repair asymmetric policies",
+                "3. Fix directional loss",
+                "4. Implement symmetry",
+                "5. Repair filtering",
+                "6. Fix routing",
+                "7. Complete directional repair",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + R% + TO + UNI",
+            "metrics": [
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. **EMERGENCY**: Fix return path immediately",
+                "2. Repair all firewall rules",
+                "3. Rebuild NAT",
+                "4. Add return routes",
+                "5. Fix ACLs",
+                "6. Complete state repair",
+                "7. Force symmetry",
+                "8. Verify every hop",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + PQF + TO + UNI",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix return path",
+                "2. Repair policies",
+                "3. Implement symmetry",
+                "4. Fix bursts",
+                "5. Comprehensive repair",
+                "6. Remove blocks",
+                "7. Verify bidirectional",
+                ""
+            ]
+        },
+        {
+            "issue_name": "R% + PQF + TO + UNI",
+            "metrics": [
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix all return policies",
+                "2. Repair routing",
+                "3. Implement proper symmetry",
+                "4. Fix state issues",
+                "5. Complete policy repair",
+                "6. Connection tracking fix",
+                "7. Comprehensive verification",
+                "================================================================================",
+                "5-ISSUE COMBINATIONS - DETAILED ANALYSIS",
+                "================================================================================"
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + R% + PQF + TO",
+            "metrics": [
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. **EMERGENCY RESPONSE**: Full network triage",
+                "2. Identify and isolate failure domain",
+                "3. Emergency capacity addition",
+                "4. Emergency hardware replacement",
+                "5. Implement emergency QoS",
+                "6. Aggressive traffic reduction",
+                "7. Failover to backup infrastructure",
+                "8. Full incident response activation",
+                "9. Executive escalation",
+                "10. Vendor emergency support",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + R% + PQF + UNI",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix return path issues first",
+                "2. Repair congestion issues",
+                "3. Fix routing/filtering",
+                "4. Comprehensive capacity upgrade",
+                "5. Policy repair complete",
+                "6. State synchronization",
+                "7. Symmetry implementation",
+                "8. Full path verification",
+                "9. Load testing after repair",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + R% + TO + UNI",
+            "metrics": [
+                "LAT",
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. **CRITICAL**: Fix return path immediately",
+                "2. Repair all blocking policies",
+                "3. Fix loss issues",
+                "4. Rebuild state mechanisms",
+                "5. Implement complete symmetry",
+                "6. Comprehensive congestion fix",
+                "7. Full policy audit and repair",
+                "8. Complete verification",
+                "9. Continuous monitoring",
+                "10. Preventive measures",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + PQF + TO + UNI",
+            "metrics": [
+                "LAT",
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix return path completely",
+                "2. Repair all policies",
+                "3. Fix intermittent drops",
+                "4. Implement symmetry",
+                "5. Comprehensive quality improvement",
+                "6. Connection tracking",
+                "7. State repair",
+                "8. Full testing",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + R% + PQF + TO + UNI",
+            "metrics": [
+                "LAT",
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix return policies urgently",
+                "2. Repair filtering completely",
+                "3. Fix routing asymmetry",
+                "4. Rebuild state mechanisms",
+                "5. Comprehensive return path repair",
+                "6. Application protection",
+                "7. Quality restoration",
+                "8. User experience validation",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + R% + PQF + TO + UNI",
+            "metrics": [
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. **EMERGENCY**: Fix return path",
+                "2. Verify physical layer",
+                "3. Repair all policies",
+                "4. Fix routing completely",
+                "5. Replace any failing hardware",
+                "6. Comprehensive infrastructure audit",
+                "7. Complete policy repair",
+                "8. Full symmetry implementation",
+                "9. Extensive testing",
+                "10. Monitoring enhancement",
+                "",
+                "================================================================================",
+                "6-ISSUE COMBINATION - COMPLETE FAILURE ANALYSIS",
+                "================================================================================"
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + R% + PQF + TO + UNI",
+            "metrics": [
+                "LAT",
+                "PQF",
+                "R%",
+                "UNI"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": []
+        },
+        {
+            "issue_name": "LAT + RPKT",
+            "metrics": [
+                "LAT",
+                "RPKT"
+            ],
+            "problem": "WAN circuit congestion or ISP network congestion causing both propagation delay and packet drops. Last-mile link oversubscription, ISP backbone congestion, or inadequate circuit bandwidth for traffic volume. Can also indicate issues with WAN optimization devices, CPE (Customer Premises Equipment) router overload, or poor routing through ISP network.",
+            "diagnostics": [
+                "Check WAN circuit utilization (SNMP polling on edge routers)",
+                "Monitor ISP SLA metrics (latency, loss, jitter reports)",
+                "Review NetFlow/sFlow data for external traffic patterns",
+                "Check CPE/edge router CPU and memory utilization",
+                "Examine ISP-provided performance dashboards",
+                "Review BGP route selection (AS path length, suboptimal routing)",
+                "Check for WAN optimization device issues",
+                "Monitor cloud provider network metrics (AWS CloudWatch, Azure Monitor)"
+            ],
+            "fix": [
+                "1. Verify circuit bandwidth is adequate for current traffic volume",
+                "2. Contact ISP to investigate network congestion or routing issues",
+                "3. Request ISP circuit upgrade if consistently oversubscribed",
+                "4. Implement or tune WAN QoS (prioritize critical traffic)",
+                "5. Review and optimize BGP route selection (adjust local preference, AS path prepending)",
+                "6. Enable traffic shaping to smooth bursts and respect circuit CIR",
+                "7. Deploy SD-WAN for intelligent path selection across multiple circuits",
+                "8. Implement application-level caching or WAN optimization",
+                "9. Consider adding secondary ISP circuit for load distribution",
+                "10. Enable compression for compatible traffic types",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + R%",
+            "metrics": [],
+            "problem": "Severe ISP network issues or critical last-mile circuit problems. Could be failing WAN circuit hardware, ISP backbone congestion, routing through congested peering points, or physical layer issues on leased line. Degraded wireless backhaul (LTE/5G), satellite link weather interference, or ISP equipment malfunction.",
+            "diagnostics": [
+                "Check circuit error rates on WAN interfaces (CRC, carrier transitions)",
+                "Review ISP trouble tickets and maintenance notifications",
+                "Monitor WAN circuit quality metrics (MOS scores, R-factor)",
+                "Check for carrier signal loss or degradation",
+                "Review ISP peering relationships and congestion points",
+                "Examine wireless signal strength (if wireless WAN)",
+                "Check satellite link statistics (if satellite)",
+                "Monitor optical power levels on fiber circuits (if accessible)",
+                "Review ISP BGP community attributes indicating congestion"
+            ],
+            "fix": [
+                "1. Open emergency ticket with ISP immediately (reference SLA)",
+                "2. Request ISP circuit testing (loopback tests, BERT testing)",
+                "3. If last-mile issue, request ISP dispatch technician",
+                "4. Failover automatically to backup circuit if available",
+                "5. Replace CPE equipment if showing errors",
+                "6. Request ISP re-route traffic through less congested paths",
+                "7. For wireless, request different channel or frequency",
+                "8. For satellite, wait for weather to clear or adjust antenna",
+                "9. Upgrade circuit type if chronic issues (DSL \u2192 fiber, for example)",
+                "10. Implement diverse path routing through different ISPs",
+                "11. Document all issues for SLA credit claims",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + PQF",
+            "metrics": [
+                "LAT"
+            ],
+            "problem": "Excessive WAN propagation delay combined with jitter or inconsistent performance degrading application quality. Long geographic distance to destinations, traffic routing through congested internet exchange points, or variable latency due to dynamic routing changes. Can be caused by ISP traffic engineering, peering relationship changes, or suboptimal CDN/cloud region selection.",
+            "diagnostics": [
+                "Analyze traceroute patterns to affected destinations (path changes)",
+                "Monitor jitter statistics specifically on WAN links",
+                "Check application performance from different geographic locations",
+                "Review CDN performance metrics (edge location latency)",
+                "Examine ISP BGP updates frequency (route flapping)",
+                "Monitor RTT variation over time (standard deviation)",
+                "Check for asymmetric routing (forward vs. return path latency differences)",
+                "Review cloud provider region latency (ping to availability zones)"
+            ],
+            "fix": [
+                "1. Select geographically closer cloud regions or CDN edge locations",
+                "2. Implement BGP route optimization with ISP (prefer lower latency paths)",
+                "3. Deploy content caching closer to users (edge caching)",
+                "4. Use SD-WAN for application-aware routing (select best path dynamically)",
+                "5. Enable TCP optimization features on WAN edge (window scaling, SACK)",
+                "6. Implement WAN acceleration for latency-sensitive applications",
+                "7. Request ISP investigate routing path optimization",
+                "8. Consider deploying regional data centers to reduce distance",
+                "9. Use Anycast DNS to direct users to nearest service endpoints",
+                "10. Implement application-level retransmission optimization",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + UNI",
+            "metrics": [],
+            "problem": "Asymmetric routing through WAN with return path severely impaired or completely broken. Forward traffic routes successfully (slowly) through one ISP path, but return traffic blocked, lost, or routed through different degraded path. Common with: multihomed BGP configurations with asymmetric policies, NAT traversal failures through carrier-grade NAT (CGNAT), firewall return traffic blocking at ISP edge, or return path outage with no automatic failover.",
+            "diagnostics": [
+                "Perform bidirectional traceroute (forward and reverse paths)",
+                "Check BGP advertisements received vs. originated (AS path asymmetry)",
+                "Review NAT traversal logs on edge routers",
+                "Monitor firewall state tables for asymmetric sessions",
+                "Check ISP-provided traffic flow analysis (NetFlow from ISP)",
+                "Examine CGNAT logs if applicable (ISP-side NAT)",
+                "Review dual-ISP routing policies for asymmetry",
+                "Check for RPF (Reverse Path Forwarding) drops at ISP edge",
+                "Monitor for route leaks or BGP misconfiguration"
+            ],
+            "fix": [
+                "1. Implement symmetric BGP routing using communities or local preference",
+                "2. Configure proper source-based routing for multihomed scenarios",
+                "3. Work with ISP to fix CGNAT traversal issues",
+                "4. Adjust BGP export policies to ensure return path viability",
+                "5. Implement policy-based routing to force symmetric paths",
+                "6. Fix NAT configuration for bidirectional traffic flow",
+                "7. Request ISP disable RPF if causing legitimate traffic drops",
+                "8. Use BGP AS path prepending carefully to control return paths",
+                "9. Deploy SD-WAN with application-aware symmetric routing",
+                "10. Implement connection tracking across both ISP circuits",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + R%",
+            "metrics": [],
+            "problem": "Significant packet loss occurring in WAN/ISP network. Root causes: ISP network congestion, failing last-mile circuit hardware (modem, ONT, wireless radio), poor wireless signal quality, ISP backbone overload, or physical layer issues on leased lines. Can also be caused by ISP rate limiting/policing exceeding your committed information rate (CIR), or peering point congestion.",
+            "diagnostics": [
+                "Check WAN interface error statistics (input/output drops, errors)",
+                "Monitor circuit utilization vs. CIR/EIR limits",
+                "Review ISP bandwidth graphs (check for policer drops)",
+                "Check physical layer indicators (sync speed, SNR, signal strength)",
+                "Examine ISP peering point performance metrics",
+                "Monitor packet loss patterns (random vs. correlated)",
+                "Check for ISP traffic shaping or rate limiting",
+                "Review wireless link quality metrics (RSSI, CINR, bit error rate)",
+                "Analyze loss correlation with time of day (ISP congestion patterns)"
+            ],
+            "fix": [
+                "1. Open ticket with ISP to investigate packet loss",
+                "2. Request ISP circuit testing and diagnostics",
+                "3. Verify traffic staying within contracted CIR/EIR limits",
+                "4. Upgrade circuit bandwidth if consistently exceeding CIR",
+                "5. Replace failing CPE equipment (modem, router, wireless radio)",
+                "6. For wireless, request different frequency or upgrade equipment",
+                "7. Request ISP re-route through less congested backbone paths",
+                "8. Implement QoS to stay within CIR for critical traffic",
+                "9. Add secondary circuit for redundancy and load distribution",
+                "10. If ISP issue persists, escalate or consider ISP change",
+                "11. Enable forward error correction (FEC) if available",
+                "12. Document for SLA credit claims",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + PQF",
+            "metrics": [],
+            "problem": "WAN packet loss directly degrading application performance over external connections. Bursty Internet traffic patterns exceeding momentary circuit capacity, ISP packet buffer exhaustion, oversubscribed ISP shared access (cable, DSL contention), or ISP traffic prioritization policies affecting your traffic class negatively.",
+            "diagnostics": [
+                "Monitor burst traffic patterns on WAN links (sub-second granularity)",
+                "Check circuit utilization vs. available bandwidth (sustained vs. burst)",
+                "Review ISP service type (shared vs. dedicated) and contention ratios",
+                "Analyze application quality metrics over WAN (VoIP MOS, video quality)",
+                "Monitor ISP provided QoS markings and treatment",
+                "Check for ISP transparent proxy or traffic optimization interference",
+                "Review time-of-day performance patterns (neighbor contention)",
+                "Examine application error rates correlating with network events"
+            ],
+            "fix": [
+                "1. Implement traffic shaping to smooth application-generated bursts",
+                "2. Upgrade from shared access (DSL/cable) to dedicated circuit",
+                "3. Request ISP QoS class upgrade for critical applications",
+                "4. Deploy application-level QoS (DSCP marking) honored by ISP",
+                "5. Implement WAN optimization to reduce bandwidth requirements",
+                "6. Add burst capacity via secondary circuit or burstable bandwidth option",
+                "7. Schedule bandwidth-intensive operations during off-peak hours",
+                "8. Deploy edge caching to reduce WAN traffic volume",
+                "9. Compress traffic where possible",
+                "10. Consider SD-WAN to leverage multiple circuits effectively",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + UNI",
+            "metrics": [],
+            "problem": "Packet loss concentrated in one direction across WAN, typically return path from external networks. ISP ingress filtering dropping return traffic (BCP 38 anti-spoofing filters misconfigured), asymmetric routing with return path through different ISP experiencing issues, CGNAT state table issues losing return mappings, or BGP route filtering blocking return advertisements.",
+            "diagnostics": [
+                "Perform directional packet captures (outbound vs. inbound comparison)",
+                "Check ISP ingress filtering logs",
+                "Review BGP route advertisements (what you advertise vs. what's visible globally)",
+                "Monitor NAT/CGNAT translation table state",
+                "Perform looking glass queries to verify route propagation",
+                "Check for ISP ACL or firewall drops on return traffic",
+                "Review BGP communities for route filtering",
+                "Examine asymmetric AS paths (forward vs. return)",
+                "Test connectivity from multiple external vantage points"
+            ],
+            "fix": [
+                "1. Work with ISP to fix ingress filtering if blocking legitimate traffic",
+                "2. Verify BGP route advertisements are propagating correctly",
+                "3. Fix BGP route filtering (adjust prefix lists, AS path filters)",
+                "4. Request ISP fix CGNAT state table issues",
+                "5. Implement proper BGP communities for routing policy control",
+                "6. Ensure return traffic not blocked by ISP anti-DDoS measures",
+                "7. Fix asymmetric routing by adjusting BGP policies",
+                "8. Register proper route objects in IRR (Internet Routing Registry)",
+                "9. Implement route monitoring to detect propagation issues",
+                "10. Consider anycast for better bidirectional routing",
+                ""
+            ]
+        },
+        {
+            "issue_name": "R% + PQF",
+            "metrics": [
+                "LAT",
+                "TO"
+            ],
+            "problem": "WAN loss percentage high enough (>1-2%) to severely degrade TCP and application performance over external links. Sustained ISP network congestion, chronic circuit oversubscription, ISP SLA violations, or inherently lossy link types (satellite with high BER, long-distance wireless).",
+            "diagnostics": [
+                "Calculate exact retransmission percentage for external traffic",
+                "Compare actual vs. ISP SLA guarantees (loss, latency, jitter)",
+                "Monitor TCP throughput achieved vs. theoretical maximum",
+                "Review end-user application performance complaints",
+                "Check ISP SLA reports and compare to actual measurements",
+                "Analyze link type characteristics (satellite, wireless, fiber)",
+                "Monitor queue drops vs. interface errors (circuit vs. CPE issue)",
+                "Review application timeouts and transaction failures"
+            ],
+            "fix": [
+                "1. Document SLA violations and submit to ISP for credits/resolution",
+                "2. Request emergency ISP investigation and resolution",
+                "3. Upgrade circuit bandwidth to reduce congestion",
+                "4. Implement TCP optimization (window scaling, SACK, larger buffers)",
+                "5. Deploy WAN optimization appliances",
+                "6. Enable forward error correction for lossy link types",
+                "7. Consider link type upgrade (satellite \u2192 terrestrial, wireless \u2192 fiber)",
+                "8. Implement application-level error correction",
+                "9. Use UDP-based alternatives for loss-tolerant applications",
+                "10. Deploy SD-WAN to dynamically route around poor-performing links",
+                "11. Enable protocol acceleration for WAN traffic",
+                ""
+            ]
+        },
+        {
+            "issue_name": "R% + UNI",
+            "metrics": [
+                "R%"
+            ],
+            "problem": "High retransmission rate due to return traffic being heavily dropped or completely blocked by ISP/external network. BGP route not properly advertised or filtered by upstream AS, severe ingress filtering at ISP edge blocking return packets, ISP anti-DDoS measures incorrectly blocking legitimate return traffic, or CGNAT complete failure losing all return state.",
+            "diagnostics": [
+                "Verify BGP routes visible in global routing table (looking glass)",
+                "Check ISP BGP session status and advertised/received routes",
+                "Monitor ISP anti-DDoS system logs",
+                "Review CGNAT status and state table health",
+                "Perform route propagation testing from multiple locations",
+                "Check for ISP route dampening affecting your prefixes",
+                "Examine BGP AS path filters at upstream providers",
+                "Monitor for BGP hijack attempts affecting your space",
+                "Review RPKI validation status (ROV - Route Origin Validation)"
+            ],
+            "fix": [
+                "1. **URGENT**: Verify BGP routes advertised and propagating globally",
+                "2. Contact ISP immediately if routes not propagating",
+                "3. Request ISP whitelist you in anti-DDoS systems",
+                "4. Fix BGP configuration errors (wrong AS path, communities)",
+                "5. Implement RPKI ROAs (Route Origin Authorizations) correctly",
+                "6. Request ISP fix CGNAT if completely failing",
+                "7. Verify prefix registration in IRR databases",
+                "8. Fix AS path filters at upstream providers",
+                "9. Implement BGP route monitoring and alerting",
+                "10. Consider IP renumbering if addresses have reputation issues",
+                "11. Deploy DDoS mitigation service (Cloudflare, Akamai) for return path protection",
+                ""
+            ]
+        },
+        {
+            "issue_name": "PQF + UNI",
+            "metrics": [
+                "LAT",
+                "TO"
+            ],
+            "problem": "External flows experiencing poor quality and communication is effectively one-way. Usually indicates return path routing failure or severe impairment combined with forward path degradation. BGP routing asymmetry with return path through congested/broken ISP, CGNAT expiring sessions prematurely, or firewall at ISP edge blocking established return traffic.",
+            "diagnostics": [
+                "Analyze application session establishment patterns (connections hang)",
+                "Check for half-open TCP connections to external hosts",
+                "Review ISP firewall/security appliance logs",
+                "Monitor CGNAT session timeout settings vs. application requirements",
+                "Examine BGP path asymmetry (traceroute forward vs. reverse)",
+                "Check for ISP stateful firewall session exhaustion",
+                "Review load balancer or proxy settings at ISP edge",
+                "Monitor DNS resolution consistency for external services"
+            ],
+            "fix": [
+                "1. Work with ISP to extend CGNAT session timeouts",
+                "2. Request ISP fix stateful firewall blocking established sessions",
+                "3. Implement BGP routing policies for more symmetric paths",
+                "4. Enable TCP keepalives to maintain CGNAT/firewall state",
+                "5. Fix application timeout settings to accommodate WAN latency",
+                "6. Request ISP investigate return path routing",
+                "7. Deploy SD-WAN for application awareness and automatic recovery",
+                "8. Implement connection health monitoring and automatic re-establishment",
+                "9. Use VPN tunnel to maintain consistent bidirectional path",
+                "10. Consider direct cloud connectivity (AWS Direct Connect, Azure ExpressRoute)",
+                "================================================================================",
+                "3-ISSUE COMBINATIONS - EXTERNAL/WAN DETAILED ANALYSIS",
+                "================================================================================"
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + R%",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Emergency circuit bandwidth upgrade request to ISP",
+                "2. Implement strict WAN QoS to protect critical traffic",
+                "3. Activate secondary circuit for load distribution",
+                "4. Request ISP re-route through better peering",
+                "5. Deploy traffic shaping to respect CIR limits",
+                "6. Consider SD-WAN for multi-path utilization",
+                "7. Open priority ticket with ISP",
+                "8. Document for SLA credits",
+                "9. Prepare business case for dedicated circuits",
+                "10. Implement WAN optimization immediately",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + PQF",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Upgrade to dedicated circuit from shared access",
+                "2. Implement burst absorption via local buffering",
+                "3. Deploy WAN optimization for traffic smoothing",
+                "4. Request ISP QoS priority for critical applications",
+                "5. Schedule bandwidth-intensive operations off-peak",
+                "6. Add secondary circuit for redundancy",
+                "7. Implement application-level caching",
+                "8. Enable traffic compression",
+                "9. Request ISP stable routing policies",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + UNI",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Implement BGP policies for symmetric routing",
+                "2. Use traffic engineering to control return paths",
+                "3. Deploy SD-WAN for intelligent bidirectional path selection",
+                "4. Request better ISP for return path traffic",
+                "5. Adjust BGP local preference to influence return paths",
+                "6. Fix NAT/firewall asymmetry issues",
+                "7. Monitor and enforce path symmetry",
+                "8. Consider using single ISP for critical applications",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + R% + PQF",
+            "metrics": [
+                "LAT"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Document and escalate ISP SLA violations",
+                "2. Request ISP circuit type upgrade",
+                "3. Deploy WAN acceleration technology",
+                "4. Implement protocol optimization (TCP proxying)",
+                "5. Add geographically closer points of presence",
+                "6. Deploy content delivery networks (CDNs)",
+                "7. Consider circuit replacement or ISP change",
+                "8. Implement application-level optimizations",
+                "9. Use compression extensively",
+                "10. Deploy regional caching infrastructure",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + R% + UNI",
+            "metrics": [
+                "LAT",
+                "UNI"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. **URGENT**: Verify BGP routes propagating globally",
+                "2. Fix route advertisement issues immediately",
+                "3. Work with ISP on ingress filter corrections",
+                "4. Repair CGNAT if failing",
+                "5. Implement proper BGP communities",
+                "6. Fix routing asymmetry",
+                "7. Verify RPKI ROAs correctly configured",
+                "8. Monitor route propagation continuously",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + PQF + UNI",
+            "metrics": [
+                "LAT",
+                "TO"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix return path routing immediately",
+                "2. Implement symmetric BGP policies",
+                "3. Work with ISP on path optimization",
+                "4. Deploy SD-WAN for automatic recovery",
+                "5. Fix bidirectional routing",
+                "6. Implement connection monitoring",
+                "7. Enable automatic path failover",
+                "8. Request ISP investigate return path",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + R% + PQF",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Request ISP emergency circuit testing",
+                "2. Replace CPE if showing errors",
+                "3. Request technician dispatch for last-mile",
+                "4. Open priority ISP ticket",
+                "5. Document for SLA credits",
+                "6. Activate backup circuit if available",
+                "7. Implement aggressive QoS",
+                "8. Consider emergency ISP change if chronic",
+                "9. Deploy WAN optimization",
+                "10. Implement application-level error recovery",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + R% + UNI",
+            "metrics": [
+                "R%",
+                "UNI"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix BGP return path advertisements",
+                "2. Work with ISP on ingress filtering",
+                "3. Repair directional circuit issues",
+                "4. Fix CGNAT state problems",
+                "5. Verify route propagation",
+                "6. Implement monitoring for return path",
+                "7. Fix asymmetric filtering",
+                "8. Deploy bidirectional health checks",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + PQF + UNI",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix ISP return traffic policies",
+                "2. Repair BGP configuration",
+                "3. Implement symmetric routing",
+                "4. Work with ISP on policy corrections",
+                "5. Fix filtering issues",
+                "6. Deploy connection tracking",
+                "7. Monitor bidirectional performance",
+                "8. Implement automatic recovery",
+                ""
+            ]
+        },
+        {
+            "issue_name": "R% + PQF + UNI",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. **CRITICAL**: Fix return path immediately",
+                "2. Emergency ISP escalation",
+                "3. Verify BGP routes globally",
+                "4. Fix CGNAT if failed",
+                "5. Repair all filtering issues",
+                "6. Implement proper route propagation",
+                "7. Deploy monitoring for route health",
+                "8. Consider backup ISP activation",
+                "9. Document for major SLA credits",
+                "10. Prepare for ISP change if unresolved",
+                "================================================================================",
+                "4-ISSUE COMBINATIONS - EXTERNAL/WAN DETAILED ANALYSIS",
+                "================================================================================"
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + R% + PQF",
+            "metrics": [
+                "LAT"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. **EMERGENCY**: Open critical ticket with ISP",
+                "2. Immediately failover to backup circuit",
+                "3. Request emergency ISP escalation",
+                "4. Document all SLA violations comprehensively",
+                "5. Implement emergency traffic prioritization",
+                "6. Activate disaster recovery circuits",
+                "7. Deploy aggressive QoS limiting non-critical traffic",
+                "8. Consider temporary alternative connectivity",
+                "9. Prepare executive communication",
+                "10. Initiate ISP contract review/replacement planning",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + R% + UNI",
+            "metrics": [
+                "UNI"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. **CRITICAL ISP ESCALATION**: Emergency response required",
+                "2. Verify BGP routes in global routing table immediately",
+                "3. Contact ISP emergency support",
+                "4. Activate backup ISP/circuit immediately",
+                "5. Implement temporary routing workarounds",
+                "6. Fix BGP advertisement issues urgently",
+                "7. Request ISP bypass normal support channels",
+                "8. Document for major SLA credits",
+                "9. Prepare for potential ISP change",
+                "10. Implement comprehensive monitoring",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + PQF + UNI",
+            "metrics": [
+                "LAT"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. Fix return path routing urgently",
+                "2. Work with ISP on path optimization",
+                "3. Implement BGP traffic engineering",
+                "4. Deploy SD-WAN for multi-path resilience",
+                "5. Request ISP peering improvements",
+                "6. Fix bidirectional routing",
+                "7. Activate backup circuits",
+                "8. Document ISP issues comprehensively",
+                "9. Implement automatic failover",
+                "10. Consider multi-ISP architecture",
+                ""
+            ]
+        },
+        {
+            "issue_name": "LAT + R% + PQF + UNI",
+            "metrics": [
+                "LAT"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. **EMERGENCY RESPONSE**: Activate incident response",
+                "2. Failover to backup ISP immediately",
+                "3. Emergency ISP escalation to highest level",
+                "4. Fix return path as absolute priority",
+                "5. Implement emergency routing changes",
+                "6. Deploy all backup connectivity options",
+                "7. Document everything for SLA claims",
+                "8. Communicate to stakeholders",
+                "9. Prepare for extended ISP issues",
+                "10. Plan ISP replacement if necessary",
+                ""
+            ]
+        },
+        {
+            "issue_name": "RPKT + R% + PQF + UNI",
+            "metrics": [],
+            "problem": "",
+            "diagnostics": [],
+            "fix": [
+                "1. **CRITICAL**: Emergency ISP support engagement",
+                "2. Verify not under attack (DDoS, BGP hijack)",
+                "3. Fix BGP route propagation immediately",
+                "4. Request ISP emergency investigation",
+                "5. Activate all backup paths",
+                "6. Implement emergency traffic restrictions",
+                "7. Fix filtering and routing issues",
+                "8. Document for major SLA credits",
+                "9. Consider temporary ISP bypass (cellular, other)",
+                "10. Prepare incident report and escalation",
+                "================================================================================",
+                "5-ISSUE COMBINATION - COMPLETE EXTERNAL FAILURE ANALYSIS",
+                "================================================================================"
+            ]
+        },
+        {
+            "issue_name": "LAT + RPKT + R% + PQF + UNI",
+            "metrics": [
+                "LAT"
+            ],
+            "problem": "",
+            "diagnostics": [],
+            "fix": []
+        },
+        {
+            "issue_name": "SINGLE - LAT-INT",
+            "metrics": [
+                "LAT"
+            ],
+            "problem": "Internal path latency is elevated due to internal congestion, queueing, or device processing delay.",
+            "diagnostics": [
+                "Check core/distribution link utilization and queue depth",
+                "Check switch/router/firewall CPU and forwarding latency",
+                "Validate interface health and duplex/speed consistency"
+            ],
+            "fix": [
+                "1. Apply QoS priority for latency-sensitive traffic",
+                "2. Rebalance traffic away from congested links",
+                "3. Fix interface errors and duplex mismatch"
+            ]
+        },
+        {
+            "issue_name": "SINGLE - RPKT-INT",
+            "metrics": [
+                "RPKT"
+            ],
+            "problem": "Internal packet drops are forcing retransmissions.",
+            "diagnostics": [
+                "Check CRC/output-drop/interface error counters",
+                "Check microbursts and buffer exhaustion",
+                "Inspect cables/transceivers/NIC errors"
+            ],
+            "fix": [
+                "1. Replace/repair faulty media and optics",
+                "2. Correct duplex/speed and NIC driver issues",
+                "3. Add shaping/buffering for bursty flows"
+            ]
+        },
+        {
+            "issue_name": "SINGLE - R%-INT",
+            "metrics": [
+                "R%"
+            ],
+            "problem": "Internal retransmission ratio is high enough to degrade throughput and stability.",
+            "diagnostics": [
+                "Track loss ratio trend over time",
+                "Review queue management behavior (tail drop/WRED)",
+                "Check sustained high utilization on critical links"
+            ],
+            "fix": [
+                "1. Reduce loss toward <0.1% for critical TCP traffic",
+                "2. Tune queue management (WRED/ECN where available)",
+                "3. Increase capacity or reduce offered load"
+            ]
+        },
+        {
+            "issue_name": "SINGLE - PQF-INT",
+            "metrics": [
+                "PQF"
+            ],
+            "problem": "Internal flows are established but quality is degraded due to jitter/delay/loss.",
+            "diagnostics": [
+                "Review jitter variance and queue delay",
+                "Correlate network timing with app response degradation",
+                "Check microbursts and policy mismatch"
+            ],
+            "fix": [
+                "1. Apply app-aware QoS for priority traffic",
+                "2. Smooth bursts with shaping/policing",
+                "3. Tune server/app behavior for latency-sensitive transactions"
+            ]
+        },
+        {
+            "issue_name": "SINGLE - TO-INT",
+            "metrics": [
+                "TO"
+            ],
+            "problem": "Internal session timeouts indicate severe delay/loss or processing bottlenecks.",
+            "diagnostics": [
+                "Check firewall/IPS processing delay",
+                "Check queue peak latency and drops",
+                "Verify route stability and absence of loops"
+            ],
+            "fix": [
+                "1. Remove internal processing bottlenecks",
+                "2. Repair hotspot links and queuing saturation",
+                "3. Stabilize routing and device resource usage"
+            ]
+        },
+        {
+            "issue_name": "SINGLE - UNI-INT",
+            "metrics": [
+                "UNI"
+            ],
+            "problem": "Internal communication is effectively one-way due to return path or state/policy issues.",
+            "diagnostics": [
+                "Run bidirectional capture and traceroute",
+                "Check ACL/firewall return rules",
+                "Check NAT/state table synchronization"
+            ],
+            "fix": [
+                "1. Restore symmetric routing path",
+                "2. Permit return traffic explicitly",
+                "3. Fix NAT/state sync issues"
+            ]
+        },
+        {
+            "issue_name": "SINGLE - LAT-EXT",
+            "metrics": [
+                "LAT"
+            ],
+            "problem": "WAN/ISP path latency is elevated due to circuit congestion or suboptimal peering/routing.",
+            "diagnostics": [
+                "Check WAN circuit utilization and ISP latency SLA",
+                "Review peering/path route quality",
+                "Check CPE/router processing constraints"
+            ],
+            "fix": [
+                "1. Engage ISP for path quality validation",
+                "2. Use SD-WAN/path steering for lower-latency route",
+                "3. Prioritize critical WAN traffic"
+            ]
+        },
+        {
+            "issue_name": "SINGLE - RPKT-EXT",
+            "metrics": [
+                "RPKT"
+            ],
+            "problem": "WAN packet drops are causing retransmissions on external traffic.",
+            "diagnostics": [
+                "Check last-mile and CPE error counters",
+                "Check ISP drop/policing behavior",
+                "Check peering congestion windows"
+            ],
+            "fix": [
+                "1. Open ISP ticket with loss evidence",
+                "2. Shape to committed bandwidth/CIR",
+                "3. Fail over to backup WAN if available"
+            ]
+        },
+        {
+            "issue_name": "SINGLE - R%-EXT",
+            "metrics": [
+                "R%"
+            ],
+            "problem": "External retransmission ratio is high and impacts end-to-end TCP performance.",
+            "diagnostics": [
+                "Measure sustained loss against SLA",
+                "Check route instability/BGP events",
+                "Check time-of-day congestion patterns"
+            ],
+            "fix": [
+                "1. Escalate SLA breach to ISP",
+                "2. Optimize route/prefix policy and path selection",
+                "3. Add secondary path capacity for critical apps"
+            ]
+        },
+        {
+            "issue_name": "SINGLE - PQF-EXT",
+            "metrics": [
+                "PQF"
+            ],
+            "problem": "Poor quality flows are WAN-driven (jitter/latency/loss across external path).",
+            "diagnostics": [
+                "Check WAN jitter and contention windows",
+                "Check ISP QoS class treatment",
+                "Correlate application quality with WAN metrics"
+            ],
+            "fix": [
+                "1. Apply WAN shaping and DSCP policy",
+                "2. Use WAN optimization/caching",
+                "3. Upgrade to dedicated circuit if shared medium is saturated"
+            ]
+        },
+        {
+            "issue_name": "SINGLE - UNI-EXT",
+            "metrics": [
+                "UNI"
+            ],
+            "problem": "External return path is blocked/degraded due to routing/filtering/NAT/state issues.",
+            "diagnostics": [
+                "Run bidirectional traceroute and capture",
+                "Verify return-route/BGP visibility",
+                "Check ISP filtering and CGNAT state behavior"
+            ],
+            "fix": [
+                "1. Restore return path policy and symmetry",
+                "2. Fix upstream route visibility/filtering",
+                "3. Coordinate ISP-side firewall/CGNAT corrections"
+            ]
+        }
+    ]
+}

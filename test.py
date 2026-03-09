@@ -298,37 +298,42 @@ async def analyzeTcpIssues(from_ts=0, to_ts=0, datacenter="IN-MUM-WEST-1", line=
             # Meter 7: Count of connection timeouts
             7: "Timeouts",
             # Meter 8: Count of unidirectional (asymmetric) flows
-            8: "Unidirectional Flows"
+            8: "Unidirectional Flows",
+            # Meter 9-11: Internal latency percentiles
+            9: "P90 Latency Internal",
+            10: "P95 Latency Internal",
+            11: "P99 Latency Internal",
+            # Meter 12-14: External latency percentiles
+            12: "P90 Latency External",
+            13: "P95 Latency External",
+            14: "P99 Latency External"
         }
 
-        # List of metrics indicating internal network path issues
+        # GROUP 1 — INTERNAL ISSUE INDICATORS
+        # Metrics indicating problems inside the internal network
         internalIssueIndicators = [
-            # High latency within LAN suggests internal congestion
             "Avg Latency Internal",
-            # Retransmissions inside network indicate packet loss
             "Retrans Internal",
-            # High retransmit rate suggests severe congestion
             "Retrans Rate Internal",
-            # Poor quality flows indicate degraded internal paths
             "Poor Quality Flows",
-            # Timeouts suggest internal connectivity issues
             "Timeouts",
-            # Unidirectional flows indicate asymmetric internal routing
-            "Unidirectional Flows"
+            "Unidirectional Flows",
+            "P90 Latency Internal",
+            "P95 Latency Internal",
+            "P99 Latency Internal"
         ]
 
-        # List of metrics indicating external/WAN path issues
+        # GROUP 2 — EXTERNAL ISSUE INDICATORS
+        # Metrics indicating problems in WAN/ISP/external network path
         externalIssueIndicators = [
-            # High latency to external hosts suggests WAN issues
             "Avg Latency External",
-            # External retransmissions indicate WAN packet loss
             "Retrans External",
-            # High external retransmit rate indicates WAN degradation
             "Retrans Rate External",
-            # Poor quality is relevant to both internal and external paths
             "Poor Quality Flows",
-            # Asymmetric flows with external hosts indicate routing issues
-            "Unidirectional Flows"
+            "Unidirectional Flows",
+            "P90 Latency External",
+            "P95 Latency External",
+            "P99 Latency External"
         ]
 
         # Build list of async tasks to fetch top-5 items for each meter
@@ -426,6 +431,23 @@ async def analyzeTcpIssues(from_ts=0, to_ts=0, datacenter="IN-MUM-WEST-1", line=
                 # Continue to next IP
                 continue
 
+            # Classify the issue type based on which indicator groups have abnormal metrics
+            # Check if any detected issues belong to internal indicators
+            hasInternalIndicators = any(issue in internalIssueIndicators for issue in issueData["internalIssues"])
+            # Check if any detected issues belong to external indicators
+            hasExternalIndicators = any(issue in externalIssueIndicators for issue in issueData["externalIssues"])
+
+            # Determine classification based on which groups have abnormal metrics
+            if hasInternalIndicators and not hasExternalIndicators:
+                # Only internal indicators are abnormal
+                issueClassification = "Internal Network Issue"
+            elif hasExternalIndicators and not hasInternalIndicators:
+                # Only external indicators are abnormal
+                issueClassification = "External / WAN Issue"
+            else:
+                # Abnormal metrics appear in both groups
+                issueClassification = "Internal and External Issue"
+
             # Combine internal and external issues for matching
             allIssues = issueData["internalIssues"] + issueData["externalIssues"]
 
@@ -436,6 +458,8 @@ async def analyzeTcpIssues(from_ts=0, to_ts=0, datacenter="IN-MUM-WEST-1", line=
             results.append({
                 # IP address with issues
                 "ip": ip,
+                # Classification of issue type
+                "issueClassification": issueClassification,
                 # Internal network path issues
                 "internalIssues": issueData["internalIssues"],
                 # External WAN path issues
@@ -547,7 +571,25 @@ def matchCookbookRules(allIssues, cookbookRules, internalIssues, externalIssues)
         for issue in allIssues:
 
             # Check for latency indicators and convert to abbreviations
-            if "Latency Internal" in issue:
+            if "P90 Latency Internal" in issue:
+                # Abbreviate P90 internal latency
+                abbrev.append("LAT90-INT")
+            elif "P95 Latency Internal" in issue:
+                # Abbreviate P95 internal latency
+                abbrev.append("LAT95-INT")
+            elif "P99 Latency Internal" in issue:
+                # Abbreviate P99 internal latency
+                abbrev.append("LAT99-INT")
+            elif "P90 Latency External" in issue:
+                # Abbreviate P90 external latency
+                abbrev.append("LAT90-EXT")
+            elif "P95 Latency External" in issue:
+                # Abbreviate P95 external latency
+                abbrev.append("LAT95-EXT")
+            elif "P99 Latency External" in issue:
+                # Abbreviate P99 external latency
+                abbrev.append("LAT99-EXT")
+            elif "Latency Internal" in issue:
                 # Abbreviate internal latency
                 abbrev.append("LAT-INT")
             elif "Latency External" in issue:
@@ -606,59 +648,7 @@ def matchCookbookRules(allIssues, cookbookRules, internalIssues, externalIssues)
                     # Return immediately when match found
                     return probableRootCause, recommendedSolution
 
-    # Fallback logic if no cookbook pattern matched: check issue categories
-    # If only internal issues detected
-    if internalIssues and not externalIssues:
-        # Set root cause for internal-only issues
-        probableRootCause = (
-            # Describe issue location and likely causes
-            "Issues detected in internal network path. Possible causes: server overload, "
-            "internal link congestion, or security policy delays."
-        )
-        # Provide step-by-step remediation for internal issues
-        recommendedSolution = (
-            "1. Check internal network capacity and utilization\n"
-            "2. Verify server resources (CPU, memory, disk I/O)\n"
-            "3. Review firewall/security appliance logs\n"
-            "4. Check QoS policies on internal segments\n"
-            "5. Monitor internal network device health"
-        )
-
-    # If only external issues detected
-    elif externalIssues and not internalIssues:
-        # Set root cause for external-only issues
-        probableRootCause = (
-            # Describe issue location and likely causes
-            "Issues detected in external/WAN path. Possible causes: WAN congestion, "
-            "ISP throttling, or connection quality degradation."
-        )
-        # Provide step-by-step remediation for external issues
-        recommendedSolution = (
-            "1. Check WAN link utilization and capacity\n"
-            "2. Review ISP service quality metrics\n"
-            "3. Verify routing through backup paths\n"
-            "4. Check external firewall rules\n"
-            "5. Consider WAN optimization appliances"
-        )
-
-    # If both internal and external issues detected
-    elif internalIssues and externalIssues:
-        # Set root cause for end-to-end issues
-        probableRootCause = (
-            # Describe issue spanning both paths
-            "Issues detected in both internal and external paths. Possible causes: "
-            "end-to-end network degradation, multiple failure points, or pervasive congestion."
-        )
-        # Provide comprehensive remediation for end-to-end issues
-        recommendedSolution = (
-            "1. Perform comprehensive network audit\n"
-            "2. Check both internal and external gateway configurations\n"
-            "3. Analyze traffic flow end-to-end\n"
-            "4. Review capacity planning for both segments\n"
-            "5. Implement monitoring across all network segments"
-        )
-
-    # Return matched or fallback root cause and solution
+    # Return matched root cause and solution, or empty if no match found
     return probableRootCause, recommendedSolution
 
 
@@ -722,6 +712,8 @@ def _render_tcp_report_html(results, generated_text):
         for item in results:
                 # Extract and escape IP address from result
                 ip = escape(str(item.get("ip", "-")))
+                # Get issue classification
+                issue_classification = escape(str(item.get("issueClassification", "Internal and External Issue")))
                 # Get internal issues list (empty list if not present)
                 internal_issues = item.get("internalIssues", []) or []
                 # Get external issues list (empty list if not present)
@@ -751,7 +743,6 @@ def _render_tcp_report_html(results, generated_text):
                 )
 
                 # Append complete IP section HTML to list
-                # Append complete IP section HTML to list
                 ip_sections.append(
                         # HTML template for IP analysis section
                         f"""
@@ -759,13 +750,18 @@ def _render_tcp_report_html(results, generated_text):
         <!-- IP header with address -->
         <div class="ip-header">📡 IP Address: {ip}</div>
 
+        <!-- Issue Classification Badge -->
+        <div class="classification-badge classification-{issue_classification.lower().replace(' ', '-').replace('/', '-')}">
+            <strong>🏷️ Classification:</strong> {issue_classification}
+        </div>
+
         <!-- Issues grid with internal and external columns -->
         <div class="issues">
             <div class="issue-group">
                 <!-- Internal network path issues -->
                 <h3>🔴 Internal Issues ({len(internal_issues)})</h3>
                 <ul>
-                    {internal_html}
+                    {internal_html if internal_html else '<li style="color: #999;">None detected</li>'}
                 </ul>
             </div>
 
@@ -773,7 +769,7 @@ def _render_tcp_report_html(results, generated_text):
                 <!-- External WAN path issues -->
                 <h3>🔵 External Issues ({len(external_issues)})</h3>
                 <ul>
-                    {external_html}
+                    {external_html if external_html else '<li style="color: #999;">None detected</li>'}
                 </ul>
             </div>
         </div>
@@ -781,13 +777,13 @@ def _render_tcp_report_html(results, generated_text):
         <!-- Root cause from cookbook or fallback logic -->
         <div class="root-cause">
             <strong>⚠️ Probable Root Cause:</strong><br>
-            {root_cause}
+            {root_cause if root_cause else '<span style="color: #999;">No cookbook match found</span>'}
         </div>
 
         <!-- Recommended remediation steps -->
         <div class="solution">
             <strong>✅ Recommended Solution:</strong><br>
-            {solution}
+            {solution if solution else '<span style="color: #999;">No solution available</span>'}
         </div>
 
         <!-- Metric values for each detected issue -->
@@ -834,6 +830,29 @@ def _render_tcp_report_html(results, generated_text):
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 15px;
+        }}
+        .classification-badge {{
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }}
+        .classification-internal-network-issue {{
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            color: #856404;
+        }}
+        .classification-external---wan-issue {{
+            background-color: #d1ecf1;
+            border: 2px solid #17a2b8;
+            color: #0c5460;
+        }}
+        .classification-internal-and-external-issue {{
+            background-color: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
         }}
         .issues {{
             display: grid;
@@ -937,18 +956,24 @@ def generate_html_report_from_json(
 # ========== Main Execution Block ==========
 # Entry point when script is run directly
 if __name__ == "__main__":
-        # Execute smoke tests
         _run_smoke_tests()
-        # Print success message for smoke tests
         print("PASS: Smoke tests succeeded")
-        # Print success message for parser validation
         print("PASS: Parser and cookbook matching behavior validated")
 
-        # Generate HTML report from JSON data
+        print("Running live TCP analysis...")
+
+        results = asyncio.run(analyzeTcpIssues())
+
+        json_path = Path("C:/sri/trisulauto/tcp-analysis-results.json")
+
+        with json_path.open("w", encoding="utf-8") as handle:
+                json.dump(results, handle, indent=2)
+
+        print("PASS: Live TCP analysis completed")
+        print(f"PASS: JSON updated: {json_path}")
+
         report_path, generated_at, record_count = generate_html_report_from_json()
-        # Print success message with generation timestamp
+
         print(f"PASS: HTML report updated at {generated_at}")
-        # Print success message with record count
         print(f"PASS: Records rendered: {record_count}")
-        # Print output file path for reference
         print(f"PASS: Output file: {report_path}")

@@ -2359,3 +2359,126 @@ Complete WAN/external connectivity catastrophic failure. This is the "everything
 - Business impact too severe to tolerate
 - Better alternatives available
 - Cost/benefit analysis favors change
+
+
+================================================================================
+SINGLE-ISSUE PLAYBOOK (INDIVIDUAL METER FLAGS)
+================================================================================
+
+Use this section when only one meter is flagged for an IP. These are quick first-response actions.
+
+
+================================================================================
+INTERNAL SINGLE ISSUES
+================================================================================
+
+### Avg Latency Internal (LAT-INT)
+**Interpretation:** Internal path delay is elevated (LAN/DC path congestion, queueing, or device processing delay).
+**Check first:** Core uplink utilization, queue depth, switch/router CPU, firewall internal path.
+**Immediate actions:**
+1. Prioritize latency-sensitive traffic with QoS.
+2. Verify oversubscribed links and rebalance traffic.
+3. Validate duplex/speed and interface errors.
+
+---
+
+### Retrans Internal pkts (RPKT-INT)
+**Interpretation:** Internal packet drops are causing retransmissions.
+**Check first:** CRC/errors, output drops, microbursts, cable/transceiver health.
+**Immediate actions:**
+1. Replace/clean faulty media and optics.
+2. Fix duplex mismatch and NIC errors.
+3. Add shaping/buffering on burst-prone links.
+
+---
+
+### Retrans Rate Internal% (R%-INT)
+**Interpretation:** Internal loss ratio is high enough to hurt throughput.
+**Check first:** Queue drop behavior (tail drop/WRED), sustained utilization, loss trends.
+**Immediate actions:**
+1. Keep loss target below 0.1% for TCP-sensitive traffic.
+2. Tune queue management (WRED/ECN where possible).
+3. Increase capacity or reduce offered load.
+
+---
+
+### Poor Quality Flows (PQF-INT)
+**Interpretation:** Internal sessions are established but quality is degraded (jitter/delay/loss).
+**Check first:** Jitter variance, app response time, queue policy, microbursts.
+**Immediate actions:**
+1. Apply app-aware QoS for critical flows.
+2. Reduce burstiness via shaping.
+3. Correlate network events with app/backend latency.
+
+---
+
+### Timeouts flws (TO-INT)
+**Interpretation:** Internal packets are delayed/dropped enough to hit TCP timeout behavior.
+**Check first:** Firewall/IPS processing delay, queue peaks, routing loops, device resource spikes.
+**Immediate actions:**
+1. Reduce processing bottlenecks on middleboxes.
+2. Fix hotspot links and excessive queueing.
+3. Verify route stability and avoid path loops.
+
+---
+
+### Unidirectional flows (UNI-INT)
+**Interpretation:** Internal return path issue or asymmetric policy path.
+**Check first:** Bidirectional captures, ACL/firewall return rules, NAT/state table health.
+**Immediate actions:**
+1. Restore symmetric pathing for both directions.
+2. Permit return traffic explicitly where needed.
+3. Repair state sync/NAT tracking issues.
+
+
+================================================================================
+EXTERNAL SINGLE ISSUES
+================================================================================
+
+### Avg Latency External us (LAT-EXT)
+**Interpretation:** WAN/ISP path delay is elevated.
+**Check first:** Circuit utilization, ISP latency SLA, path length/peering route.
+**Immediate actions:**
+1. Engage ISP for path quality validation.
+2. Use SD-WAN/path steering to lower-latency route.
+3. Prioritize critical WAN applications.
+
+---
+
+### Retrans External pkts (RPKT-EXT)
+**Interpretation:** WAN packet drops are causing retransmissions.
+**Check first:** Last-mile health, ISP drop counters, CPE errors, peering congestion.
+**Immediate actions:**
+1. Open ISP ticket with time-stamped evidence.
+2. Check CIR policing and shape to committed rate.
+3. Fail over to backup WAN if available.
+
+---
+
+### Retrans External% (R%-EXT)
+**Interpretation:** External loss ratio is high and affecting TCP performance.
+**Check first:** ISP SLA loss, sustained loss pattern, route instability/BGP events.
+**Immediate actions:**
+1. Escalate SLA breach to ISP.
+2. Optimize route/prefix policy and monitor propagation.
+3. Add secondary path capacity or reroute critical traffic.
+
+---
+
+### Poor Quality Flows (if caused by WAN) (PQF-EXT)
+**Interpretation:** WAN quality degradation is impacting session experience.
+**Check first:** WAN jitter, time-of-day contention, shared access behavior, ISP QoS class.
+**Immediate actions:**
+1. Apply WAN shaping and DSCP strategy.
+2. Use WAN optimization/caching where possible.
+3. Consider dedicated circuit if shared medium is saturated.
+
+---
+
+### Unidirectional flows (UNI-EXT)
+**Interpretation:** External return path is blocked/degraded (routing/filtering/NAT/state issue).
+**Check first:** Bidirectional traceroute, BGP return visibility, ISP filtering/CGNAT state.
+**Immediate actions:**
+1. Fix return path policy and route symmetry.
+2. Verify global route visibility and upstream filters.
+3. Coordinate ISP-side firewall/CGNAT corrections.
