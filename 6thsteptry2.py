@@ -23,22 +23,7 @@ TRISUL_PORT = 12001
 RULE_FILE = r"C:\sri\trisulauto\network_issue_rules.json"
 
 
-# ============================================================================
-# METER LABEL MAPPING: Human-readable names for each TCP quality meter
-# ============================================================================
-# Maps meter IDs (0-10) to descriptive labels for operators
-# These represent different network quality metrics tracked by Trisul
-DEFAULT_TCP_METER_LABELS = {
-    0: "Avg Latency Internal",       # Meter 0: Average latency on internal (LAN/DC) paths
-    1: "Avg Latency External",       # Meter 1: Average latency on external (WAN/Internet) paths
-    2: "Retrans Internal",           # Meter 2: Count of retransmitted packets on internal paths
-    3: "Retrans External",           # Meter 3: Count of retransmitted packets on external paths
-    4: "Retrans Rate Internal",      # Meter 4: Percentage of retransmitted packets on internal paths
-    5: "Retrans Rate External",      # Meter 5: Percentage of retransmitted packets on external paths
-    6: "Poor Quality Flows",         # Meter 6: Count of flows with poor quality (both internal/external)
-    7: "Timeouts",                   # Meter 7: Count of connection timeout events (mostly internal)
-    8: "Unidirectional",             # Meter 8: Count of unidirectional flows (anomaly indicator)
-}
+# Meter labels are discovered dynamically from Trisul via COUNTER_GROUP_INFO_REQUEST.
 
 
 # ============================================================================
@@ -56,6 +41,21 @@ METER_TO_METRIC = {
     6: "PQF",   # Meter 6 → PQF (Poor quality flows)
     7: "TO",    # Meter 7 → TO (Timeouts)
     8: "UNI",   # Meter 8 → UNI (Unidirectional flows)
+}
+
+# Full display names for TCP Analyzer meters.
+# Trisul returns abbreviated names (e.g. "us", "pkts", "flows");
+# this dict maps meter ID → human-readable label used in reports.
+METER_FULL_NAMES = {
+    0: "Latency Internal (µs)",
+    1: "Latency External (µs)",
+    2: "Retransmitted Packets Internal",
+    3: "Retransmitted Packets External",
+    4: "Retransmission Rate % Internal",
+    5: "Retransmission Rate % External",
+    6: "Poor Quality Flows",
+    7: "Timeouts",
+    8: "Unidirectional Flows",
 }
 
 
@@ -309,6 +309,43 @@ def mk_trp_request(command, data):
     return msg.SerializeToString()
 
 # ============================================================================
+# FUNCTION: mk_trp_trend_request(command, data)
+# PURPOSE: Build serialized TRP message for Trend API requests
+# PARAMS: command = Message type (e.g. TOPPER_TREND_REQUEST)
+#         data = Dictionary with counter_group, meter, maxitems, time_interval
+# RETURNS: Serialized byte string ready to send via ZMQ socket
+# NOTE: Trend requests return time-slice metric arrays instead of cumulative values
+# ============================================================================
+def mk_trp_trend_request(command, data):
+    # Create a new TRP Message object (protobuf message)
+    msg = trp_pb2.Message()
+    
+    # Set the command type field (tells Trisul this is a trend request)
+    msg.trp_command = command
+    
+    # Get reference to embedded topper_trend_request sub-message
+    req = msg.topper_trend_request
+    
+    # Set counter group GUID (identifies which metric group to query)
+    # Example: "{E45623ED-744C-4053-1401-84C72EE49D3B}" for TCP Analyzer
+    req.counter_group = str(data["counter_group"])
+    
+    # Set meter ID (0-10) specifying which TCP quality metric to fetch
+    req.meter = data["meter"]
+    
+    # Set maximum number of results to return (e.g., 5 for top-5)
+    req.maxitems = data["maxitems"]
+    
+    # Set start time (UTC seconds since epoch) for query time window
+    getattr(req.time_interval, "from").tv_sec = data["time_interval"]["from"]["tv_sec"]
+    
+    # Set end time (UTC seconds since epoch) for query time window
+    req.time_interval.to.tv_sec = data["time_interval"]["to"]["tv_sec"]
+    
+    # Serialize the message to byte string (binary format for transmission)
+    return msg.SerializeToString()
+
+# ============================================================================
 # FUNCTION: unwrap_response(raw_msg)
 # PURPOSE: Deserialize binary TRP response into protobuf Message object
 # PARAMS: raw_msg = Byte string received from Trisul server
@@ -349,6 +386,177 @@ def send_zmq_request(req_bytes):
     return msg
 
 # ============================================================================
+# FUNCTION: fetch_meter_summary(group_id, meter, from_ts, to_ts)
+# PURPOSE: Retrieve aggregate meter stats from SYS:GROUP_TOTALS for a time range
+# RETURNS: dict with min/max/avg/latest/total, or None if unavailable
+# ============================================================================
+def fetch_meter_summary(group_id, meter, from_ts, to_ts):
+    # Build Counter Item request for SYS:GROUP_TOTALS aggregate key
+    msg = trp_pb2.Message()
+    msg.trp_command = trp_pb2.Message.COUNTER_ITEM_REQUEST
+
+    req = msg.counter_item_request
+    req.counter_group = str(group_id)
+    req.meter = meter
+    req.key.key = "SYS:GROUP_TOTALS"
+    getattr(req.time_interval, "from").tv_sec = from_ts
+    req.time_interval.to.tv_sec = to_ts
+
+    raw_resp = send_zmq_request(msg.SerializeToString())
+    resp = unwrap_response(raw_resp)
+
+    # CounterItemResponse.stats is a list of StatsArray rows.
+    # Each row has values across meters; use index == meter.
+    series = []
+    for stat_row in resp.counter_item_response.stats:
+        if len(stat_row.values) > meter:
+            series.append(int(stat_row.values[meter]))
+
+    if not series:
+        return None
+
+    return {
+        "min": int(min(series)),
+        "max": int(max(series)),
+        "avg": int(sum(series) / len(series)),
+        "latest": int(series[-1]),
+        "total": int(sum(series)),
+    }
+
+# ============================================================================
+# FUNCTION: fetch_counter_group_meta(group_id)
+# PURPOSE: Retrieve meter type metadata and topper bucket size for normalization
+# RETURNS: (meter_type_map, topper_bucket_size_seconds)
+# ============================================================================
+def fetch_counter_group_meta(group_id):
+    msg = trp_pb2.Message()
+    msg.trp_command = trp_pb2.Message.COUNTER_GROUP_INFO_REQUEST
+
+    req = msg.counter_group_info_request
+    req.counter_group = str(group_id)
+    req.get_meter_info = True
+
+    raw_resp = send_zmq_request(msg.SerializeToString())
+    resp = unwrap_response(raw_resp)
+
+    meter_types = {}
+    topper_bucket_size = 60
+
+    for group in resp.counter_group_info_response.group_details:
+        if group.guid == str(group_id):
+            topper_bucket_size = int(group.topper_bucket_size) if group.topper_bucket_size else 60
+            for meter in group.meters:
+                meter_types[int(meter.id)] = int(meter.type)
+            break
+
+    return meter_types, topper_bucket_size
+
+# ============================================================================
+# FUNCTION: fetch_counter_group_info(group_id)
+# PURPOSE: Dynamically fetch meter labels/types and topper bucket size
+# RETURNS: (meter_labels, meter_types, topper_bucket_size_seconds)
+# ============================================================================
+def fetch_counter_group_info(group_id):
+    msg = trp_pb2.Message()
+    msg.trp_command = trp_pb2.Message.COUNTER_GROUP_INFO_REQUEST
+
+    req = msg.counter_group_info_request
+    req.counter_group = str(group_id)
+    req.get_meter_info = True
+
+    raw_resp = send_zmq_request(msg.SerializeToString())
+    resp = unwrap_response(raw_resp)
+
+    meter_labels = {}
+    meter_types = {}
+    topper_bucket_size = 60
+
+    for group in resp.counter_group_info_response.group_details:
+        if group.guid == str(group_id):
+            topper_bucket_size = int(group.topper_bucket_size) if group.topper_bucket_size else 60
+            for meter in group.meters:
+                meter_id = int(meter.id)
+                # Prefer the full display name; fall back to whatever Trisul returns
+                meter_labels[meter_id] = METER_FULL_NAMES.get(meter_id, meter.name)
+                meter_types[meter_id] = int(meter.type)
+            break
+
+    return meter_labels, meter_types, topper_bucket_size
+
+
+# ============================================================================
+# FUNCTION: fetch_topper_keys(group_id, meter, from_ts, to_ts, maxitems)
+# PURPOSE: Fetch top keys for a meter using Counter Group Topper API
+# RETURNS: list of dicts with dotted IP, raw key, and toplist metric value
+# ============================================================================
+def fetch_topper_keys(group_id, meter, from_ts, to_ts, maxitems=5):
+    msg = trp_pb2.Message()
+    msg.trp_command = trp_pb2.Message.COUNTER_GROUP_TOPPER_REQUEST
+
+    req = msg.counter_group_topper_request
+    req.counter_group = str(group_id)
+    req.meter = meter
+    req.maxitems = maxitems
+    req.resolve_keys = True
+    getattr(req.time_interval, "from").tv_sec = from_ts
+    req.time_interval.to.tv_sec = to_ts
+
+    raw_resp = send_zmq_request(msg.SerializeToString())
+    resp = unwrap_response(raw_resp)
+
+    results = []
+    for key_obj in resp.counter_group_topper_response.keys:
+        key_name = str(key_obj.key)
+        if not key_name or key_name == "SYS:GROUP_TOTALS":
+            continue
+
+        ip = key_to_ip(key_obj)
+        metric_value = int(key_obj.metric) if key_obj.HasField("metric") else 0
+
+        results.append({
+            "ip": ip,
+            "key": key_name,
+            "value": metric_value,
+        })
+
+        if len(results) >= maxitems:
+            break
+
+    return results
+
+
+# ============================================================================
+# FUNCTION: fetch_counter_item_all_meters(group_id, trisul_key, from_ts, to_ts)
+# PURPOSE: Fetch full meter profile for one key using Counter Item API
+# RETURNS: {meter_id: avg_value_across_interval}
+# ============================================================================
+def fetch_counter_item_all_meters(group_id, trisul_key, from_ts, to_ts):
+    msg = trp_pb2.Message()
+    msg.trp_command = trp_pb2.Message.COUNTER_ITEM_REQUEST
+
+    req = msg.counter_item_request
+    req.counter_group = str(group_id)
+    req.key.key = trisul_key
+    req.volumes_only = 0
+    getattr(req.time_interval, "from").tv_sec = from_ts
+    req.time_interval.to.tv_sec = to_ts
+
+    raw_resp = send_zmq_request(msg.SerializeToString())
+    resp = unwrap_response(raw_resp)
+
+    meter_series = {}
+    for stat_row in resp.counter_item_response.stats:
+        for meter_id, value in enumerate(stat_row.values):
+            meter_series.setdefault(meter_id, []).append(int(value))
+
+    meter_values = {}
+    for meter_id, series in meter_series.items():
+        if series:
+            meter_values[meter_id] = int(sum(series) / len(series))
+
+    return meter_values
+
+# ============================================================================
 # FUNCTION: format_int(value)
 # PURPOSE: Format integer with comma thousands separator for readability
 # EXAMPLE: 1785398 → "1,785,398"
@@ -357,6 +565,32 @@ def format_int(value):
     # Convert value to int, format with comma thousands separator
     # :, format spec adds commas every 3 digits
     return f"{int(value):,}"
+
+# ============================================================================
+# FUNCTION: convert_to_milliseconds(meter_id, value)
+# PURPOSE: Convert meter values to milliseconds based on meter type
+# PARAMS: meter_id = ID of the meter (0-8)
+#         value = Raw numeric value from Counter Item API
+# RETURNS: Formatted string with value and unit in milliseconds
+# ============================================================================
+def convert_to_milliseconds(meter_id, value):
+    # Latency metrics (0, 1) are in microseconds; convert to milliseconds
+    if meter_id in (0, 1):
+        # Latency: µs → ms (divide by 1000)
+        ms_value = value / 1000
+        return f"{ms_value:,.2f} ms"
+    
+    # Retransmitted Packets metrics (2, 3) are counts; display as-is
+    elif meter_id in (2, 3):
+        return f"{int(value):,} pkts"
+    
+    # Retransmission Rate % metrics (4, 5) are percentages
+    elif meter_id in (4, 5):
+        return f"{value:,.2f}%"
+    
+    # Poor Quality Flows (6), Timeouts (7), Unidirectional (8) are counts
+    else:
+        return f"{int(value):,}"
 
 # ============================================================================
 # FUNCTION: classify_issue(ip_meters)
@@ -419,83 +653,43 @@ def fetch_tcp_analyzer_counters(group_id, output_file=None):
     # Start time is 1 hour (3600 seconds) before now
     from_ts = to_ts - 3600
     
-    # Dictionary to store results: {meter_id: [{"ip": ip, "value": metric_value}, ...]}
+    # Dictionary to store topper results: {meter_id: [{"ip": ip, "key": key, "value": toplist_metric}, ...]}
     meter_results = {}
-    
-    # PHASE 2: Query each meter (0-10) from Trisul for top-5 IPs
-    for meter in DEFAULT_TCP_METER_LABELS.keys():
-        # Build data dictionary for TRP request
-        data = {
-            "counter_group": group_id,           # Which group to query (TCP Analyzer)
-            "meter": meter,                      # Which metric to fetch (0-10)
-            "maxitems": 5,                       # Limit to top-5 results
-            "time_interval": {
-                "from": {"tv_sec": from_ts},     # Start time in seconds since epoch
-                "to": {"tv_sec": to_ts},         # End time in seconds since epoch
-            },
-        }
-        
-        # Build serialized TRP request message
-        req = mk_trp_request(trp_pb2.Message.COUNTER_GROUP_TOPPER_REQUEST, data)
-        
-        # Send request to Trisul and get binary response
-        raw_resp = send_zmq_request(req)
-        
-        # Deserialize binary response into protobuf Message object
-        resp = unwrap_response(raw_resp)
-        
-        # Extract list of counter keys (IPs) from response
-        keys = resp.counter_group_topper_response.keys
-        
-        # List to accumulate results for this meter
-        results = []
-        
-        # Process each returned key (IP address result)
-        for key in keys:
-            # Skip system totals key (not a real endpoint)
-            if str(key.key) == "SYS:GROUP_TOTALS":
-                continue
-            
-            # Convert hex-format IP key to dotted decimal notation
-            ip = key_to_ip(key)
-            
-            # Gather IP and metric value into result entry
-            results.append({
-                "ip": ip,                        # IP address (converted from hex)
-                "value": key.metric              # Metric value (count, latency, etc.)
-            })
 
-            # Enforce strict top-N cap client-side even if server returns extra rows
-            if len(results) >= data["maxitems"]:
-                break
-        
-        # Store all results for this meter in dictionary
-        meter_results[meter] = results
-    
-    # PHASE 3: Build IP-to-meters index for classification and value lookup
-    # Dictionary: {ip_address: set(meter_ids where this IP appeared)}
+    # Dictionary to store meter-level aggregate stats from SYS:GROUP_TOTALS
+    meter_summaries = {}
+
+    # Retrieve meter labels/types dynamically once for all calculations
+    meter_labels, _meter_types, _topper_bucket_size = fetch_counter_group_info(group_id)
+
+    # PHASE 2: Query each discovered meter from Trisul for top-5 keys
+    for meter in sorted(meter_labels.keys()):
+        # Fetch meter-level aggregate stats for header display
+        meter_summaries[meter] = fetch_meter_summary(group_id, meter, from_ts, to_ts)
+
+        # Use Counter Group Topper to discover suspect keys/IPs for this meter
+        meter_results[meter] = fetch_topper_keys(group_id, meter, from_ts, to_ts, maxitems=5)
+
+    # PHASE 3: Pull full Counter Item meter profile for each unique suspect IP
+    # Dictionary: {ip_address: set(meter_ids where this IP has non-zero values)}
     ip_to_meters = {}
-    
+
     # Dictionary: {ip_address: {meter_id: value}} for displaying values per issue
     ip_to_meter_values = {}
-    
-    # Iterate through all meters and their results
-    for m_id, entries in meter_results.items():
-        # For each IP that appeared in this meter's results
+
+    # Keep one raw trisul key per dotted IP so we can query Counter Item
+    suspect_ip_to_key = {}
+    for entries in meter_results.values():
         for item in entries:
-            ip = item["ip"]
-            value = item["value"]
-            
-            # Create IP entry if new
-            if ip not in ip_to_meters:
-                ip_to_meters[ip] = set()
-                ip_to_meter_values[ip] = {}
-            
-            # Add this meter to the IP's set of detected meters
-            ip_to_meters[ip].add(m_id)
-            
-            # Store the value for this meter and IP
-            ip_to_meter_values[ip][m_id] = value
+            suspect_ip_to_key.setdefault(item["ip"], item["key"])
+
+    for ip, trisul_key in suspect_ip_to_key.items():
+        all_meter_values = fetch_counter_item_all_meters(group_id, trisul_key, from_ts, to_ts)
+
+        # Keep only meters known for this counter-group
+        filtered_values = {m: v for m, v in all_meter_values.items() if m in meter_labels}
+        ip_to_meter_values[ip] = filtered_values
+        ip_to_meters[ip] = {m for m, v in filtered_values.items() if v > 0}
     
     # PHASE 4: Generate output (HTML or console)
     # Determine if HTML output is requested
@@ -544,6 +738,11 @@ def fetch_tcp_analyzer_counters(group_id, output_file=None):
             padding: 15px;
             font-size: 18px;
             font-weight: bold;
+        }
+        .meter-stats {
+            margin-top: 8px;
+            font-size: 13px;
+            color: #ecf0f1;
         }
         .meter-id {
             background-color: #1abc9c;
@@ -645,22 +844,27 @@ def fetch_tcp_analyzer_counters(group_id, output_file=None):
         
         # Header with title and timestamp
         report_time = datetime.fromtimestamp(to_ts).strftime('%Y-%m-%d %H:%M:%S')
+        from_time = datetime.fromtimestamp(from_ts).strftime('%Y-%m-%d %H:%M:%S')
+        to_time = datetime.fromtimestamp(to_ts).strftime('%Y-%m-%d %H:%M:%S')
         html_parts.append(f"""
     <div class="header">
         <h1>TCP Analyzer Top Counters Report</h1>
-        <div class="timestamp">Generated: {report_time} | Time Range: Last 1 Hour</div>
+        <div class="timestamp">Generated: {report_time} | Time Range: Last 1 hour (from {from_time} to {to_time})</div>
     </div>
 """)
         
-        # Iterate through all meters for HTML generation
-        for meter, label in DEFAULT_TCP_METER_LABELS.items():
+        # Iterate through all dynamically discovered meters for HTML generation
+        for meter, label in sorted(meter_labels.items()):
             results = meter_results.get(meter, [])
+            summary = meter_summaries.get(meter)
             
             # Meter section header
+            meter_stats_html = ""
+
             html_parts.append(f"""
     <div class="meter-section">
         <div class="meter-header">
-            <span class="meter-id">{meter}</span>{label}
+            <span class="meter-id">{meter}</span>{label}{meter_stats_html}
         </div>
 """)
             
@@ -671,8 +875,7 @@ def fetch_tcp_analyzer_counters(group_id, output_file=None):
             <thead>
                 <tr>
                     <th style="width: 10%;">Rank</th>
-                    <th style="width: 45%;">IP Address</th>
-                    <th class="value-col" style="width: 45%;">Value</th>
+                    <th style="width: 90%;">IP Address</th>
                 </tr>
             </thead>
             <tbody>
@@ -687,7 +890,6 @@ def fetch_tcp_analyzer_counters(group_id, output_file=None):
                 <tr>
                     <td>{idx}</td>
                     <td>{ip}</td>
-                    <td class="value-col">{format_int(value)}</td>
                 </tr>
 """)
                     
@@ -705,13 +907,15 @@ def fetch_tcp_analyzer_counters(group_id, output_file=None):
                         # Use set to collect unique metrics (avoid duplicates when same IP appears in multiple meters mapping to same metric)
                         metrics_set = set()
                         for m in sorted(ip_meters):
-                            label_name = DEFAULT_TCP_METER_LABELS[m]
-                            meter_value = ip_to_meter_values[ip][m]
+                            label_name = meter_labels.get(m, f"Meter {m}")
+                            meter_value = ip_to_meter_values[ip].get(m, 0)
+                            converted_value = convert_to_milliseconds(m, meter_value)
                             html_parts.append(f"""
-                            <div class="issue-metric">• {label_name}: <strong>{format_int(meter_value)}</strong></div>
+                            <div class="issue-metric">• {label_name}: <strong>{converted_value}</strong></div>
 """)
-                            # Add metric to set (automatically prevents duplicates)
-                            metrics_set.add(METER_TO_METRIC[m])
+                            # Add known metric aliases to rule-engine input
+                            if m in METER_TO_METRIC:
+                                metrics_set.add(METER_TO_METRIC[m])
                         
                         # Convert set to sorted list for consistent matching
                         metrics = sorted(list(metrics_set))
@@ -817,15 +1021,15 @@ def fetch_tcp_analyzer_counters(group_id, output_file=None):
         print("TCP Analyzer Top Counters")
         print("=" * 72)
         
-        # Iterate through all meters in order (0-10) for display
-        for meter, label in DEFAULT_TCP_METER_LABELS.items():
+        # Iterate through all dynamically discovered meters for display
+        for meter, label in sorted(meter_labels.items()):
             # Print meter header with ID and friendly name
             print(f"\n[{meter}] {label}")
             print("-" * 72)
             
             # Print column headers for results table
-            print(f"{'Rank':<6}{'IP Address':<30}{'Value':>10}")
-            print("-" * 48)
+            print(f"{'Rank':<6}{'IP Address':<30}")
+            print("-" * 36)
             
             # Get results for this meter from previously fetched data
             results = meter_results.get(meter, [])
@@ -835,8 +1039,8 @@ def fetch_tcp_analyzer_counters(group_id, output_file=None):
                 ip = entry["ip"]
                 value = entry["value"]
                 
-                # Print rank | IP | formatted value with commas
-                print(f"{idx:<6}{ip:<30}{format_int(value):>10}")
+                # Print rank | IP
+                print(f"{idx:<6}{ip:<30}")
                 
                 # Get all meters where this IP appeared
                 ip_meters = ip_to_meters.get(ip, set())
@@ -851,13 +1055,15 @@ def fetch_tcp_analyzer_counters(group_id, output_file=None):
                     
                     # Show friendly names AND VALUES of all meters this IP appeared in
                     for m in sorted(ip_meters):
-                        label_name = DEFAULT_TCP_METER_LABELS[m]
-                        meter_value = ip_to_meter_values[ip][m]
-                        # Display meter name with its value formatted with commas
-                        print(f"      - {label_name}: {format_int(meter_value)}")
+                        label_name = meter_labels.get(m, f"Meter {m}")
+                        meter_value = ip_to_meter_values[ip].get(m, 0)
+                        converted_value = convert_to_milliseconds(m, meter_value)
+                        # Display meter name with its value formatted and converted to milliseconds
+                        print(f"      - {label_name}: {converted_value}")
                         
                         # Collect unique metric abbreviations for rule matching
-                        metrics_set.add(METER_TO_METRIC[m])
+                        if m in METER_TO_METRIC:
+                            metrics_set.add(METER_TO_METRIC[m])
                     
                     # Convert set to sorted list for consistent matching
                     metrics = sorted(list(metrics_set))

@@ -1,375 +1,2636 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TCP Issues Analysis Report</title>
+    <meta charset="UTF-8">
+    <title>TCP Analyzer Report</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 20px;
             background-color: #f5f5f5;
         }
-        h1 {
-            color: #333;
-            border-bottom: 3px solid #4CAF50;
-            padding-bottom: 10px;
-        }
-        .ip-container {
-            background: white;
-            margin: 20px 0;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .ip-header {
-            background-color: #4CAF50;
+        .header {
+            background-color: #2c3e50;
             color: white;
-            padding: 10px;
+            padding: 20px;
             border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .header .timestamp {
+            font-size: 14px;
+            color: #bdc3c7;
+            margin-top: 5px;
+        }
+        .meter-section {
+            background-color: white;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .meter-header {
+            background-color: #34495e;
+            color: white;
+            padding: 15px;
             font-size: 18px;
             font-weight: bold;
-            margin-bottom: 15px;
         }
-        .classification-badge {
+        .meter-stats {
+            margin-top: 8px;
+            font-size: 13px;
+            color: #ecf0f1;
+        }
+        .meter-id {
+            background-color: #1abc9c;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            background-color: #ecf0f1;
             padding: 12px;
-            border-radius: 5px;
-            font-size: 16px;
+            text-align: left;
+            border-bottom: 2px solid #bdc3c7;
+            font-weight: 600;
+        }
+        th.value-col {
+            text-align: right;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        td.value-col {
+            text-align: right;
+            font-family: 'Courier New', monospace;
+        }
+        .ip-analysis {
+            background-color: #fff9e6;
+            padding: 15px;
+            margin: 10px;
+            border-left: 4px solid #f39c12;
+            border-radius: 3px;
+        }
+        .issues-header {
             font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+        .issue-metric {
+            margin-left: 20px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .classification {
+            background-color: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            display: inline-block;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .classification.external {
+            background-color: #e67e22;
+        }
+        .classification.both {
+            background-color: #c0392b;
+        }
+        .rule-box {
+            background-color: white;
+            border: 1px solid #bdc3c7;
+            border-radius: 3px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        .rule-section {
             margin-bottom: 15px;
-            text-align: center;
         }
-        .classification-internal-network-issue {
-            background-color: #fff3cd;
-            border: 2px solid #ffc107;
-            color: #856404;
+        .rule-section h4 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
         }
-        .classification-external---wan-issue {
-            background-color: #d1ecf1;
-            border: 2px solid #17a2b8;
-            color: #0c5460;
-        }
-        .classification-internal-and-external-issue {
-            background-color: #f8d7da;
-            border: 2px solid #dc3545;
-            color: #721c24;
-        }
-        .issues {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 15px;
-        }
-        .issue-group h3 {
-            color: #333;
-            margin-top: 0;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 10px;
-        }
-        .issue-group ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .issue-group li {
-            background: #f0f0f0;
-            padding: 8px 12px;
+        .rule-section ul {
             margin: 5px 0;
-            border-left: 4px solid #4CAF50;
-            border-radius: 3px;
+            padding-left: 20px;
         }
-        .internal-issue { border-left-color: #FF9800; }
-        .external-issue { border-left-color: #2196F3; }
-        .root-cause {
-            background: #fff3cd;
-            padding: 12px;
-            border-left: 4px solid #ffc107;
-            border-radius: 3px;
-            margin: 15px 0;
+        .rule-section li {
+            margin-bottom: 5px;
         }
-        .solution {
-            background: #d1ecf1;
-            padding: 12px;
-            border-left: 4px solid #17a2b8;
-            border-radius: 3px;
-            margin: 15px 0;
-            white-space: pre-wrap;
+        .no-data {
+            padding: 20px;
+            text-align: center;
+            color: #95a5a6;
+            font-style: italic;
         }
-        .values {
-            background: #f9f9f9;
-            padding: 12px;
-            border-radius: 3px;
-            margin: 15px 0;
-            font-family: monospace;
+        .no-rule {
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 10px;
         }
-        .values-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 5px 0;
-            border-bottom: 1px solid #eee;
-        }
-        .values-row:last-child { border-bottom: none; }
     </style>
 </head>
 <body>
-    <h1>🔍 TCP Issues Analysis Report</h1>
-    <p><strong>Generated:</strong> 3/6/2026, 11:11:03 am</p>
-    <hr>
 
-    <div class="ip-container">
-        <!-- IP header with address -->
-        <div class="ip-header">📡 IP Address: 192.168.1.100</div>
-
-        <!-- Issue Classification Badge -->
-        <div class="classification-badge classification-internal-and-external-issue">
-            <strong>🏷️ Classification:</strong> Internal and External Issue
-        </div>
-
-        <!-- Issues grid with internal and external columns -->
-        <div class="issues">
-            <div class="issue-group">
-                <!-- Internal network path issues -->
-                <h3>🔴 Internal Issues (6)</h3>
-                <ul>
-                    <li class="internal-issue">Avg Latency Internal</li><li class="internal-issue">Retrans Internal</li><li class="internal-issue">Retrans Rate Internal</li><li class="internal-issue">Poor Quality Flows</li><li class="internal-issue">Timeouts</li><li class="internal-issue">Unidirectional Flows</li>
-                </ul>
-            </div>
-
-            <div class="issue-group">
-                <!-- External WAN path issues -->
-                <h3>🔵 External Issues (5)</h3>
-                <ul>
-                    <li class="external-issue">Avg Latency External</li><li class="external-issue">Retrans External</li><li class="external-issue">Retrans Rate External</li><li class="external-issue">Poor Quality Flows</li><li class="external-issue">Unidirectional Flows</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Root cause from cookbook or fallback logic -->
-        <div class="root-cause">
-            <strong>⚠️ Probable Root Cause:</strong><br>
-            Issues detected in both internal and external paths. Possible causes: end-to-end network degradation, multiple failure points, or pervasive congestion.
-        </div>
-
-        <!-- Recommended remediation steps -->
-        <div class="solution">
-            <strong>✅ Recommended Solution:</strong><br>
-            1. Perform comprehensive network audit
-2. Check both internal and external gateway configurations
-3. Analyze traffic flow end-to-end
-4. Review capacity planning for both segments
-5. Implement monitoring across all network segments
-        </div>
-
-        <!-- Metric values for each detected issue -->
-        <div class="values">
-            <strong>📊 Metric Values:</strong><br>
-            <div class="values-row"><span>Avg Latency Internal</span><span><strong>455</strong></span></div><div class="values-row"><span>Avg Latency External</span><span><strong>134</strong></span></div><div class="values-row"><span>Retrans Internal</span><span><strong>432</strong></span></div><div class="values-row"><span>Retrans External</span><span><strong>307</strong></span></div><div class="values-row"><span>Retrans Rate Internal</span><span><strong>77</strong></span></div><div class="values-row"><span>Retrans Rate External</span><span><strong>141</strong></span></div><div class="values-row"><span>Poor Quality Flows</span><span><strong>319</strong></span></div><div class="values-row"><span>Timeouts</span><span><strong>282</strong></span></div><div class="values-row"><span>Unidirectional Flows</span><span><strong>488</strong></span></div>
-        </div>
+    <div class="header">
+        <h1>TCP Analyzer Top Counters Report</h1>
+        <div class="timestamp">Generated: 2026-03-12 10:22:35 | Time Range: Last 1 hour (from 2026-03-12 09:22:35 to 2026-03-12 10:22:35)</div>
     </div>
 
-
-    <div class="ip-container">
-        <!-- IP header with address -->
-        <div class="ip-header">📡 IP Address: 192.168.1.101</div>
-
-        <!-- Issue Classification Badge -->
-        <div class="classification-badge classification-internal-and-external-issue">
-            <strong>🏷️ Classification:</strong> Internal and External Issue
+    <div class="meter-section">
+        <div class="meter-header">
+            <span class="meter-id">0</span>Latency Internal (µs)
         </div>
 
-        <!-- Issues grid with internal and external columns -->
-        <div class="issues">
-            <div class="issue-group">
-                <!-- Internal network path issues -->
-                <h3>🔴 Internal Issues (6)</h3>
-                <ul>
-                    <li class="internal-issue">Avg Latency Internal</li><li class="internal-issue">Retrans Internal</li><li class="internal-issue">Retrans Rate Internal</li><li class="internal-issue">Poor Quality Flows</li><li class="internal-issue">Timeouts</li><li class="internal-issue">Unidirectional Flows</li>
-                </ul>
-            </div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 10%;">Rank</th>
+                    <th style="width: 90%;">IP Address</th>
+                </tr>
+            </thead>
+            <tbody>
 
-            <div class="issue-group">
-                <!-- External WAN path issues -->
-                <h3>🔵 External Issues (5)</h3>
-                <ul>
-                    <li class="external-issue">Avg Latency External</li><li class="external-issue">Retrans External</li><li class="external-issue">Retrans Rate External</li><li class="external-issue">Poor Quality Flows</li><li class="external-issue">Unidirectional Flows</li>
-                </ul>
-            </div>
-        </div>
+                <tr>
+                    <td>1</td>
+                    <td>103.174.107.2</td>
+                </tr>
 
-        <!-- Root cause from cookbook or fallback logic -->
-        <div class="root-cause">
-            <strong>⚠️ Probable Root Cause:</strong><br>
-            Issues detected in both internal and external paths. Possible causes: end-to-end network degradation, multiple failure points, or pervasive congestion.
-        </div>
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
 
-        <!-- Recommended remediation steps -->
-        <div class="solution">
-            <strong>✅ Recommended Solution:</strong><br>
-            1. Perform comprehensive network audit
-2. Check both internal and external gateway configurations
-3. Analyze traffic flow end-to-end
-4. Review capacity planning for both segments
-5. Implement monitoring across all network segments
-        </div>
+                            <div class="issue-metric">• Latency Internal (µs): <strong>97.72 ms</strong></div>
 
-        <!-- Metric values for each detected issue -->
-        <div class="values">
-            <strong>📊 Metric Values:</strong><br>
-            <div class="values-row"><span>Avg Latency Internal</span><span><strong>183</strong></span></div><div class="values-row"><span>Avg Latency External</span><span><strong>71</strong></span></div><div class="values-row"><span>Retrans Internal</span><span><strong>192</strong></span></div><div class="values-row"><span>Retrans External</span><span><strong>290</strong></span></div><div class="values-row"><span>Retrans Rate Internal</span><span><strong>61</strong></span></div><div class="values-row"><span>Retrans Rate External</span><span><strong>319</strong></span></div><div class="values-row"><span>Poor Quality Flows</span><span><strong>115</strong></span></div><div class="values-row"><span>Timeouts</span><span><strong>492</strong></span></div><div class="values-row"><span>Unidirectional Flows</span><span><strong>171</strong></span></div>
-        </div>
+                            <div class="issue-metric">• Timeouts: <strong>8</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Packets are delayed beyond TCP Retransmission Timeout (RTO) values (typically 200ms-3s depending on configuration). This forces TCP to assume packet loss and trigger expensive retransmission timeouts. Can be caused by extreme congestion, device CPU overload freezing packet forwarding, or processing delays in security appliances (firewall deep packet inspection, IPS scanning).</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Check maximum queue depths and peak latency values</li>
+                                        <li>Monitor firewall/IPS processing delays and session table utilization</li>
+                                        <li>Review device CPU spikes correlating with timeout periods</li>
+                                        <li>Check for routing loops or suboptimal path selection (traceroute analysis)</li>
+                                        <li>Examine security appliance logs for dropped/delayed sessions</li>
+                                        <li>Monitor application server backend database query times</li>
+                                        <li>Check for DNS resolution delays</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Offload firewall/IPS to more powerful hardware or distribute load across multiple devices</li>
+                                        <li>2. Tune firewall session timeout values appropriately for applications</li>
+                                        <li>3. Optimize security policy rules (move frequently hit rules to top, remove unnecessary deep inspection)</li>
+                                        <li>4. Increase device resources or optimize control plane protection</li>
+                                        <li>5. Implement bypass mechanisms for trusted internal traffic</li>
+                                        <li>6. Adjust TCP RTO parameters on servers if appropriate for environment (careful tuning required)</li>
+                                        <li>7. Fix routing issues to prevent suboptimal paths (adjust metrics, fix routing protocols)</li>
+                                        <li>8. Optimize slow database queries causing application-layer delays</li>
+                                        <li>9. Enable hardware acceleration for crypto/inspection functions</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>103.174.107.43</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>106.42 ms</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>8</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Packets are delayed beyond TCP Retransmission Timeout (RTO) values (typically 200ms-3s depending on configuration). This forces TCP to assume packet loss and trigger expensive retransmission timeouts. Can be caused by extreme congestion, device CPU overload freezing packet forwarding, or processing delays in security appliances (firewall deep packet inspection, IPS scanning).</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Check maximum queue depths and peak latency values</li>
+                                        <li>Monitor firewall/IPS processing delays and session table utilization</li>
+                                        <li>Review device CPU spikes correlating with timeout periods</li>
+                                        <li>Check for routing loops or suboptimal path selection (traceroute analysis)</li>
+                                        <li>Examine security appliance logs for dropped/delayed sessions</li>
+                                        <li>Monitor application server backend database query times</li>
+                                        <li>Check for DNS resolution delays</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Offload firewall/IPS to more powerful hardware or distribute load across multiple devices</li>
+                                        <li>2. Tune firewall session timeout values appropriately for applications</li>
+                                        <li>3. Optimize security policy rules (move frequently hit rules to top, remove unnecessary deep inspection)</li>
+                                        <li>4. Increase device resources or optimize control plane protection</li>
+                                        <li>5. Implement bypass mechanisms for trusted internal traffic</li>
+                                        <li>6. Adjust TCP RTO parameters on servers if appropriate for environment (careful tuning required)</li>
+                                        <li>7. Fix routing issues to prevent suboptimal paths (adjust metrics, fix routing protocols)</li>
+                                        <li>8. Optimize slow database queries causing application-layer delays</li>
+                                        <li>9. Enable hardware acceleration for crypto/inspection functions</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>103.174.107.134</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>43.58 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>6 pkts</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>1</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>12</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + PQF + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + PQF + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Fix burst handling</li>
+                                        <li>2. Increase buffers</li>
+                                        <li>3. Smooth traffic</li>
+                                        <li>4. Fix intermittent issues</li>
+                                        <li>5. Implement admission control</li>
+                                        <li>6. Upgrade capacity</li>
+                                        <li>7. Deploy traffic shaping</li>
+                                        <li>8. Fix quality issues</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td>103.174.107.217</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>54.62 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>40 pkts</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>2</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>21</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + PQF + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + PQF + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Fix burst handling</li>
+                                        <li>2. Increase buffers</li>
+                                        <li>3. Smooth traffic</li>
+                                        <li>4. Fix intermittent issues</li>
+                                        <li>5. Implement admission control</li>
+                                        <li>6. Upgrade capacity</li>
+                                        <li>7. Deploy traffic shaping</li>
+                                        <li>8. Fix quality issues</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td>103.174.107.45</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>25.01 ms</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>7</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Packets are delayed beyond TCP Retransmission Timeout (RTO) values (typically 200ms-3s depending on configuration). This forces TCP to assume packet loss and trigger expensive retransmission timeouts. Can be caused by extreme congestion, device CPU overload freezing packet forwarding, or processing delays in security appliances (firewall deep packet inspection, IPS scanning).</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Check maximum queue depths and peak latency values</li>
+                                        <li>Monitor firewall/IPS processing delays and session table utilization</li>
+                                        <li>Review device CPU spikes correlating with timeout periods</li>
+                                        <li>Check for routing loops or suboptimal path selection (traceroute analysis)</li>
+                                        <li>Examine security appliance logs for dropped/delayed sessions</li>
+                                        <li>Monitor application server backend database query times</li>
+                                        <li>Check for DNS resolution delays</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Offload firewall/IPS to more powerful hardware or distribute load across multiple devices</li>
+                                        <li>2. Tune firewall session timeout values appropriately for applications</li>
+                                        <li>3. Optimize security policy rules (move frequently hit rules to top, remove unnecessary deep inspection)</li>
+                                        <li>4. Increase device resources or optimize control plane protection</li>
+                                        <li>5. Implement bypass mechanisms for trusted internal traffic</li>
+                                        <li>6. Adjust TCP RTO parameters on servers if appropriate for environment (careful tuning required)</li>
+                                        <li>7. Fix routing issues to prevent suboptimal paths (adjust metrics, fix routing protocols)</li>
+                                        <li>8. Optimize slow database queries causing application-layer delays</li>
+                                        <li>9. Enable hardware acceleration for crypto/inspection functions</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
     </div>
 
-
-    <div class="ip-container">
-        <!-- IP header with address -->
-        <div class="ip-header">📡 IP Address: 192.168.1.102</div>
-
-        <!-- Issue Classification Badge -->
-        <div class="classification-badge classification-internal-and-external-issue">
-            <strong>🏷️ Classification:</strong> Internal and External Issue
+    <div class="meter-section">
+        <div class="meter-header">
+            <span class="meter-id">1</span>Latency External (µs)
         </div>
 
-        <!-- Issues grid with internal and external columns -->
-        <div class="issues">
-            <div class="issue-group">
-                <!-- Internal network path issues -->
-                <h3>🔴 Internal Issues (6)</h3>
-                <ul>
-                    <li class="internal-issue">Avg Latency Internal</li><li class="internal-issue">Retrans Internal</li><li class="internal-issue">Retrans Rate Internal</li><li class="internal-issue">Poor Quality Flows</li><li class="internal-issue">Timeouts</li><li class="internal-issue">Unidirectional Flows</li>
-                </ul>
-            </div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 10%;">Rank</th>
+                    <th style="width: 90%;">IP Address</th>
+                </tr>
+            </thead>
+            <tbody>
 
-            <div class="issue-group">
-                <!-- External WAN path issues -->
-                <h3>🔵 External Issues (5)</h3>
-                <ul>
-                    <li class="external-issue">Avg Latency External</li><li class="external-issue">Retrans External</li><li class="external-issue">Retrans Rate External</li><li class="external-issue">Poor Quality Flows</li><li class="external-issue">Unidirectional Flows</li>
-                </ul>
-            </div>
-        </div>
+                <tr>
+                    <td>1</td>
+                    <td>89.248.168.239</td>
+                </tr>
 
-        <!-- Root cause from cookbook or fallback logic -->
-        <div class="root-cause">
-            <strong>⚠️ Probable Root Cause:</strong><br>
-            Issues detected in both internal and external paths. Possible causes: end-to-end network degradation, multiple failure points, or pervasive congestion.
-        </div>
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
 
-        <!-- Recommended remediation steps -->
-        <div class="solution">
-            <strong>✅ Recommended Solution:</strong><br>
-            1. Perform comprehensive network audit
-2. Check both internal and external gateway configurations
-3. Analyze traffic flow end-to-end
-4. Review capacity planning for both segments
-5. Implement monitoring across all network segments
-        </div>
+                            <div class="issue-metric">• Latency External (µs): <strong>2,104.62 ms</strong></div>
 
-        <!-- Metric values for each detected issue -->
-        <div class="values">
-            <strong>📊 Metric Values:</strong><br>
-            <div class="values-row"><span>Avg Latency Internal</span><span><strong>436</strong></span></div><div class="values-row"><span>Avg Latency External</span><span><strong>386</strong></span></div><div class="values-row"><span>Retrans Internal</span><span><strong>198</strong></span></div><div class="values-row"><span>Retrans External</span><span><strong>86</strong></span></div><div class="values-row"><span>Retrans Rate Internal</span><span><strong>348</strong></span></div><div class="values-row"><span>Retrans Rate External</span><span><strong>290</strong></span></div><div class="values-row"><span>Poor Quality Flows</span><span><strong>493</strong></span></div><div class="values-row"><span>Timeouts</span><span><strong>386</strong></span></div><div class="values-row"><span>Unidirectional Flows</span><span><strong>194</strong></span></div>
-        </div>
+                            <div class="issue-metric">• Timeouts: <strong>1</strong></div>
+
+                            <div class="classification external">🎯 INTERNAL + EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Packets are delayed beyond TCP Retransmission Timeout (RTO) values (typically 200ms-3s depending on configuration). This forces TCP to assume packet loss and trigger expensive retransmission timeouts. Can be caused by extreme congestion, device CPU overload freezing packet forwarding, or processing delays in security appliances (firewall deep packet inspection, IPS scanning).</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Check maximum queue depths and peak latency values</li>
+                                        <li>Monitor firewall/IPS processing delays and session table utilization</li>
+                                        <li>Review device CPU spikes correlating with timeout periods</li>
+                                        <li>Check for routing loops or suboptimal path selection (traceroute analysis)</li>
+                                        <li>Examine security appliance logs for dropped/delayed sessions</li>
+                                        <li>Monitor application server backend database query times</li>
+                                        <li>Check for DNS resolution delays</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Offload firewall/IPS to more powerful hardware or distribute load across multiple devices</li>
+                                        <li>2. Tune firewall session timeout values appropriately for applications</li>
+                                        <li>3. Optimize security policy rules (move frequently hit rules to top, remove unnecessary deep inspection)</li>
+                                        <li>4. Increase device resources or optimize control plane protection</li>
+                                        <li>5. Implement bypass mechanisms for trusted internal traffic</li>
+                                        <li>6. Adjust TCP RTO parameters on servers if appropriate for environment (careful tuning required)</li>
+                                        <li>7. Fix routing issues to prevent suboptimal paths (adjust metrics, fix routing protocols)</li>
+                                        <li>8. Optimize slow database queries causing application-layer delays</li>
+                                        <li>9. Enable hardware acceleration for crypto/inspection functions</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>49.47.218.53</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>1,099.87 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>32 pkts</strong></div>
+
+                            <div class="classification external">🎯 EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Network congestion or buffer overflow at intermediate hops. Queue buildup increases latency while full buffers drop packets requiring retransmission. May also indicate interface speed mismatch or oversubscribed uplinks.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Check switch/router interface statistics (show interface counters, queue depth)</li>
+                                        <li>Monitor bandwidth utilization on core/distribution layer switches (SNMP, NetFlow)</li>
+                                        <li>Review QoS policies and queue configurations</li>
+                                        <li>Check for jumbo frame mismatches between segments</li>
+                                        <li>Examine buffer allocation on switches handling this traffic</li>
+                                        <li>Look for egress queue drops in interface statistics</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Identify congested links via SNMP monitoring (>80% utilization sustained)</li>
+                                        <li>2. Implement or adjust QoS policies to prioritize critical traffic</li>
+                                        <li>3. Upgrade link capacity on oversubscribed segments</li>
+                                        <li>4. Enable flow control (IEEE 802.3x) if appropriate for environment</li>
+                                        <li>5. Adjust buffer allocation on switches/routers</li>
+                                        <li>6. Consider traffic shaping to smooth bursts</li>
+                                        <li>7. Deploy LACP link aggregation for additional bandwidth</li>
+                                        <li>8. Segment traffic using VLANs to isolate heavy consumers</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>157.51.119.156</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>1,777.41 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>12 pkts</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>1</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>6</strong></div>
+
+                            <div class="classification external">🎯 INTERNAL + EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + PQF + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + PQF + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Fix burst handling</li>
+                                        <li>2. Increase buffers</li>
+                                        <li>3. Smooth traffic</li>
+                                        <li>4. Fix intermittent issues</li>
+                                        <li>5. Implement admission control</li>
+                                        <li>6. Upgrade capacity</li>
+                                        <li>7. Deploy traffic shaping</li>
+                                        <li>8. Fix quality issues</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td>49.206.10.180</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>501.37 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>752 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % External: <strong>2.00%</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>1</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>5</strong></div>
+
+                            <div class="classification external">🎯 INTERNAL + EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R% + PQF + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% + PQF + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. **EMERGENCY RESPONSE**: Full network triage</li>
+                                        <li>2. Identify and isolate failure domain</li>
+                                        <li>3. Emergency capacity addition</li>
+                                        <li>4. Emergency hardware replacement</li>
+                                        <li>5. Implement emergency QoS</li>
+                                        <li>6. Aggressive traffic reduction</li>
+                                        <li>7. Failover to backup infrastructure</li>
+                                        <li>8. Full incident response activation</li>
+                                        <li>9. Executive escalation</li>
+                                        <li>10. Vendor emergency support</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td>172.94.9.253</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>304.60 ms</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>2</strong></div>
+
+                            <div class="classification external">🎯 INTERNAL + EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Packets are delayed beyond TCP Retransmission Timeout (RTO) values (typically 200ms-3s depending on configuration). This forces TCP to assume packet loss and trigger expensive retransmission timeouts. Can be caused by extreme congestion, device CPU overload freezing packet forwarding, or processing delays in security appliances (firewall deep packet inspection, IPS scanning).</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Check maximum queue depths and peak latency values</li>
+                                        <li>Monitor firewall/IPS processing delays and session table utilization</li>
+                                        <li>Review device CPU spikes correlating with timeout periods</li>
+                                        <li>Check for routing loops or suboptimal path selection (traceroute analysis)</li>
+                                        <li>Examine security appliance logs for dropped/delayed sessions</li>
+                                        <li>Monitor application server backend database query times</li>
+                                        <li>Check for DNS resolution delays</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Offload firewall/IPS to more powerful hardware or distribute load across multiple devices</li>
+                                        <li>2. Tune firewall session timeout values appropriately for applications</li>
+                                        <li>3. Optimize security policy rules (move frequently hit rules to top, remove unnecessary deep inspection)</li>
+                                        <li>4. Increase device resources or optimize control plane protection</li>
+                                        <li>5. Implement bypass mechanisms for trusted internal traffic</li>
+                                        <li>6. Adjust TCP RTO parameters on servers if appropriate for environment (careful tuning required)</li>
+                                        <li>7. Fix routing issues to prevent suboptimal paths (adjust metrics, fix routing protocols)</li>
+                                        <li>8. Optimize slow database queries causing application-layer delays</li>
+                                        <li>9. Enable hardware acceleration for crypto/inspection functions</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
     </div>
 
-
-    <div class="ip-container">
-        <!-- IP header with address -->
-        <div class="ip-header">📡 IP Address: 192.168.1.103</div>
-
-        <!-- Issue Classification Badge -->
-        <div class="classification-badge classification-internal-and-external-issue">
-            <strong>🏷️ Classification:</strong> Internal and External Issue
+    <div class="meter-section">
+        <div class="meter-header">
+            <span class="meter-id">2</span>Retransmitted Packets Internal
         </div>
 
-        <!-- Issues grid with internal and external columns -->
-        <div class="issues">
-            <div class="issue-group">
-                <!-- Internal network path issues -->
-                <h3>🔴 Internal Issues (6)</h3>
-                <ul>
-                    <li class="internal-issue">Avg Latency Internal</li><li class="internal-issue">Retrans Internal</li><li class="internal-issue">Retrans Rate Internal</li><li class="internal-issue">Poor Quality Flows</li><li class="internal-issue">Timeouts</li><li class="internal-issue">Unidirectional Flows</li>
-                </ul>
-            </div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 10%;">Rank</th>
+                    <th style="width: 90%;">IP Address</th>
+                </tr>
+            </thead>
+            <tbody>
 
-            <div class="issue-group">
-                <!-- External WAN path issues -->
-                <h3>🔵 External Issues (5)</h3>
-                <ul>
-                    <li class="external-issue">Avg Latency External</li><li class="external-issue">Retrans External</li><li class="external-issue">Retrans Rate External</li><li class="external-issue">Poor Quality Flows</li><li class="external-issue">Unidirectional Flows</li>
-                </ul>
-            </div>
-        </div>
+                <tr>
+                    <td>1</td>
+                    <td>103.174.107.60</td>
+                </tr>
 
-        <!-- Root cause from cookbook or fallback logic -->
-        <div class="root-cause">
-            <strong>⚠️ Probable Root Cause:</strong><br>
-            Issues detected in both internal and external paths. Possible causes: end-to-end network degradation, multiple failure points, or pervasive congestion.
-        </div>
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
 
-        <!-- Recommended remediation steps -->
-        <div class="solution">
-            <strong>✅ Recommended Solution:</strong><br>
-            1. Perform comprehensive network audit
-2. Check both internal and external gateway configurations
-3. Analyze traffic flow end-to-end
-4. Review capacity planning for both segments
-5. Implement monitoring across all network segments
-        </div>
+                            <div class="issue-metric">• Latency Internal (µs): <strong>56.69 ms</strong></div>
 
-        <!-- Metric values for each detected issue -->
-        <div class="values">
-            <strong>📊 Metric Values:</strong><br>
-            <div class="values-row"><span>Avg Latency Internal</span><span><strong>119</strong></span></div><div class="values-row"><span>Avg Latency External</span><span><strong>229</strong></span></div><div class="values-row"><span>Retrans Internal</span><span><strong>390</strong></span></div><div class="values-row"><span>Retrans External</span><span><strong>441</strong></span></div><div class="values-row"><span>Retrans Rate Internal</span><span><strong>393</strong></span></div><div class="values-row"><span>Retrans Rate External</span><span><strong>12</strong></span></div><div class="values-row"><span>Poor Quality Flows</span><span><strong>47</strong></span></div><div class="values-row"><span>Timeouts</span><span><strong>209</strong></span></div><div class="values-row"><span>Unidirectional Flows</span><span><strong>60</strong></span></div>
-        </div>
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>140,972 pkts</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>354</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>3,004</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + PQF + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + PQF + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Fix burst handling</li>
+                                        <li>2. Increase buffers</li>
+                                        <li>3. Smooth traffic</li>
+                                        <li>4. Fix intermittent issues</li>
+                                        <li>5. Implement admission control</li>
+                                        <li>6. Upgrade capacity</li>
+                                        <li>7. Deploy traffic shaping</li>
+                                        <li>8. Fix quality issues</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>103.174.107.87</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>0.17 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>8,038 pkts</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>11</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Offload or upgrade overloaded devices urgently</li>
+                                        <li>2. Optimize security rule processing</li>
+                                        <li>3. Tune TCP timers appropriately</li>
+                                        <li>4. Implement traffic bypass for trusted flows</li>
+                                        <li>5. Add hardware acceleration</li>
+                                        <li>6. Fix control plane instabilities</li>
+                                        <li>7. Increase link capacity</li>
+                                        <li>8. Deploy fast failover</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>103.174.107.231</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>3.04 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>2,342 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % Internal: <strong>2.00%</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>1</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>11</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R% + PQF + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% + PQF + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. **EMERGENCY RESPONSE**: Full network triage</li>
+                                        <li>2. Identify and isolate failure domain</li>
+                                        <li>3. Emergency capacity addition</li>
+                                        <li>4. Emergency hardware replacement</li>
+                                        <li>5. Implement emergency QoS</li>
+                                        <li>6. Aggressive traffic reduction</li>
+                                        <li>7. Failover to backup infrastructure</li>
+                                        <li>8. Full incident response activation</li>
+                                        <li>9. Executive escalation</li>
+                                        <li>10. Vendor emergency support</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td>103.174.107.143</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>14.48 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>1,488 pkts</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>9</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>46</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + PQF + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + PQF + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Fix burst handling</li>
+                                        <li>2. Increase buffers</li>
+                                        <li>3. Smooth traffic</li>
+                                        <li>4. Fix intermittent issues</li>
+                                        <li>5. Implement admission control</li>
+                                        <li>6. Upgrade capacity</li>
+                                        <li>7. Deploy traffic shaping</li>
+                                        <li>8. Fix quality issues</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td>103.174.107.39</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>8.27 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>1,671 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % Internal: <strong>2.00%</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>8</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R% + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. **EMERGENCY**: Identify failing component</li>
+                                        <li>2. Immediate failover</li>
+                                        <li>3. Emergency hardware replacement</li>
+                                        <li>4. Emergency traffic reduction</li>
+                                        <li>5. Critical prioritization only</li>
+                                        <li>6. Bypass failures</li>
+                                        <li>7. Redundancy activation</li>
+                                        <li>8. Full incident response</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
     </div>
 
-
-    <div class="ip-container">
-        <!-- IP header with address -->
-        <div class="ip-header">📡 IP Address: 192.168.1.104</div>
-
-        <!-- Issue Classification Badge -->
-        <div class="classification-badge classification-internal-and-external-issue">
-            <strong>🏷️ Classification:</strong> Internal and External Issue
+    <div class="meter-section">
+        <div class="meter-header">
+            <span class="meter-id">3</span>Retransmitted Packets External
         </div>
 
-        <!-- Issues grid with internal and external columns -->
-        <div class="issues">
-            <div class="issue-group">
-                <!-- Internal network path issues -->
-                <h3>🔴 Internal Issues (6)</h3>
-                <ul>
-                    <li class="internal-issue">Avg Latency Internal</li><li class="internal-issue">Retrans Internal</li><li class="internal-issue">Retrans Rate Internal</li><li class="internal-issue">Poor Quality Flows</li><li class="internal-issue">Timeouts</li><li class="internal-issue">Unidirectional Flows</li>
-                </ul>
-            </div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 10%;">Rank</th>
+                    <th style="width: 90%;">IP Address</th>
+                </tr>
+            </thead>
+            <tbody>
 
-            <div class="issue-group">
-                <!-- External WAN path issues -->
-                <h3>🔵 External Issues (5)</h3>
-                <ul>
-                    <li class="external-issue">Avg Latency External</li><li class="external-issue">Retrans External</li><li class="external-issue">Retrans Rate External</li><li class="external-issue">Poor Quality Flows</li><li class="external-issue">Unidirectional Flows</li>
-                </ul>
-            </div>
+                <tr>
+                    <td>1</td>
+                    <td>15.206.138.61</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>2.93 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>20,031 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % External: <strong>4.00%</strong></div>
+
+                            <div class="classification external">🎯 EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R%) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Emergency capacity expansion on congested segments</li>
+                                        <li>2. Implement strict multi-class QoS</li>
+                                        <li>3. Enable WRED/ECN to reduce synchronized TCP backoff</li>
+                                        <li>4. Increase buffer allocations on core switches</li>
+                                        <li>5. Deploy traffic shaping to smooth bursts</li>
+                                        <li>6. Distribute load across ECMP paths</li>
+                                        <li>7. Upgrade critical uplinks immediately</li>
+                                        <li>8. Implement admission control for non-critical traffic</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>74.125.68.188</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>56.42 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>11,338 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % External: <strong>28.00%</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>1</strong></div>
+
+                            <div class="classification external">🎯 EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R% + PQF) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% + PQF indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Emergency capacity upgrade</li>
+                                        <li>2. Comprehensive QoS deployment</li>
+                                        <li>3. Traffic engineering</li>
+                                        <li>4. Load distribution</li>
+                                        <li>5. Buffer optimization</li>
+                                        <li>6. WRED/ECN implementation</li>
+                                        <li>7. Critical traffic separation</li>
+                                        <li>8. Infrastructure upgrade</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>157.51.165.148</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>571.61 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>7,301 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % External: <strong>16.00%</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>2</strong></div>
+
+                            <div class="classification external">🎯 EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R% + PQF) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% + PQF indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Emergency capacity upgrade</li>
+                                        <li>2. Comprehensive QoS deployment</li>
+                                        <li>3. Traffic engineering</li>
+                                        <li>4. Load distribution</li>
+                                        <li>5. Buffer optimization</li>
+                                        <li>6. WRED/ECN implementation</li>
+                                        <li>7. Critical traffic separation</li>
+                                        <li>8. Infrastructure upgrade</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td>192.178.211.188</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>2.60 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>3,110 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % External: <strong>33.00%</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>1</strong></div>
+
+                            <div class="classification external">🎯 EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R% + PQF) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% + PQF indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Emergency capacity upgrade</li>
+                                        <li>2. Comprehensive QoS deployment</li>
+                                        <li>3. Traffic engineering</li>
+                                        <li>4. Load distribution</li>
+                                        <li>5. Buffer optimization</li>
+                                        <li>6. WRED/ECN implementation</li>
+                                        <li>7. Critical traffic separation</li>
+                                        <li>8. Infrastructure upgrade</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td>157.45.239.206</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>66.94 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>4,272 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % External: <strong>13.00%</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>1</strong></div>
+
+                            <div class="classification external">🎯 EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R% + PQF) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% + PQF indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Emergency capacity upgrade</li>
+                                        <li>2. Comprehensive QoS deployment</li>
+                                        <li>3. Traffic engineering</li>
+                                        <li>4. Load distribution</li>
+                                        <li>5. Buffer optimization</li>
+                                        <li>6. WRED/ECN implementation</li>
+                                        <li>7. Critical traffic separation</li>
+                                        <li>8. Infrastructure upgrade</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="meter-section">
+        <div class="meter-header">
+            <span class="meter-id">4</span>Retransmission Rate % Internal
         </div>
 
-        <!-- Root cause from cookbook or fallback logic -->
-        <div class="root-cause">
-            <strong>⚠️ Probable Root Cause:</strong><br>
-            Issues detected in both internal and external paths. Possible causes: end-to-end network degradation, multiple failure points, or pervasive congestion.
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 10%;">Rank</th>
+                    <th style="width: 90%;">IP Address</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>1</td>
+                    <td>103.174.107.39</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>8.27 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>1,671 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % Internal: <strong>2.00%</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>8</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R% + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. **EMERGENCY**: Identify failing component</li>
+                                        <li>2. Immediate failover</li>
+                                        <li>3. Emergency hardware replacement</li>
+                                        <li>4. Emergency traffic reduction</li>
+                                        <li>5. Critical prioritization only</li>
+                                        <li>6. Bypass failures</li>
+                                        <li>7. Redundancy activation</li>
+                                        <li>8. Full incident response</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>103.174.107.243</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>0.14 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>1,630 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % Internal: <strong>1.00%</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>8</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R% + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. **EMERGENCY**: Identify failing component</li>
+                                        <li>2. Immediate failover</li>
+                                        <li>3. Emergency hardware replacement</li>
+                                        <li>4. Emergency traffic reduction</li>
+                                        <li>5. Critical prioritization only</li>
+                                        <li>6. Bypass failures</li>
+                                        <li>7. Redundancy activation</li>
+                                        <li>8. Full incident response</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>103.174.107.227</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>12.43 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>5 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % Internal: <strong>1.00%</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>8</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R% + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. **EMERGENCY**: Identify failing component</li>
+                                        <li>2. Immediate failover</li>
+                                        <li>3. Emergency hardware replacement</li>
+                                        <li>4. Emergency traffic reduction</li>
+                                        <li>5. Critical prioritization only</li>
+                                        <li>6. Bypass failures</li>
+                                        <li>7. Redundancy activation</li>
+                                        <li>8. Full incident response</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td>103.174.107.231</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>3.04 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>2,342 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % Internal: <strong>2.00%</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>1</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>11</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R% + PQF + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% + PQF + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. **EMERGENCY RESPONSE**: Full network triage</li>
+                                        <li>2. Identify and isolate failure domain</li>
+                                        <li>3. Emergency capacity addition</li>
+                                        <li>4. Emergency hardware replacement</li>
+                                        <li>5. Implement emergency QoS</li>
+                                        <li>6. Aggressive traffic reduction</li>
+                                        <li>7. Failover to backup infrastructure</li>
+                                        <li>8. Full incident response activation</li>
+                                        <li>9. Executive escalation</li>
+                                        <li>10. Vendor emergency support</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td>103.174.107.133</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>4.86 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>1,225 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % Internal: <strong>2.00%</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>10</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R% + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. **EMERGENCY**: Identify failing component</li>
+                                        <li>2. Immediate failover</li>
+                                        <li>3. Emergency hardware replacement</li>
+                                        <li>4. Emergency traffic reduction</li>
+                                        <li>5. Critical prioritization only</li>
+                                        <li>6. Bypass failures</li>
+                                        <li>7. Redundancy activation</li>
+                                        <li>8. Full incident response</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="meter-section">
+        <div class="meter-header">
+            <span class="meter-id">5</span>Retransmission Rate % External
         </div>
 
-        <!-- Recommended remediation steps -->
-        <div class="solution">
-            <strong>✅ Recommended Solution:</strong><br>
-            1. Perform comprehensive network audit
-2. Check both internal and external gateway configurations
-3. Analyze traffic flow end-to-end
-4. Review capacity planning for both segments
-5. Implement monitoring across all network segments
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 10%;">Rank</th>
+                    <th style="width: 90%;">IP Address</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>1</td>
+                    <td>192.178.211.188</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>2.60 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>3,110 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % External: <strong>33.00%</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>1</strong></div>
+
+                            <div class="classification external">🎯 EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R% + PQF) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% + PQF indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Emergency capacity upgrade</li>
+                                        <li>2. Comprehensive QoS deployment</li>
+                                        <li>3. Traffic engineering</li>
+                                        <li>4. Load distribution</li>
+                                        <li>5. Buffer optimization</li>
+                                        <li>6. WRED/ECN implementation</li>
+                                        <li>7. Critical traffic separation</li>
+                                        <li>8. Infrastructure upgrade</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>152.56.15.164</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>60.88 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>511 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % External: <strong>25.00%</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>2</strong></div>
+
+                            <div class="classification external">🎯 EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R% + PQF) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% + PQF indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Emergency capacity upgrade</li>
+                                        <li>2. Comprehensive QoS deployment</li>
+                                        <li>3. Traffic engineering</li>
+                                        <li>4. Load distribution</li>
+                                        <li>5. Buffer optimization</li>
+                                        <li>6. WRED/ECN implementation</li>
+                                        <li>7. Critical traffic separation</li>
+                                        <li>8. Infrastructure upgrade</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>223.237.177.229</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>57.24 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>3,000 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % External: <strong>33.00%</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>2</strong></div>
+
+                            <div class="classification external">🎯 EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R% + PQF) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% + PQF indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Emergency capacity upgrade</li>
+                                        <li>2. Comprehensive QoS deployment</li>
+                                        <li>3. Traffic engineering</li>
+                                        <li>4. Load distribution</li>
+                                        <li>5. Buffer optimization</li>
+                                        <li>6. WRED/ECN implementation</li>
+                                        <li>7. Critical traffic separation</li>
+                                        <li>8. Infrastructure upgrade</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td>74.125.68.188</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>56.42 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>11,338 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % External: <strong>28.00%</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>1</strong></div>
+
+                            <div class="classification external">🎯 EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R% + PQF) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% + PQF indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Emergency capacity upgrade</li>
+                                        <li>2. Comprehensive QoS deployment</li>
+                                        <li>3. Traffic engineering</li>
+                                        <li>4. Load distribution</li>
+                                        <li>5. Buffer optimization</li>
+                                        <li>6. WRED/ECN implementation</li>
+                                        <li>7. Critical traffic separation</li>
+                                        <li>8. Infrastructure upgrade</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td>49.43.231.235</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>28.30 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>240 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % External: <strong>21.00%</strong></div>
+
+                            <div class="classification external">🎯 EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R%) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Emergency capacity expansion on congested segments</li>
+                                        <li>2. Implement strict multi-class QoS</li>
+                                        <li>3. Enable WRED/ECN to reduce synchronized TCP backoff</li>
+                                        <li>4. Increase buffer allocations on core switches</li>
+                                        <li>5. Deploy traffic shaping to smooth bursts</li>
+                                        <li>6. Distribute load across ECMP paths</li>
+                                        <li>7. Upgrade critical uplinks immediately</li>
+                                        <li>8. Implement admission control for non-critical traffic</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="meter-section">
+        <div class="meter-header">
+            <span class="meter-id">6</span>Poor Quality Flows
         </div>
 
-        <!-- Metric values for each detected issue -->
-        <div class="values">
-            <strong>📊 Metric Values:</strong><br>
-            <div class="values-row"><span>Avg Latency Internal</span><span><strong>68</strong></span></div><div class="values-row"><span>Avg Latency External</span><span><strong>455</strong></span></div><div class="values-row"><span>Retrans Internal</span><span><strong>282</strong></span></div><div class="values-row"><span>Retrans External</span><span><strong>184</strong></span></div><div class="values-row"><span>Retrans Rate Internal</span><span><strong>433</strong></span></div><div class="values-row"><span>Retrans Rate External</span><span><strong>23</strong></span></div><div class="values-row"><span>Poor Quality Flows</span><span><strong>318</strong></span></div><div class="values-row"><span>Timeouts</span><span><strong>464</strong></span></div><div class="values-row"><span>Unidirectional Flows</span><span><strong>242</strong></span></div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 10%;">Rank</th>
+                    <th style="width: 90%;">IP Address</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>1</td>
+                    <td>103.174.107.60</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>56.69 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>140,972 pkts</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>354</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>3,004</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + PQF + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + PQF + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Fix burst handling</li>
+                                        <li>2. Increase buffers</li>
+                                        <li>3. Smooth traffic</li>
+                                        <li>4. Fix intermittent issues</li>
+                                        <li>5. Implement admission control</li>
+                                        <li>6. Upgrade capacity</li>
+                                        <li>7. Deploy traffic shaping</li>
+                                        <li>8. Fix quality issues</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>103.174.107.143</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>14.48 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>1,488 pkts</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>9</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>46</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + PQF + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + PQF + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Fix burst handling</li>
+                                        <li>2. Increase buffers</li>
+                                        <li>3. Smooth traffic</li>
+                                        <li>4. Fix intermittent issues</li>
+                                        <li>5. Implement admission control</li>
+                                        <li>6. Upgrade capacity</li>
+                                        <li>7. Deploy traffic shaping</li>
+                                        <li>8. Fix quality issues</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>34.142.173.30</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>61.34 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>92 pkts</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>8</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>407</strong></div>
+
+                            <div class="classification external">🎯 INTERNAL + EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + PQF + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + PQF + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Fix burst handling</li>
+                                        <li>2. Increase buffers</li>
+                                        <li>3. Smooth traffic</li>
+                                        <li>4. Fix intermittent issues</li>
+                                        <li>5. Implement admission control</li>
+                                        <li>6. Upgrade capacity</li>
+                                        <li>7. Deploy traffic shaping</li>
+                                        <li>8. Fix quality issues</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td>103.174.107.217</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>54.62 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>40 pkts</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>2</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>21</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + PQF + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + PQF + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Fix burst handling</li>
+                                        <li>2. Increase buffers</li>
+                                        <li>3. Smooth traffic</li>
+                                        <li>4. Fix intermittent issues</li>
+                                        <li>5. Implement admission control</li>
+                                        <li>6. Upgrade capacity</li>
+                                        <li>7. Deploy traffic shaping</li>
+                                        <li>8. Fix quality issues</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td>122.164.81.59</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>31.92 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>228 pkts</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>5</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>299</strong></div>
+
+                            <div class="classification external">🎯 INTERNAL + EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + PQF + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + PQF + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Fix burst handling</li>
+                                        <li>2. Increase buffers</li>
+                                        <li>3. Smooth traffic</li>
+                                        <li>4. Fix intermittent issues</li>
+                                        <li>5. Implement admission control</li>
+                                        <li>6. Upgrade capacity</li>
+                                        <li>7. Deploy traffic shaping</li>
+                                        <li>8. Fix quality issues</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="meter-section">
+        <div class="meter-header">
+            <span class="meter-id">7</span>Timeouts
         </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 10%;">Rank</th>
+                    <th style="width: 90%;">IP Address</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>1</td>
+                    <td>103.174.107.60</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>56.69 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>140,972 pkts</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>354</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>3,004</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + PQF + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + PQF + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Fix burst handling</li>
+                                        <li>2. Increase buffers</li>
+                                        <li>3. Smooth traffic</li>
+                                        <li>4. Fix intermittent issues</li>
+                                        <li>5. Implement admission control</li>
+                                        <li>6. Upgrade capacity</li>
+                                        <li>7. Deploy traffic shaping</li>
+                                        <li>8. Fix quality issues</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>34.142.173.30</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>61.34 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>92 pkts</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>8</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>407</strong></div>
+
+                            <div class="classification external">🎯 INTERNAL + EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + PQF + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + PQF + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Fix burst handling</li>
+                                        <li>2. Increase buffers</li>
+                                        <li>3. Smooth traffic</li>
+                                        <li>4. Fix intermittent issues</li>
+                                        <li>5. Implement admission control</li>
+                                        <li>6. Upgrade capacity</li>
+                                        <li>7. Deploy traffic shaping</li>
+                                        <li>8. Fix quality issues</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>122.164.81.59</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>31.92 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>228 pkts</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>5</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>299</strong></div>
+
+                            <div class="classification external">🎯 INTERNAL + EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + PQF + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + PQF + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Fix burst handling</li>
+                                        <li>2. Increase buffers</li>
+                                        <li>3. Smooth traffic</li>
+                                        <li>4. Fix intermittent issues</li>
+                                        <li>5. Implement admission control</li>
+                                        <li>6. Upgrade capacity</li>
+                                        <li>7. Deploy traffic shaping</li>
+                                        <li>8. Fix quality issues</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td>103.174.107.12</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Timeouts: <strong>114</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Internal session timeouts indicate severe delay/loss or processing bottlenecks.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Check firewall/IPS processing delay</li>
+                                        <li>Check queue peak latency and drops</li>
+                                        <li>Verify route stability and absence of loops</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Remove internal processing bottlenecks</li>
+                                        <li>2. Repair hotspot links and queuing saturation</li>
+                                        <li>3. Stabilize routing and device resource usage</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td>115.231.78.3</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Timeouts: <strong>117</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Internal session timeouts indicate severe delay/loss or processing bottlenecks.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Check firewall/IPS processing delay</li>
+                                        <li>Check queue peak latency and drops</li>
+                                        <li>Verify route stability and absence of loops</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Remove internal processing bottlenecks</li>
+                                        <li>2. Repair hotspot links and queuing saturation</li>
+                                        <li>3. Stabilize routing and device resource usage</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="meter-section">
+        <div class="meter-header">
+            <span class="meter-id">8</span>Unidirectional Flows
+        </div>
+
+        <div class="no-data">No data available for this meter</div>
+
+    </div>
+
+    <div class="meter-section">
+        <div class="meter-header">
+            <span class="meter-id">9</span>uniqs
+        </div>
+
+        <div class="no-data">No data available for this meter</div>
+
+    </div>
+
+    <div class="meter-section">
+        <div class="meter-header">
+            <span class="meter-id">10</span>uniqs
+        </div>
+
+        <div class="no-data">No data available for this meter</div>
+
     </div>
 
 </body>
