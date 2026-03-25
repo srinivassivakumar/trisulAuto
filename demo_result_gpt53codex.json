@@ -1,0 +1,47 @@
+{
+  "case_id": "demo-001",
+  "computed_metrics": {
+    "cpu_avg_pct": 20.3995,
+    "ram_avg_pct": 63.5955,
+    "tcp_established_avg": 1096.2333,
+    "tcp_time_wait_avg": 162.15,
+    "disk_write_avg": 2367939.5625
+  },
+  "contradictions_detected": [
+    {
+      "field": "ram_usage",
+      "source_a": "html_data.system.ram_usage = 13.33%",
+      "source_b": "telemetry_summary_for_reasoning.ram.avg_pct = 63.5955%",
+      "explanation": "The values likely come from different measurement paths or collection points. For incident-time pressure analysis, the aligned telemetry window is more representative because it summarizes 60 records across the report window."
+    }
+  ],
+  "chosen_source_for_ram": {
+    "source": "telemetry",
+    "justification": "Telemetry RAM is window-aligned and aggregated over 60 samples in the same incident interval, which is stronger evidence than a single display value from HTML system snapshot."
+  },
+  "root_cause": {
+    "summary": "Likely host-side performance pressure contributing to internal latency and retransmissions, with possible TCP buffer and queue stress rather than pure external path delay.",
+    "confidence": "medium"
+  },
+  "evidence_points": [
+    "High internal latency: 1,590.08 ms",
+    "High retransmissions: 14,887 internal packets",
+    "Timeouts present: 8",
+    "Sustained RAM pressure in aligned telemetry: 63.5955% average with peaks 69.52%",
+    "High TCP concurrency: established average 1096.2333 and time_wait average 162.15",
+    "Significant disk write activity average 2,367,939.5625 which can add scheduling pressure"
+  ],
+  "diagnostics": [
+    "Check kernel TCP retransmit and socket buffer stats during the same epoch window",
+    "Inspect NIC ring drops, interface errors, and queue backlog on the host and first hop",
+    "Correlate latency spikes with host run-queue, memory reclaim, and disk IO bursts",
+    "Verify whether issue is localized to specific destination prefixes or all internal flows"
+  ],
+  "fixes": [
+    "Reduce burst write workload or isolate it from critical network processing paths",
+    "Tune TCP buffer and retransmission-related kernel parameters carefully",
+    "Increase host headroom for memory and monitor reclaim pressure during peak window",
+    "Apply QoS or traffic shaping to protect latency-sensitive internal flows",
+    "Add continuous checks for latency, retransmit ratio, and time_wait growth with alert thresholds"
+  ]
+}

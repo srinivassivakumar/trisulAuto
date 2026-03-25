@@ -1,0 +1,6468 @@
+{
+  "dataset_name": "synthetic_auto_curl",
+  "source_dataset": "synthetic_curl_telemetry",
+  "source_file": "synthetic_curl.json",
+  "total_source_records": 8059,
+  "alignment": {
+    "start_epoch": 1773630841,
+    "end_epoch": 1773634441,
+    "duration_sec": 3600,
+    "aligned_record_count": 60
+  },
+  "transformation": {
+    "description": "Telemetry sliced to report window and summarized for AI testing",
+    "window_text": {
+      "generated_at": "2026-03-23 10:45:13",
+      "window_start": "2026-03-23 09:45:13",
+      "window_end": "2026-03-23 10:45:13"
+    },
+    "summary": {
+      "record_count": 60,
+      "cpu": {
+        "avg_pct": 20.3995,
+        "min_pct": 7.11,
+        "max_pct": 46.89
+      },
+      "ram": {
+        "avg_pct": 63.5955,
+        "min_pct": 63.15,
+        "max_pct": 69.52
+      },
+      "tcp": {
+        "established_avg": 1096.2333,
+        "established_max": 1118,
+        "time_wait_avg": 162.15,
+        "time_wait_max": 318,
+        "listen_avg": 45.05
+      },
+      "disk_throughput": {
+        "read_avg": 88411.5837,
+        "read_max": 3586662.4,
+        "write_avg": 2367939.5625,
+        "write_max": 3731377.898305
+      }
+    }
+  },
+  "aligned_records": [
+    {
+      "sample_ts": 1773630846,
+      "sample_time_text": "8:44 am",
+      "source_id": "69b7757ef01414648915e4de",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 15.34,
+        "details": "Total CPU: 15.34%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "8:44 am",
+        "time_str": 1773630846,
+        "total1": 1.01,
+        "total5": 0.86,
+        "total": 0.97,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.34,
+        "used": 9.87,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.09% - 10.87 GB of 23.58 GB, RAM: 63.34% - 9.87 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5240336384,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "8:44 am",
+          "time_str": 1773630846,
+          "read_data": 0,
+          "write_data": 1906756.266667
+        },
+        "operations": {
+          "time": "8:44 am",
+          "time_str": 1773630846,
+          "read_data": 0,
+          "write_data": 92.916667
+        },
+        "average_wait": {
+          "time": "8:44 am",
+          "time_str": 1773630846,
+          "read_data": 0,
+          "write_data": 0.000734
+        },
+        "latency": {
+          "time": "8:44 am",
+          "time_str": 1773630846,
+          "latency": 0.31
+        }
+      },
+      "threads": {
+        "time": "8:44 am",
+        "time_str": 1773630846,
+        "thread_data": 1358
+      },
+      "tcp": {
+        "time": "8:44 am",
+        "time_str": 1773630846,
+        "established": 1093,
+        "time_wait": 143,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 164911,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 21 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "8:44 am",
+          "time_str": 1773630846,
+          "in_bandwidth": 226928.075967,
+          "out_bandwidth": 36322.601708,
+          "in_unicast": 321.429073,
+          "out_unicast": 167.379733,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b7757ef01414648915e4e1"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773630909,
+      "sample_time_text": "8:45 am",
+      "source_id": "69b775bdf014146489169df1",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 7.15,
+        "details": "Total CPU: 7.15%",
+        "warn": null,
+        "crit": null,
+        "severity": "warning"
+      },
+      "cpu_load": {
+        "time": "8:45 am",
+        "time_str": 1773630909,
+        "total1": 0.99,
+        "total5": 0.81,
+        "total": 0.93,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.32,
+        "used": 9.86,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.08% - 10.87 GB of 23.58 GB, RAM: 63.32% - 9.86 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5268738048,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "8:45 am",
+          "time_str": 1773630909,
+          "read_data": 0,
+          "write_data": 1650503.344262
+        },
+        "operations": {
+          "time": "8:45 am",
+          "time_str": 1773630909,
+          "read_data": 0,
+          "write_data": 86.081967
+        },
+        "average_wait": {
+          "time": "8:45 am",
+          "time_str": 1773630909,
+          "read_data": 0,
+          "write_data": 0.000559
+        },
+        "latency": {
+          "time": "8:45 am",
+          "time_str": 1773630909,
+          "latency": 0.43
+        }
+      },
+      "threads": {
+        "time": "8:45 am",
+        "time_str": 1773630909,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "8:45 am",
+        "time_str": 1773630909,
+        "established": 1089,
+        "time_wait": 150,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 164973,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 21 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "8:45 am",
+          "time_str": 1773630909,
+          "in_bandwidth": 224537.384456,
+          "out_bandwidth": 34711.182939,
+          "in_unicast": 315.054996,
+          "out_unicast": 160.47248,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b775bdf014146489169df4"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773630967,
+      "sample_time_text": "8:46 am",
+      "source_id": "69b775f7f0141464891752f0",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 16.59,
+        "details": "Total CPU: 16.59%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "8:46 am",
+        "time_str": 1773630967,
+        "total1": 0.99,
+        "total5": 1.13,
+        "total": 0.95,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.39,
+        "used": 9.88,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.13% - 10.88 GB of 23.58 GB, RAM: 63.39% - 9.88 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5227470848,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "8:46 am",
+          "time_str": 1773630967,
+          "read_data": 30685.288136,
+          "write_data": 2086660.338983
+        },
+        "operations": {
+          "time": "8:46 am",
+          "time_str": 1773630967,
+          "read_data": 3.067797,
+          "write_data": 93.372881
+        },
+        "average_wait": {
+          "time": "8:46 am",
+          "time_str": 1773630967,
+          "read_data": 0.000271,
+          "write_data": 0.000648
+        },
+        "latency": {
+          "time": "8:46 am",
+          "time_str": 1773630967,
+          "latency": 0.47
+        }
+      },
+      "threads": {
+        "time": "8:46 am",
+        "time_str": 1773630967,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "8:46 am",
+        "time_str": 1773630967,
+        "established": 1099,
+        "time_wait": 161,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 165032,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 21 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "8:46 am",
+          "time_str": 1773630967,
+          "in_bandwidth": 229235.062663,
+          "out_bandwidth": 36767.954291,
+          "in_unicast": 326.379746,
+          "out_unicast": 159.783126,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b775f7f0141464891752f3"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773631027,
+      "sample_time_text": "8:47 am",
+      "source_id": "69b77633f01414648918011b",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 28.03,
+        "details": "Total CPU: 28.03%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "8:47 am",
+        "time_str": 1773631027,
+        "total1": 1.09,
+        "total5": 1.99,
+        "total": 1.24,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.37,
+        "used": 9.87,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.12% - 10.87 GB of 23.58 GB, RAM: 63.37% - 9.87 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5140783104,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "8:47 am",
+          "time_str": 1773631027,
+          "read_data": 0,
+          "write_data": 2299511.466667
+        },
+        "operations": {
+          "time": "8:47 am",
+          "time_str": 1773631027,
+          "read_data": 0,
+          "write_data": 89.333333
+        },
+        "average_wait": {
+          "time": "8:47 am",
+          "time_str": 1773631027,
+          "read_data": 0,
+          "write_data": 0.00057
+        },
+        "latency": {
+          "time": "8:47 am",
+          "time_str": 1773631027,
+          "latency": 0.36
+        }
+      },
+      "threads": {
+        "time": "8:47 am",
+        "time_str": 1773631027,
+        "thread_data": 1359
+      },
+      "tcp": {
+        "time": "8:47 am",
+        "time_str": 1773631027,
+        "established": 1093,
+        "time_wait": 148,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 165091,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 21 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "8:47 am",
+          "time_str": 1773631027,
+          "in_bandwidth": 229839.910342,
+          "out_bandwidth": 38069.020898,
+          "in_unicast": 328.346712,
+          "out_unicast": 172.611978,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77633f01414648918011e"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773631087,
+      "sample_time_text": "8:48 am",
+      "source_id": "69b7766ff01414648918b174",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 7.6,
+        "details": "Total CPU: 7.60%",
+        "warn": null,
+        "crit": null,
+        "severity": "warning"
+      },
+      "cpu_load": {
+        "time": "8:48 am",
+        "time_str": 1773631087,
+        "total1": 1.17,
+        "total5": 2.12,
+        "total": 1.44,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.38,
+        "used": 9.88,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.13% - 10.88 GB of 23.58 GB, RAM: 63.38% - 9.88 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5148540928,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "8:48 am",
+          "time_str": 1773631087,
+          "read_data": 0,
+          "write_data": 1611699.2
+        },
+        "operations": {
+          "time": "8:48 am",
+          "time_str": 1773631087,
+          "read_data": 0,
+          "write_data": 91.216667
+        },
+        "average_wait": {
+          "time": "8:48 am",
+          "time_str": 1773631087,
+          "read_data": 0,
+          "write_data": 0.000431
+        },
+        "latency": {
+          "time": "8:48 am",
+          "time_str": 1773631087,
+          "latency": 0.49
+        }
+      },
+      "threads": {
+        "time": "8:48 am",
+        "time_str": 1773631087,
+        "thread_data": 1360
+      },
+      "tcp": {
+        "time": "8:48 am",
+        "time_str": 1773631087,
+        "established": 1089,
+        "time_wait": 150,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 165151,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 21 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "8:48 am",
+          "time_str": 1773631087,
+          "in_bandwidth": 228902.905341,
+          "out_bandwidth": 36315.412085,
+          "in_unicast": 327.943937,
+          "out_unicast": 164.495947,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b7766ff01414648918b177"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773631146,
+      "sample_time_text": "8:49 am",
+      "source_id": "69b776aaf014146489195fc8",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 11.39,
+        "details": "Total CPU: 11.39%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "8:49 am",
+        "time_str": 1773631146,
+        "total1": 1.14,
+        "total5": 1.32,
+        "total": 1.31,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.34,
+        "used": 9.87,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.1% - 10.87 GB of 23.58 GB, RAM: 63.34% - 9.87 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5166600192,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "8:49 am",
+          "time_str": 1773631146,
+          "read_data": 0,
+          "write_data": 1979835.733333
+        },
+        "operations": {
+          "time": "8:49 am",
+          "time_str": 1773631146,
+          "read_data": 0,
+          "write_data": 80.05
+        },
+        "average_wait": {
+          "time": "8:49 am",
+          "time_str": 1773631146,
+          "read_data": 0,
+          "write_data": 0.000774
+        },
+        "latency": {
+          "time": "8:49 am",
+          "time_str": 1773631146,
+          "latency": 0.58
+        }
+      },
+      "threads": {
+        "time": "8:49 am",
+        "time_str": 1773631146,
+        "thread_data": 1362
+      },
+      "tcp": {
+        "time": "8:49 am",
+        "time_str": 1773631146,
+        "established": 1093,
+        "time_wait": 151,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 165211,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 21 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "8:49 am",
+          "time_str": 1773631146,
+          "in_bandwidth": 229120.315758,
+          "out_bandwidth": 37115.613736,
+          "in_unicast": 326.614848,
+          "out_unicast": 172.329934,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b776aaf014146489195fcb"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773631206,
+      "sample_time_text": "8:50 am",
+      "source_id": "69b776e6f0141464891a107a",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 15.12,
+        "details": "Total CPU: 15.12%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "8:50 am",
+        "time_str": 1773631206,
+        "total1": 1.19,
+        "total5": 1.66,
+        "total": 1.42,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.15,
+        "used": 9.84,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 45.97% - 10.84 GB of 23.58 GB, RAM: 63.15% - 9.84 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5171445760,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "8:50 am",
+          "time_str": 1773631206,
+          "read_data": 0,
+          "write_data": 2138129.066667
+        },
+        "operations": {
+          "time": "8:50 am",
+          "time_str": 1773631206,
+          "read_data": 0,
+          "write_data": 87.766667
+        },
+        "average_wait": {
+          "time": "8:50 am",
+          "time_str": 1773631206,
+          "read_data": 0,
+          "write_data": 0.000618
+        },
+        "latency": {
+          "time": "8:50 am",
+          "time_str": 1773631206,
+          "latency": 0.45
+        }
+      },
+      "threads": {
+        "time": "8:50 am",
+        "time_str": 1773631206,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "8:50 am",
+        "time_str": 1773631206,
+        "established": 1089,
+        "time_wait": 143,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 165271,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 21 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "8:50 am",
+          "time_str": 1773631206,
+          "in_bandwidth": 223333.808994,
+          "out_bandwidth": 35106.56327,
+          "in_unicast": 310.639237,
+          "out_unicast": 160.39009,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b776e6f0141464891a107d"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773631267,
+      "sample_time_text": "8:51 am",
+      "source_id": "69b77723f0141464891abe36",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 7.46,
+        "details": "Total CPU: 7.46%",
+        "warn": null,
+        "crit": null,
+        "severity": "warning"
+      },
+      "cpu_load": {
+        "time": "8:51 am",
+        "time_str": 1773631267,
+        "total1": 1.15,
+        "total5": 1.01,
+        "total": 1.27,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.29,
+        "used": 9.86,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.07% - 10.86 GB of 23.58 GB, RAM: 63.29% - 9.86 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5182300160,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "8:51 am",
+          "time_str": 1773631267,
+          "read_data": 273.066667,
+          "write_data": 2127411.2
+        },
+        "operations": {
+          "time": "8:51 am",
+          "time_str": 1773631267,
+          "read_data": 0.016667,
+          "write_data": 85.65
+        },
+        "average_wait": {
+          "time": "8:51 am",
+          "time_str": 1773631267,
+          "read_data": 0,
+          "write_data": 0.000641
+        },
+        "latency": {
+          "time": "8:51 am",
+          "time_str": 1773631267,
+          "latency": 0.43
+        }
+      },
+      "threads": {
+        "time": "8:51 am",
+        "time_str": 1773631267,
+        "thread_data": 1362
+      },
+      "tcp": {
+        "time": "8:51 am",
+        "time_str": 1773631267,
+        "established": 1095,
+        "time_wait": 154,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 165331,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 21 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "8:51 am",
+          "time_str": 1773631267,
+          "in_bandwidth": 229648.146335,
+          "out_bandwidth": 36683.098285,
+          "in_unicast": 329.055373,
+          "out_unicast": 170.070005,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77723f0141464891abe39"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773631327,
+      "sample_time_text": "8:52 am",
+      "source_id": "69b7775ff0141464891b707c",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 11.52,
+        "details": "Total CPU: 11.52%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "8:52 am",
+        "time_str": 1773631327,
+        "total1": 1.11,
+        "total5": 0.82,
+        "total": 1.14,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.29,
+        "used": 9.86,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.06% - 10.86 GB of 23.58 GB, RAM: 63.29% - 9.86 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5187674112,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "8:52 am",
+          "time_str": 1773631327,
+          "read_data": 341.333333,
+          "write_data": 2015470.933333
+        },
+        "operations": {
+          "time": "8:52 am",
+          "time_str": 1773631327,
+          "read_data": 0.016667,
+          "write_data": 92.283333
+        },
+        "average_wait": {
+          "time": "8:52 am",
+          "time_str": 1773631327,
+          "read_data": 0,
+          "write_data": 0.000562
+        },
+        "latency": {
+          "time": "8:52 am",
+          "time_str": 1773631327,
+          "latency": 0.46
+        }
+      },
+      "threads": {
+        "time": "8:52 am",
+        "time_str": 1773631327,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "8:52 am",
+        "time_str": 1773631327,
+        "established": 1093,
+        "time_wait": 145,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 165391,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 21 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "8:52 am",
+          "time_str": 1773631327,
+          "in_bandwidth": 230256.170417,
+          "out_bandwidth": 36044.125367,
+          "in_unicast": 327.092116,
+          "out_unicast": 162.1169,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b7775ff0141464891b707f"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773631386,
+      "sample_time_text": "8:53 am",
+      "source_id": "69b7779af0141464891c1e6f",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 15.83,
+        "details": "Total CPU: 15.83%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "8:53 am",
+        "time_str": 1773631386,
+        "total1": 1.12,
+        "total5": 1.1,
+        "total": 1.16,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.25,
+        "used": 9.85,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.04% - 10.86 GB of 23.58 GB, RAM: 63.25% - 9.85 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5199818752,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "8:53 am",
+          "time_str": 1773631386,
+          "read_data": 0,
+          "write_data": 2445243.733333
+        },
+        "operations": {
+          "time": "8:53 am",
+          "time_str": 1773631386,
+          "read_data": 0,
+          "write_data": 88.8
+        },
+        "average_wait": {
+          "time": "8:53 am",
+          "time_str": 1773631386,
+          "read_data": 0,
+          "write_data": 0.000873
+        },
+        "latency": {
+          "time": "8:53 am",
+          "time_str": 1773631386,
+          "latency": 0.51
+        }
+      },
+      "threads": {
+        "time": "8:53 am",
+        "time_str": 1773631386,
+        "thread_data": 1359
+      },
+      "tcp": {
+        "time": "8:53 am",
+        "time_str": 1773631386,
+        "established": 1091,
+        "time_wait": 143,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 165451,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 21 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "8:53 am",
+          "time_str": 1773631386,
+          "in_bandwidth": 228167.287154,
+          "out_bandwidth": 37177.533933,
+          "in_unicast": 327.111543,
+          "out_unicast": 170.277241,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b7779af0141464891c1e72"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773631446,
+      "sample_time_text": "8:54 am",
+      "source_id": "69b777d6f0141464891ccc62",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 7.11,
+        "details": "Total CPU: 7.11%",
+        "warn": null,
+        "crit": null,
+        "severity": "warning"
+      },
+      "cpu_load": {
+        "time": "8:54 am",
+        "time_str": 1773631446,
+        "total1": 1.13,
+        "total5": 1.37,
+        "total": 1.2,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.3,
+        "used": 9.86,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.07% - 10.86 GB of 23.58 GB, RAM: 63.3% - 9.86 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5203619840,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "8:54 am",
+          "time_str": 1773631446,
+          "read_data": 341.333333,
+          "write_data": 2525457.066667
+        },
+        "operations": {
+          "time": "8:54 am",
+          "time_str": 1773631446,
+          "read_data": 0.016667,
+          "write_data": 94.433333
+        },
+        "average_wait": {
+          "time": "8:54 am",
+          "time_str": 1773631446,
+          "read_data": 0.000333,
+          "write_data": 0.000609
+        },
+        "latency": {
+          "time": "8:54 am",
+          "time_str": 1773631446,
+          "latency": 0.37
+        }
+      },
+      "threads": {
+        "time": "8:54 am",
+        "time_str": 1773631446,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "8:54 am",
+        "time_str": 1773631446,
+        "established": 1091,
+        "time_wait": 142,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 165511,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 21 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "8:54 am",
+          "time_str": 1773631446,
+          "in_bandwidth": 228374.010346,
+          "out_bandwidth": 35423.358526,
+          "in_unicast": 324.995633,
+          "out_unicast": 160.974322,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b777d6f0141464891ccc65"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773631507,
+      "sample_time_text": "8:55 am",
+      "source_id": "69b77813f0141464891d7fa1",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 11.23,
+        "details": "Total CPU: 11.23%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "8:55 am",
+        "time_str": 1773631507,
+        "total1": 1.16,
+        "total5": 1.65,
+        "total": 1.28,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.29,
+        "used": 9.86,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.07% - 10.86 GB of 23.58 GB, RAM: 63.29% - 9.86 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5211910144,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "8:55 am",
+          "time_str": 1773631507,
+          "read_data": 0,
+          "write_data": 2245649.066667
+        },
+        "operations": {
+          "time": "8:55 am",
+          "time_str": 1773631507,
+          "read_data": 0,
+          "write_data": 77.166667
+        },
+        "average_wait": {
+          "time": "8:55 am",
+          "time_str": 1773631507,
+          "read_data": 0,
+          "write_data": 0.000706
+        },
+        "latency": {
+          "time": "8:55 am",
+          "time_str": 1773631507,
+          "latency": 0.53
+        }
+      },
+      "threads": {
+        "time": "8:55 am",
+        "time_str": 1773631507,
+        "thread_data": 1360
+      },
+      "tcp": {
+        "time": "8:55 am",
+        "time_str": 1773631507,
+        "established": 1091,
+        "time_wait": 145,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 165571,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 21 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "8:55 am",
+          "time_str": 1773631507,
+          "in_bandwidth": 224381.896981,
+          "out_bandwidth": 35936.870106,
+          "in_unicast": 311.97317,
+          "out_unicast": 167.872313,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77813f0141464891d7fa4"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773631567,
+      "sample_time_text": "8:56 am",
+      "source_id": "69b7784ff0141464891e2e8c",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 15.64,
+        "details": "Total CPU: 15.64%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "8:56 am",
+        "time_str": 1773631567,
+        "total1": 1.14,
+        "total5": 1.13,
+        "total": 1.21,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.21,
+        "used": 9.85,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.01% - 10.85 GB of 23.58 GB, RAM: 63.21% - 9.85 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5219880960,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "8:56 am",
+          "time_str": 1773631567,
+          "read_data": 0,
+          "write_data": 2489856
+        },
+        "operations": {
+          "time": "8:56 am",
+          "time_str": 1773631567,
+          "read_data": 0,
+          "write_data": 90.2
+        },
+        "average_wait": {
+          "time": "8:56 am",
+          "time_str": 1773631567,
+          "read_data": 0,
+          "write_data": 0.000601
+        },
+        "latency": {
+          "time": "8:56 am",
+          "time_str": 1773631567,
+          "latency": 0.35
+        }
+      },
+      "threads": {
+        "time": "8:56 am",
+        "time_str": 1773631567,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "8:56 am",
+        "time_str": 1773631567,
+        "established": 1097,
+        "time_wait": 156,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 165632,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 21 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "8:56 am",
+          "time_str": 1773631567,
+          "in_bandwidth": 228722.986845,
+          "out_bandwidth": 37792.600589,
+          "in_unicast": 326.941201,
+          "out_unicast": 171.418012,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b7784ff0141464891e2e8f"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773631627,
+      "sample_time_text": "8:57 am",
+      "source_id": "69b7788bf0141464891edd94",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 7.95,
+        "details": "Total CPU: 7.95%",
+        "warn": null,
+        "crit": null,
+        "severity": "warning"
+      },
+      "cpu_load": {
+        "time": "8:57 am",
+        "time_str": 1773631627,
+        "total1": 1.11,
+        "total5": 0.98,
+        "total": 1.13,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.29,
+        "used": 9.86,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.06% - 10.86 GB of 23.58 GB, RAM: 63.29% - 9.86 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5224132608,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "8:57 am",
+          "time_str": 1773631627,
+          "read_data": 546.133333,
+          "write_data": 2467865.6
+        },
+        "operations": {
+          "time": "8:57 am",
+          "time_str": 1773631627,
+          "read_data": 0.05,
+          "write_data": 80.383333
+        },
+        "average_wait": {
+          "time": "8:57 am",
+          "time_str": 1773631627,
+          "read_data": 0.000111,
+          "write_data": 0.000752
+        },
+        "latency": {
+          "time": "8:57 am",
+          "time_str": 1773631627,
+          "latency": 0.41
+        }
+      },
+      "threads": {
+        "time": "8:57 am",
+        "time_str": 1773631627,
+        "thread_data": 1360
+      },
+      "tcp": {
+        "time": "8:57 am",
+        "time_str": 1773631627,
+        "established": 1091,
+        "time_wait": 140,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 165691,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "8:57 am",
+          "time_str": 1773631627,
+          "in_bandwidth": 229081.556814,
+          "out_bandwidth": 35374.317581,
+          "in_unicast": 328.675021,
+          "out_unicast": 162.311318,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b7788bf0141464891edd97"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773631687,
+      "sample_time_text": "8:58 am",
+      "source_id": "69b778c7f0141464891f8db0",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 12.38,
+        "details": "Total CPU: 12.38%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "8:58 am",
+        "time_str": 1773631687,
+        "total1": 1.1,
+        "total5": 1.02,
+        "total": 1.09,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.32,
+        "used": 9.87,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.09% - 10.87 GB of 23.58 GB, RAM: 63.32% - 9.87 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5228797952,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "8:58 am",
+          "time_str": 1773631687,
+          "read_data": 273.066667,
+          "write_data": 2492663.466667
+        },
+        "operations": {
+          "time": "8:58 am",
+          "time_str": 1773631687,
+          "read_data": 0.016667,
+          "write_data": 95.366667
+        },
+        "average_wait": {
+          "time": "8:58 am",
+          "time_str": 1773631687,
+          "read_data": 0.000333,
+          "write_data": 0.000563
+        },
+        "latency": {
+          "time": "8:58 am",
+          "time_str": 1773631687,
+          "latency": 0.39
+        }
+      },
+      "threads": {
+        "time": "8:58 am",
+        "time_str": 1773631687,
+        "thread_data": 1360
+      },
+      "tcp": {
+        "time": "8:58 am",
+        "time_str": 1773631687,
+        "established": 1096,
+        "time_wait": 148,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 165751,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "8:58 am",
+          "time_str": 1773631687,
+          "in_bandwidth": 229935.017552,
+          "out_bandwidth": 36485.52826,
+          "in_unicast": 328.517,
+          "out_unicast": 162.965258,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b778c7f0141464891f8db3"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773631746,
+      "sample_time_text": "8:59 am",
+      "source_id": "69b77902f014146489203b51",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 16.07,
+        "details": "Total CPU: 16.07%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "8:59 am",
+        "time_str": 1773631746,
+        "total1": 1.12,
+        "total5": 1.11,
+        "total": 1.14,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.34,
+        "used": 9.87,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.1% - 10.87 GB of 23.58 GB, RAM: 63.34% - 9.87 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5239468032,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "8:59 am",
+          "time_str": 1773631746,
+          "read_data": 409.6,
+          "write_data": 2270711.466667
+        },
+        "operations": {
+          "time": "8:59 am",
+          "time_str": 1773631746,
+          "read_data": 0.016667,
+          "write_data": 83.016667
+        },
+        "average_wait": {
+          "time": "8:59 am",
+          "time_str": 1773631746,
+          "read_data": 0,
+          "write_data": 0.000683
+        },
+        "latency": {
+          "time": "8:59 am",
+          "time_str": 1773631746,
+          "latency": 0.53
+        }
+      },
+      "threads": {
+        "time": "8:59 am",
+        "time_str": 1773631746,
+        "thread_data": 1358
+      },
+      "tcp": {
+        "time": "8:59 am",
+        "time_str": 1773631746,
+        "established": 1092,
+        "time_wait": 143,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 165811,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "8:59 am",
+          "time_str": 1773631746,
+          "in_bandwidth": 230678.046785,
+          "out_bandwidth": 36490.546317,
+          "in_unicast": 327.328764,
+          "out_unicast": 169.21957,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77902f014146489203b54"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773631815,
+      "sample_time_text": "9:00 am",
+      "source_id": "69b77947f01414648920f533",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 7.36,
+        "details": "Total CPU: 7.36%",
+        "warn": null,
+        "crit": null,
+        "severity": "warning"
+      },
+      "cpu_load": {
+        "time": "9:00 am",
+        "time_str": 1773631815,
+        "total1": 1.09,
+        "total5": 0.79,
+        "total": 1.06,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.31,
+        "used": 9.86,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.08% - 10.87 GB of 23.58 GB, RAM: 63.31% - 9.86 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5242019840,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:00 am",
+          "time_str": 1773631815,
+          "read_data": 0,
+          "write_data": 2474180.266667
+        },
+        "operations": {
+          "time": "9:00 am",
+          "time_str": 1773631815,
+          "read_data": 0,
+          "write_data": 90.566667
+        },
+        "average_wait": {
+          "time": "9:00 am",
+          "time_str": 1773631815,
+          "read_data": 0,
+          "write_data": 0.00055
+        },
+        "latency": {
+          "time": "9:00 am",
+          "time_str": 1773631815,
+          "latency": 0.42
+        }
+      },
+      "threads": {
+        "time": "9:00 am",
+        "time_str": 1773631815,
+        "thread_data": 1360
+      },
+      "tcp": {
+        "time": "9:00 am",
+        "time_str": 1773631815,
+        "established": 1093,
+        "time_wait": 146,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 165880,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:00 am",
+          "time_str": 1773631815,
+          "in_bandwidth": 224273.892114,
+          "out_bandwidth": 35915.301276,
+          "in_unicast": 311.10569,
+          "out_unicast": 165.669493,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77947f01414648920f536"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773631867,
+      "sample_time_text": "9:01 am",
+      "source_id": "69b7797bf01414648921aa98",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 20.78,
+        "details": "Total CPU: 20.78%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:01 am",
+        "time_str": 1773631867,
+        "total1": 1.24,
+        "total5": 3.03,
+        "total": 1.54,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.3,
+        "used": 9.86,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.09% - 10.87 GB of 23.58 GB, RAM: 63.3% - 9.86 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5206822912,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:01 am",
+          "time_str": 1773631867,
+          "read_data": 72157.866667,
+          "write_data": 2772377.6
+        },
+        "operations": {
+          "time": "9:01 am",
+          "time_str": 1773631867,
+          "read_data": 5.15,
+          "write_data": 86.066667
+        },
+        "average_wait": {
+          "time": "9:01 am",
+          "time_str": 1773631867,
+          "read_data": 0.000457,
+          "write_data": 0.001081
+        },
+        "latency": {
+          "time": "9:01 am",
+          "time_str": 1773631867,
+          "latency": 0.41
+        }
+      },
+      "threads": {
+        "time": "9:01 am",
+        "time_str": 1773631867,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "9:01 am",
+        "time_str": 1773631867,
+        "established": 1101,
+        "time_wait": 166,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 165931,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:01 am",
+          "time_str": 1773631867,
+          "in_bandwidth": 319318.954978,
+          "out_bandwidth": 43921.772525,
+          "in_unicast": 495.486766,
+          "out_unicast": 198.647742,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b7797bf01414648921aa9b"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773631927,
+      "sample_time_text": "9:02 am",
+      "source_id": "69b779b7f01414648922ac82",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 31.47,
+        "details": "Total CPU: 31.47%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:02 am",
+        "time_str": 1773631927,
+        "total1": 1.31,
+        "total5": 2.5,
+        "total": 1.67,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.41,
+        "used": 9.88,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.16% - 10.88 GB of 23.58 GB, RAM: 63.41% - 9.88 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5174919168,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:02 am",
+          "time_str": 1773631927,
+          "read_data": 48401.066667,
+          "write_data": 2918280.533333
+        },
+        "operations": {
+          "time": "9:02 am",
+          "time_str": 1773631927,
+          "read_data": 3.683333,
+          "write_data": 107.85
+        },
+        "average_wait": {
+          "time": "9:02 am",
+          "time_str": 1773631927,
+          "read_data": 0.0003,
+          "write_data": 0.000869
+        },
+        "latency": {
+          "time": "9:02 am",
+          "time_str": 1773631927,
+          "latency": 0.36
+        }
+      },
+      "threads": {
+        "time": "9:02 am",
+        "time_str": 1773631927,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "9:02 am",
+        "time_str": 1773631927,
+        "established": 1096,
+        "time_wait": 177,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 165992,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:02 am",
+          "time_str": 1773631927,
+          "in_bandwidth": 280400.831147,
+          "out_bandwidth": 50357.409477,
+          "in_unicast": 426.119731,
+          "out_unicast": 249.576623,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b779b7f01414648922ac85"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773631987,
+      "sample_time_text": "9:03 am",
+      "source_id": "69b779f3f014146489235a3c",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 9.88,
+        "details": "Total CPU: 9.88%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:03 am",
+        "time_str": 1773631987,
+        "total1": 1.39,
+        "total5": 2.24,
+        "total": 1.83,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.41,
+        "used": 9.88,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.16% - 10.88 GB of 23.58 GB, RAM: 63.41% - 9.88 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5186179072,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:03 am",
+          "time_str": 1773631987,
+          "read_data": 1911.466667,
+          "write_data": 1833813.333333
+        },
+        "operations": {
+          "time": "9:03 am",
+          "time_str": 1773631987,
+          "read_data": 0.15,
+          "write_data": 90.65
+        },
+        "average_wait": {
+          "time": "9:03 am",
+          "time_str": 1773631987,
+          "read_data": 0.000389,
+          "write_data": 0.000723
+        },
+        "latency": {
+          "time": "9:03 am",
+          "time_str": 1773631987,
+          "latency": 0.4
+        }
+      },
+      "threads": {
+        "time": "9:03 am",
+        "time_str": 1773631987,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "9:03 am",
+        "time_str": 1773631987,
+        "established": 1095,
+        "time_wait": 165,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 166051,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:03 am",
+          "time_str": 1773631987,
+          "in_bandwidth": 277246.102203,
+          "out_bandwidth": 46672.890714,
+          "in_unicast": 422.173065,
+          "out_unicast": 231.102001,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b779f3f014146489235a3f"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773632047,
+      "sample_time_text": "9:04 am",
+      "source_id": "69b77a2ff0141464892477ca",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 12.83,
+        "details": "Total CPU: 12.83%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:04 am",
+        "time_str": 1773632047,
+        "total1": 1.36,
+        "total5": 1.49,
+        "total": 1.68,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.36,
+        "used": 9.87,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.13% - 10.88 GB of 23.58 GB, RAM: 63.36% - 9.87 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5111336960,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:04 am",
+          "time_str": 1773632047,
+          "read_data": 1024,
+          "write_data": 2122922.666667
+        },
+        "operations": {
+          "time": "9:04 am",
+          "time_str": 1773632047,
+          "read_data": 0.05,
+          "write_data": 94.433333
+        },
+        "average_wait": {
+          "time": "9:04 am",
+          "time_str": 1773632047,
+          "read_data": 0.000167,
+          "write_data": 0.000554
+        },
+        "latency": {
+          "time": "9:04 am",
+          "time_str": 1773632047,
+          "latency": 0.36
+        }
+      },
+      "threads": {
+        "time": "9:04 am",
+        "time_str": 1773632047,
+        "thread_data": 1359
+      },
+      "tcp": {
+        "time": "9:04 am",
+        "time_str": 1773632047,
+        "established": 1093,
+        "time_wait": 167,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 166112,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:04 am",
+          "time_str": 1773632047,
+          "in_bandwidth": 252217.774127,
+          "out_bandwidth": 43974.017648,
+          "in_unicast": 383.771693,
+          "out_unicast": 211.541226,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77a2ff0141464892477cd"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773632107,
+      "sample_time_text": "9:05 am",
+      "source_id": "69b77a6bf014146489258116",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 17.87,
+        "details": "Total CPU: 17.87%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:05 am",
+        "time_str": 1773632107,
+        "total1": 1.36,
+        "total5": 1.36,
+        "total": 1.61,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.37,
+        "used": 9.87,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.14% - 10.88 GB of 23.58 GB, RAM: 63.37% - 9.87 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5145997312,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:05 am",
+          "time_str": 1773632107,
+          "read_data": 409.6,
+          "write_data": 1964612.266667
+        },
+        "operations": {
+          "time": "9:05 am",
+          "time_str": 1773632107,
+          "read_data": 0.033333,
+          "write_data": 87.75
+        },
+        "average_wait": {
+          "time": "9:05 am",
+          "time_str": 1773632107,
+          "read_data": 0.000333,
+          "write_data": 0.000636
+        },
+        "latency": {
+          "time": "9:05 am",
+          "time_str": 1773632107,
+          "latency": 0.37
+        }
+      },
+      "threads": {
+        "time": "9:05 am",
+        "time_str": 1773632107,
+        "thread_data": 1360
+      },
+      "tcp": {
+        "time": "9:05 am",
+        "time_str": 1773632107,
+        "established": 1095,
+        "time_wait": 170,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 166170,
+        "details": "Up since Mar 14 2026 10:55:37, Uptime: 1 day 22 hours",
+        "boot_time": 1773465937
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:05 am",
+          "time_str": 1773632107,
+          "in_bandwidth": 288254.464423,
+          "out_bandwidth": 53810.694806,
+          "in_unicast": 434.577612,
+          "out_unicast": 275.393381,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77a6bf014146489258119"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773632168,
+      "sample_time_text": "9:06 am",
+      "source_id": "69b77aa8f0141464892658f8",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 9.44,
+        "details": "Total CPU: 9.44%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:06 am",
+        "time_str": 1773632168,
+        "total1": 1.36,
+        "total5": 1.55,
+        "total": 1.58,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.32,
+        "used": 9.87,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.1% - 10.87 GB of 23.58 GB, RAM: 63.32% - 9.87 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5178400768,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:06 am",
+          "time_str": 1773632168,
+          "read_data": 1979.733333,
+          "write_data": 1848029.866667
+        },
+        "operations": {
+          "time": "9:06 am",
+          "time_str": 1773632168,
+          "read_data": 0.133333,
+          "write_data": 98.7
+        },
+        "average_wait": {
+          "time": "9:06 am",
+          "time_str": 1773632168,
+          "read_data": 0.001278,
+          "write_data": 0.000912
+        },
+        "latency": {
+          "time": "9:06 am",
+          "time_str": 1773632168,
+          "latency": 0.38
+        }
+      },
+      "threads": {
+        "time": "9:06 am",
+        "time_str": 1773632168,
+        "thread_data": 1360
+      },
+      "tcp": {
+        "time": "9:06 am",
+        "time_str": 1773632168,
+        "established": 1099,
+        "time_wait": 183,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 166232,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:06 am",
+          "time_str": 1773632168,
+          "in_bandwidth": 278713.026093,
+          "out_bandwidth": 50343.295722,
+          "in_unicast": 422.203174,
+          "out_unicast": 249.692028,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77aa8f0141464892658fb"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773632228,
+      "sample_time_text": "9:07 am",
+      "source_id": "69b77ae4f01414648927a3e8",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 13.47,
+        "details": "Total CPU: 13.47%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:07 am",
+        "time_str": 1773632228,
+        "total1": 1.47,
+        "total5": 2.22,
+        "total": 1.84,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.4,
+        "used": 9.88,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.15% - 10.88 GB of 23.58 GB, RAM: 63.4% - 9.88 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5159178240,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:07 am",
+          "time_str": 1773632228,
+          "read_data": 819.2,
+          "write_data": 1758361.6
+        },
+        "operations": {
+          "time": "9:07 am",
+          "time_str": 1773632228,
+          "read_data": 0.066667,
+          "write_data": 91.466667
+        },
+        "average_wait": {
+          "time": "9:07 am",
+          "time_str": 1773632228,
+          "read_data": 0.000222,
+          "write_data": 0.000616
+        },
+        "latency": {
+          "time": "9:07 am",
+          "time_str": 1773632228,
+          "latency": 0.46
+        }
+      },
+      "threads": {
+        "time": "9:07 am",
+        "time_str": 1773632228,
+        "thread_data": 1360
+      },
+      "tcp": {
+        "time": "9:07 am",
+        "time_str": 1773632228,
+        "established": 1096,
+        "time_wait": 167,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 166293,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:07 am",
+          "time_str": 1773632228,
+          "in_bandwidth": 284305.42542,
+          "out_bandwidth": 51139.793226,
+          "in_unicast": 438.735495,
+          "out_unicast": 252.131922,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77ae4f01414648927a3eb"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773632287,
+      "sample_time_text": "9:08 am",
+      "source_id": "69b77b1ff01414648928523f",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 21.79,
+        "details": "Total CPU: 21.79%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:08 am",
+        "time_str": 1773632287,
+        "total1": 1.72,
+        "total5": 5.34,
+        "total": 2.56,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.36,
+        "used": 9.87,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.13% - 10.88 GB of 23.58 GB, RAM: 63.36% - 9.87 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5077725184,
+        "cached": 4.7,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:08 am",
+          "time_str": 1773632287,
+          "read_data": 183312.786885,
+          "write_data": 2038767.213115
+        },
+        "operations": {
+          "time": "9:08 am",
+          "time_str": 1773632287,
+          "read_data": 6.180328,
+          "write_data": 102.42623
+        },
+        "average_wait": {
+          "time": "9:08 am",
+          "time_str": 1773632287,
+          "read_data": 0.000338,
+          "write_data": 0.000752
+        },
+        "latency": {
+          "time": "9:08 am",
+          "time_str": 1773632287,
+          "latency": 0.48
+        }
+      },
+      "threads": {
+        "time": "9:08 am",
+        "time_str": 1773632287,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "9:08 am",
+        "time_str": 1773632287,
+        "established": 1096,
+        "time_wait": 166,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 166352,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:08 am",
+          "time_str": 1773632287,
+          "in_bandwidth": 307803.625929,
+          "out_bandwidth": 51422.711138,
+          "in_unicast": 483.27438,
+          "out_unicast": 255.234165,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77b1ff014146489285242"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773632348,
+      "sample_time_text": "9:09 am",
+      "source_id": "69b77b5cf0141464892935f6",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 8.88,
+        "details": "Total CPU: 8.88%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:09 am",
+        "time_str": 1773632348,
+        "total1": 1.63,
+        "total5": 2.22,
+        "total": 2.16,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.44,
+        "used": 9.88,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.18% - 10.89 GB of 23.58 GB, RAM: 63.44% - 9.88 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5109145600,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:09 am",
+          "time_str": 1773632348,
+          "read_data": 833.084746,
+          "write_data": 1914940.745763
+        },
+        "operations": {
+          "time": "9:09 am",
+          "time_str": 1773632348,
+          "read_data": 0.050847,
+          "write_data": 92.915254
+        },
+        "average_wait": {
+          "time": "9:09 am",
+          "time_str": 1773632348,
+          "read_data": 0.000222,
+          "write_data": 0.000703
+        },
+        "latency": {
+          "time": "9:09 am",
+          "time_str": 1773632348,
+          "latency": 0.49
+        }
+      },
+      "threads": {
+        "time": "9:09 am",
+        "time_str": 1773632348,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "9:09 am",
+        "time_str": 1773632348,
+        "established": 1092,
+        "time_wait": 155,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 166412,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:09 am",
+          "time_str": 1773632348,
+          "in_bandwidth": 254878.347278,
+          "out_bandwidth": 47629.727176,
+          "in_unicast": 397.203022,
+          "out_unicast": 238.867279,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77b5cf0141464892935f9"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773632408,
+      "sample_time_text": "9:10 am",
+      "source_id": "69b77b98f01414648929f256",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 13.13,
+        "details": "Total CPU: 13.13%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:10 am",
+        "time_str": 1773632408,
+        "total1": 1.56,
+        "total5": 1.23,
+        "total": 1.86,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.39,
+        "used": 9.88,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.15% - 10.88 GB of 23.58 GB, RAM: 63.39% - 9.88 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5138415616,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:10 am",
+          "time_str": 1773632408,
+          "read_data": 0,
+          "write_data": 1794483.2
+        },
+        "operations": {
+          "time": "9:10 am",
+          "time_str": 1773632408,
+          "read_data": 0,
+          "write_data": 99.266667
+        },
+        "average_wait": {
+          "time": "9:10 am",
+          "time_str": 1773632408,
+          "read_data": 0,
+          "write_data": 0.000528
+        },
+        "latency": {
+          "time": "9:10 am",
+          "time_str": 1773632408,
+          "latency": 0.31
+        }
+      },
+      "threads": {
+        "time": "9:10 am",
+        "time_str": 1773632408,
+        "thread_data": 1360
+      },
+      "tcp": {
+        "time": "9:10 am",
+        "time_str": 1773632408,
+        "established": 1094,
+        "time_wait": 162,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 166473,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:10 am",
+          "time_str": 1773632408,
+          "in_bandwidth": 242398.475179,
+          "out_bandwidth": 43506.264993,
+          "in_unicast": 359.448865,
+          "out_unicast": 210.655071,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77b98f01414648929f259"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773632468,
+      "sample_time_text": "9:11 am",
+      "source_id": "69b77bd4f0141464892aa43d",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 18.8,
+        "details": "Total CPU: 18.80%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:11 am",
+        "time_str": 1773632468,
+        "total1": 1.54,
+        "total5": 1.17,
+        "total": 1.73,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.29,
+        "used": 9.86,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.08% - 10.87 GB of 23.58 GB, RAM: 63.29% - 9.86 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5169946624,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:11 am",
+          "time_str": 1773632468,
+          "read_data": 0,
+          "write_data": 1879296
+        },
+        "operations": {
+          "time": "9:11 am",
+          "time_str": 1773632468,
+          "read_data": 0,
+          "write_data": 93
+        },
+        "average_wait": {
+          "time": "9:11 am",
+          "time_str": 1773632468,
+          "read_data": 0,
+          "write_data": 0.00064
+        },
+        "latency": {
+          "time": "9:11 am",
+          "time_str": 1773632468,
+          "latency": 0.34
+        }
+      },
+      "threads": {
+        "time": "9:11 am",
+        "time_str": 1773632468,
+        "thread_data": 1357
+      },
+      "tcp": {
+        "time": "9:11 am",
+        "time_str": 1773632468,
+        "established": 1099,
+        "time_wait": 182,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 166532,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:11 am",
+          "time_str": 1773632468,
+          "in_bandwidth": 259616.167496,
+          "out_bandwidth": 44102.14396,
+          "in_unicast": 383.600252,
+          "out_unicast": 216.959455,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77bd4f0141464892aa440"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773632528,
+      "sample_time_text": "9:12 am",
+      "source_id": "69b77c10f0141464892b5236",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 8.83,
+        "details": "Total CPU: 8.83%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:12 am",
+        "time_str": 1773632528,
+        "total1": 1.46,
+        "total5": 0.67,
+        "total": 1.48,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.33,
+        "used": 9.87,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.11% - 10.87 GB of 23.58 GB, RAM: 63.33% - 9.87 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5129998336,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:12 am",
+          "time_str": 1773632528,
+          "read_data": 165546.666667,
+          "write_data": 2088977.066667
+        },
+        "operations": {
+          "time": "9:12 am",
+          "time_str": 1773632528,
+          "read_data": 11.35,
+          "write_data": 109.4
+        },
+        "average_wait": {
+          "time": "9:12 am",
+          "time_str": 1773632528,
+          "read_data": 0.000242,
+          "write_data": 0.001151
+        },
+        "latency": {
+          "time": "9:12 am",
+          "time_str": 1773632528,
+          "latency": 0.39
+        }
+      },
+      "threads": {
+        "time": "9:12 am",
+        "time_str": 1773632528,
+        "thread_data": 1360
+      },
+      "tcp": {
+        "time": "9:12 am",
+        "time_str": 1773632528,
+        "established": 1095,
+        "time_wait": 149,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 166593,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:12 am",
+          "time_str": 1773632528,
+          "in_bandwidth": 230869.372053,
+          "out_bandwidth": 36541.35612,
+          "in_unicast": 329.12382,
+          "out_unicast": 167.222768,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77c10f0141464892b5239"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773632587,
+      "sample_time_text": "9:13 am",
+      "source_id": "69b77c4bf0141464892c0317",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 13.26,
+        "details": "Total CPU: 13.26%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:13 am",
+        "time_str": 1773632587,
+        "total1": 1.45,
+        "total5": 1.17,
+        "total": 1.45,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.34,
+        "used": 9.87,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.11% - 10.87 GB of 23.58 GB, RAM: 63.34% - 9.87 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5058088960,
+        "cached": 4.7,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:13 am",
+          "time_str": 1773632587,
+          "read_data": 1979.733333,
+          "write_data": 1845589.333333
+        },
+        "operations": {
+          "time": "9:13 am",
+          "time_str": 1773632587,
+          "read_data": 0.133333,
+          "write_data": 100.1
+        },
+        "average_wait": {
+          "time": "9:13 am",
+          "time_str": 1773632587,
+          "read_data": 0.000444,
+          "write_data": 0.000761
+        },
+        "latency": {
+          "time": "9:13 am",
+          "time_str": 1773632587,
+          "latency": 0.49
+        }
+      },
+      "threads": {
+        "time": "9:13 am",
+        "time_str": 1773632587,
+        "thread_data": 1360
+      },
+      "tcp": {
+        "time": "9:13 am",
+        "time_str": 1773632587,
+        "established": 1093,
+        "time_wait": 151,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 166652,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:13 am",
+          "time_str": 1773632587,
+          "in_bandwidth": 230019.595422,
+          "out_bandwidth": 34978.549312,
+          "in_unicast": 329.216402,
+          "out_unicast": 160.481163,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77c4bf0141464892c031a"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773632648,
+      "sample_time_text": "9:14 am",
+      "source_id": "69b77c88f0141464892cb47f",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 17.66,
+        "details": "Total CPU: 17.66%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:14 am",
+        "time_str": 1773632648,
+        "total1": 1.43,
+        "total5": 1.1,
+        "total": 1.38,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.3,
+        "used": 9.86,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.09% - 10.87 GB of 23.58 GB, RAM: 63.3% - 9.86 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5092253696,
+        "cached": 4.7,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:14 am",
+          "time_str": 1773632648,
+          "read_data": 273.066667,
+          "write_data": 1642282.666667
+        },
+        "operations": {
+          "time": "9:14 am",
+          "time_str": 1773632648,
+          "read_data": 0.016667,
+          "write_data": 98.9
+        },
+        "average_wait": {
+          "time": "9:14 am",
+          "time_str": 1773632648,
+          "read_data": 0.000333,
+          "write_data": 0.000504
+        },
+        "latency": {
+          "time": "9:14 am",
+          "time_str": 1773632648,
+          "latency": 0.32
+        }
+      },
+      "threads": {
+        "time": "9:14 am",
+        "time_str": 1773632648,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "9:14 am",
+        "time_str": 1773632648,
+        "established": 1093,
+        "time_wait": 147,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 166712,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:14 am",
+          "time_str": 1773632648,
+          "in_bandwidth": 228817.24985,
+          "out_bandwidth": 36264.254291,
+          "in_unicast": 327.521342,
+          "out_unicast": 164.398452,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77c88f0141464892cb482"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773632713,
+      "sample_time_text": "9:15 am",
+      "source_id": "69b77cc9f0141464892d6ada",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 8.08,
+        "details": "Total CPU: 8.08%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:15 am",
+        "time_str": 1773632713,
+        "total1": 1.35,
+        "total5": 0.64,
+        "total": 1.19,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.31,
+        "used": 9.86,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.09% - 10.87 GB of 23.58 GB, RAM: 63.31% - 9.86 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5121126400,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:15 am",
+          "time_str": 1773632713,
+          "read_data": 12834.133333,
+          "write_data": 1796113.066667
+        },
+        "operations": {
+          "time": "9:15 am",
+          "time_str": 1773632713,
+          "read_data": 0.6,
+          "write_data": 88.883333
+        },
+        "average_wait": {
+          "time": "9:15 am",
+          "time_str": 1773632713,
+          "read_data": 0.000213,
+          "write_data": 0.000501
+        },
+        "latency": {
+          "time": "9:15 am",
+          "time_str": 1773632713,
+          "latency": 0.38
+        }
+      },
+      "threads": {
+        "time": "9:15 am",
+        "time_str": 1773632713,
+        "thread_data": 1360
+      },
+      "tcp": {
+        "time": "9:15 am",
+        "time_str": 1773632713,
+        "established": 1093,
+        "time_wait": 144,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 166777,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:15 am",
+          "time_str": 1773632713,
+          "in_bandwidth": 227805.657685,
+          "out_bandwidth": 35217.168278,
+          "in_unicast": 318.566039,
+          "out_unicast": 161.584166,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77cc9f0141464892d6add"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773632768,
+      "sample_time_text": "9:16 am",
+      "source_id": "69b77d00f0141464892e1e53",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 25.25,
+        "details": "Total CPU: 25.25%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:16 am",
+        "time_str": 1773632768,
+        "total1": 1.78,
+        "total5": 6.34,
+        "total": 2.5,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.53,
+        "used": 9.9,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.24% - 10.90 GB of 23.58 GB, RAM: 63.53% - 9.90 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5159686144,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:16 am",
+          "time_str": 1773632768,
+          "read_data": 30651.733333,
+          "write_data": 1792017.066667
+        },
+        "operations": {
+          "time": "9:16 am",
+          "time_str": 1773632768,
+          "read_data": 2.416667,
+          "write_data": 90.083333
+        },
+        "average_wait": {
+          "time": "9:16 am",
+          "time_str": 1773632768,
+          "read_data": 0.000491,
+          "write_data": 0.000836
+        },
+        "latency": {
+          "time": "9:16 am",
+          "time_str": 1773632768,
+          "latency": 0.48
+        }
+      },
+      "threads": {
+        "time": "9:16 am",
+        "time_str": 1773632768,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "9:16 am",
+        "time_str": 1773632768,
+        "established": 1095,
+        "time_wait": 162,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 166833,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:16 am",
+          "time_str": 1773632768,
+          "in_bandwidth": 426651.432552,
+          "out_bandwidth": 41344.482629,
+          "in_unicast": 659.922372,
+          "out_unicast": 174.522604,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77d00f0141464892e1e56"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773632828,
+      "sample_time_text": "9:17 am",
+      "source_id": "69b77d3cf0141464892ece81",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 45.73,
+        "details": "Total CPU: 45.73%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:17 am",
+        "time_str": 1773632828,
+        "total1": 1.91,
+        "total5": 4.8,
+        "total": 2.74,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.51,
+        "used": 9.89,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.22% - 10.90 GB of 23.58 GB, RAM: 63.51% - 9.89 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5215416320,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:17 am",
+          "time_str": 1773632828,
+          "read_data": 317235.2,
+          "write_data": 2931643.733333
+        },
+        "operations": {
+          "time": "9:17 am",
+          "time_str": 1773632828,
+          "read_data": 21.066667,
+          "write_data": 121.7
+        },
+        "average_wait": {
+          "time": "9:17 am",
+          "time_str": 1773632828,
+          "read_data": 0.000384,
+          "write_data": 0.001938
+        },
+        "latency": {
+          "time": "9:17 am",
+          "time_str": 1773632828,
+          "latency": 0.6
+        }
+      },
+      "threads": {
+        "time": "9:17 am",
+        "time_str": 1773632828,
+        "thread_data": 1358
+      },
+      "tcp": {
+        "time": "9:17 am",
+        "time_str": 1773632828,
+        "established": 1095,
+        "time_wait": 145,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 166893,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:17 am",
+          "time_str": 1773632828,
+          "in_bandwidth": 574718.977666,
+          "out_bandwidth": 47833.87081,
+          "in_unicast": 921.817344,
+          "out_unicast": 200.746975,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77d3cf0141464892ece84"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773632888,
+      "sample_time_text": "9:18 am",
+      "source_id": "69b77d78f0141464892f7e0e",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 25.27,
+        "details": "Total CPU: 25.27%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:18 am",
+        "time_str": 1773632888,
+        "total1": 1.9,
+        "total5": 2.87,
+        "total": 2.55,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.45,
+        "used": 9.89,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.18% - 10.89 GB of 23.58 GB, RAM: 63.45% - 9.89 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5204029440,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:18 am",
+          "time_str": 1773632888,
+          "read_data": 21218.622951,
+          "write_data": 2111941.245902
+        },
+        "operations": {
+          "time": "9:18 am",
+          "time_str": 1773632888,
+          "read_data": 1.114754,
+          "write_data": 104.508197
+        },
+        "average_wait": {
+          "time": "9:18 am",
+          "time_str": 1773632888,
+          "read_data": 0.000599,
+          "write_data": 0.001645
+        },
+        "latency": {
+          "time": "9:18 am",
+          "time_str": 1773632888,
+          "latency": 0.48
+        }
+      },
+      "threads": {
+        "time": "9:18 am",
+        "time_str": 1773632888,
+        "thread_data": 1359
+      },
+      "tcp": {
+        "time": "9:18 am",
+        "time_str": 1773632888,
+        "established": 1095,
+        "time_wait": 146,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 166952,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:18 am",
+          "time_str": 1773632888,
+          "in_bandwidth": 561944.783035,
+          "out_bandwidth": 43695.166372,
+          "in_unicast": 898.368288,
+          "out_unicast": 185.140155,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77d78f0141464892f7e11"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773632948,
+      "sample_time_text": "9:19 am",
+      "source_id": "69b77db4f014146489302f07",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 26.15,
+        "details": "Total CPU: 26.15%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:19 am",
+        "time_str": 1773632948,
+        "total1": 2.09,
+        "total5": 4.13,
+        "total": 3,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.55,
+        "used": 9.9,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.25% - 10.90 GB of 23.58 GB, RAM: 63.55% - 9.90 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5199237120,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:19 am",
+          "time_str": 1773632948,
+          "read_data": 17494.779661,
+          "write_data": 2532187.118644
+        },
+        "operations": {
+          "time": "9:19 am",
+          "time_str": 1773632948,
+          "read_data": 1.016949,
+          "write_data": 98.20339
+        },
+        "average_wait": {
+          "time": "9:19 am",
+          "time_str": 1773632948,
+          "read_data": 0.000512,
+          "write_data": 0.000982
+        },
+        "latency": {
+          "time": "9:19 am",
+          "time_str": 1773632948,
+          "latency": 0.45
+        }
+      },
+      "threads": {
+        "time": "9:19 am",
+        "time_str": 1773632948,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "9:19 am",
+        "time_str": 1773632948,
+        "established": 1093,
+        "time_wait": 153,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 167013,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:19 am",
+          "time_str": 1773632948,
+          "in_bandwidth": 564485.378171,
+          "out_bandwidth": 45957.051719,
+          "in_unicast": 897.568734,
+          "out_unicast": 196.287128,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77db4f014146489302f0a"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773633009,
+      "sample_time_text": "9:20 am",
+      "source_id": "69b77df1f01414648930dd63",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 32.42,
+        "details": "Total CPU: 32.42%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:20 am",
+        "time_str": 1773633009,
+        "total1": 2.1,
+        "total5": 2.89,
+        "total": 2.86,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.55,
+        "used": 9.9,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.25% - 10.91 GB of 23.58 GB, RAM: 63.55% - 9.90 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5238149120,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:20 am",
+          "time_str": 1773633009,
+          "read_data": 14302.42623,
+          "write_data": 2051357.377049
+        },
+        "operations": {
+          "time": "9:20 am",
+          "time_str": 1773633009,
+          "read_data": 0.819672,
+          "write_data": 106
+        },
+        "average_wait": {
+          "time": "9:20 am",
+          "time_str": 1773633009,
+          "read_data": 0.000694,
+          "write_data": 0.000839
+        },
+        "latency": {
+          "time": "9:20 am",
+          "time_str": 1773633009,
+          "latency": 0.38
+        }
+      },
+      "threads": {
+        "time": "9:20 am",
+        "time_str": 1773633009,
+        "thread_data": 1360
+      },
+      "tcp": {
+        "time": "9:20 am",
+        "time_str": 1773633009,
+        "established": 1093,
+        "time_wait": 147,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 167073,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:20 am",
+          "time_str": 1773633009,
+          "in_bandwidth": 538907.42429,
+          "out_bandwidth": 46253.685216,
+          "in_unicast": 850.875437,
+          "out_unicast": 200.436292,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77df1f01414648930dd66"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773633068,
+      "sample_time_text": "9:21 am",
+      "source_id": "69b77e2cf014146489318c1c",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 24.32,
+        "details": "Total CPU: 24.32%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:21 am",
+        "time_str": 1773633068,
+        "total1": 2.17,
+        "total5": 2.85,
+        "total": 2.91,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.59,
+        "used": 9.91,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.28% - 10.91 GB of 23.58 GB, RAM: 63.59% - 9.91 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5231214592,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:21 am",
+          "time_str": 1773633068,
+          "read_data": 17203.2,
+          "write_data": 2724770.133333
+        },
+        "operations": {
+          "time": "9:21 am",
+          "time_str": 1773633068,
+          "read_data": 0.9,
+          "write_data": 98.533333
+        },
+        "average_wait": {
+          "time": "9:21 am",
+          "time_str": 1773633068,
+          "read_data": 0.00038,
+          "write_data": 0.000855
+        },
+        "latency": {
+          "time": "9:21 am",
+          "time_str": 1773633068,
+          "latency": 0.4
+        }
+      },
+      "threads": {
+        "time": "9:21 am",
+        "time_str": 1773633068,
+        "thread_data": 1360
+      },
+      "tcp": {
+        "time": "9:21 am",
+        "time_str": 1773633068,
+        "established": 1093,
+        "time_wait": 161,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 167133,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:21 am",
+          "time_str": 1773633068,
+          "in_bandwidth": 522760.038567,
+          "out_bandwidth": 44274.806005,
+          "in_unicast": 826.109891,
+          "out_unicast": 189.622286,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77e2cf014146489318c1f"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773633127,
+      "sample_time_text": "9:22 am",
+      "source_id": "69b77e67f014146489323d9e",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 28.19,
+        "details": "Total CPU: 28.19%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:22 am",
+        "time_str": 1773633127,
+        "total1": 2.15,
+        "total5": 2.43,
+        "total": 2.73,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.66,
+        "used": 9.92,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.32% - 10.92 GB of 23.58 GB, RAM: 63.66% - 9.92 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5175476224,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:22 am",
+          "time_str": 1773633127,
+          "read_data": 16450.064516,
+          "write_data": 2546877.935484
+        },
+        "operations": {
+          "time": "9:22 am",
+          "time_str": 1773633127,
+          "read_data": 0.887097,
+          "write_data": 106.612903
+        },
+        "average_wait": {
+          "time": "9:22 am",
+          "time_str": 1773633127,
+          "read_data": 0.000449,
+          "write_data": 0.000989
+        },
+        "latency": {
+          "time": "9:22 am",
+          "time_str": 1773633127,
+          "latency": 0.38
+        }
+      },
+      "threads": {
+        "time": "9:22 am",
+        "time_str": 1773633127,
+        "thread_data": 1360
+      },
+      "tcp": {
+        "time": "9:22 am",
+        "time_str": 1773633127,
+        "established": 1095,
+        "time_wait": 147,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 167192,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:22 am",
+          "time_str": 1773633127,
+          "in_bandwidth": 561208.008722,
+          "out_bandwidth": 45886.131567,
+          "in_unicast": 894.306506,
+          "out_unicast": 195.276962,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77e67f014146489323da1"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773633187,
+      "sample_time_text": "9:23 am",
+      "source_id": "69b77ea3f01414648932ec31",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 29.77,
+        "details": "Total CPU: 29.77%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:23 am",
+        "time_str": 1773633187,
+        "total1": 2.2,
+        "total5": 2.72,
+        "total": 2.79,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.63,
+        "used": 9.91,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.3% - 10.92 GB of 23.58 GB, RAM: 63.63% - 9.91 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5238001664,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:23 am",
+          "time_str": 1773633187,
+          "read_data": 14882.133333,
+          "write_data": 1921211.733333
+        },
+        "operations": {
+          "time": "9:23 am",
+          "time_str": 1773633187,
+          "read_data": 0.9,
+          "write_data": 100.116667
+        },
+        "average_wait": {
+          "time": "9:23 am",
+          "time_str": 1773633187,
+          "read_data": 0.000476,
+          "write_data": 0.000942
+        },
+        "latency": {
+          "time": "9:23 am",
+          "time_str": 1773633187,
+          "latency": 0.5
+        }
+      },
+      "threads": {
+        "time": "9:23 am",
+        "time_str": 1773633187,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "9:23 am",
+        "time_str": 1773633187,
+        "established": 1095,
+        "time_wait": 146,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 167251,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:23 am",
+          "time_str": 1773633187,
+          "in_bandwidth": 568405.757907,
+          "out_bandwidth": 47894.349609,
+          "in_unicast": 901.7444,
+          "out_unicast": 204.374567,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77ea3f01414648932ec34"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773633246,
+      "sample_time_text": "9:24 am",
+      "source_id": "69b77edef014146489339bd0",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 19.67,
+        "details": "Total CPU: 19.67%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:24 am",
+        "time_str": 1773633246,
+        "total1": 2.2,
+        "total5": 2.5,
+        "total": 2.67,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.64,
+        "used": 9.92,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.31% - 10.92 GB of 23.58 GB, RAM: 63.64% - 9.92 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5211959296,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:24 am",
+          "time_str": 1773633246,
+          "read_data": 7782.4,
+          "write_data": 2466167.466667
+        },
+        "operations": {
+          "time": "9:24 am",
+          "time_str": 1773633246,
+          "read_data": 0.45,
+          "write_data": 106.866667
+        },
+        "average_wait": {
+          "time": "9:24 am",
+          "time_str": 1773633246,
+          "read_data": 0.00036,
+          "write_data": 0.000758
+        },
+        "latency": {
+          "time": "9:24 am",
+          "time_str": 1773633246,
+          "latency": 0.46
+        }
+      },
+      "threads": {
+        "time": "9:24 am",
+        "time_str": 1773633246,
+        "thread_data": 1360
+      },
+      "tcp": {
+        "time": "9:24 am",
+        "time_str": 1773633246,
+        "established": 1091,
+        "time_wait": 149,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 167311,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:24 am",
+          "time_str": 1773633246,
+          "in_bandwidth": 496889.71319,
+          "out_bandwidth": 42381.477795,
+          "in_unicast": 784.110009,
+          "out_unicast": 183.834483,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77edef014146489339bd3"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773633307,
+      "sample_time_text": "9:25 am",
+      "source_id": "69b77f1bf014146489344c56",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 21.3,
+        "details": "Total CPU: 21.30%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:25 am",
+        "time_str": 1773633307,
+        "total1": 2.27,
+        "total5": 3.26,
+        "total": 2.82,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.68,
+        "used": 9.92,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.33% - 10.92 GB of 23.58 GB, RAM: 63.68% - 9.92 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5269655552,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:25 am",
+          "time_str": 1773633307,
+          "read_data": 5802.666667,
+          "write_data": 2291362.133333
+        },
+        "operations": {
+          "time": "9:25 am",
+          "time_str": 1773633307,
+          "read_data": 0.4,
+          "write_data": 99.866667
+        },
+        "average_wait": {
+          "time": "9:25 am",
+          "time_str": 1773633307,
+          "read_data": 0.000438,
+          "write_data": 0.000612
+        },
+        "latency": {
+          "time": "9:25 am",
+          "time_str": 1773633307,
+          "latency": 0.35
+        }
+      },
+      "threads": {
+        "time": "9:25 am",
+        "time_str": 1773633307,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "9:25 am",
+        "time_str": 1773633307,
+        "established": 1091,
+        "time_wait": 148,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 167371,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:25 am",
+          "time_str": 1773633307,
+          "in_bandwidth": 462242.105141,
+          "out_bandwidth": 43135.524625,
+          "in_unicast": 723.996967,
+          "out_unicast": 191.988496,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77f1bf014146489344c59"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773633367,
+      "sample_time_text": "9:26 am",
+      "source_id": "69b77f57f01414648934fbc6",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 29.76,
+        "details": "Total CPU: 29.76%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:26 am",
+        "time_str": 1773633367,
+        "total1": 2.35,
+        "total5": 3.39,
+        "total": 2.95,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.7,
+        "used": 9.92,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.34% - 10.93 GB of 23.58 GB, RAM: 63.7% - 9.92 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5233684480,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:26 am",
+          "time_str": 1773633367,
+          "read_data": 12970.666667,
+          "write_data": 2544008.533333
+        },
+        "operations": {
+          "time": "9:26 am",
+          "time_str": 1773633367,
+          "read_data": 0.733333,
+          "write_data": 104.633333
+        },
+        "average_wait": {
+          "time": "9:26 am",
+          "time_str": 1773633367,
+          "read_data": 0.000394,
+          "write_data": 0.001036
+        },
+        "latency": {
+          "time": "9:26 am",
+          "time_str": 1773633367,
+          "latency": 0.38
+        }
+      },
+      "threads": {
+        "time": "9:26 am",
+        "time_str": 1773633367,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "9:26 am",
+        "time_str": 1773633367,
+        "established": 1099,
+        "time_wait": 161,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 167431,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:26 am",
+          "time_str": 1773633367,
+          "in_bandwidth": 600838.577976,
+          "out_bandwidth": 48462.224496,
+          "in_unicast": 956.071507,
+          "out_unicast": 209.592386,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77f57f01414648934fbc9"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773633426,
+      "sample_time_text": "9:27 am",
+      "source_id": "69b77f92f01414648935aa3f",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 24.47,
+        "details": "Total CPU: 24.47%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:27 am",
+        "time_str": 1773633426,
+        "total1": 2.4,
+        "total5": 3,
+        "total": 2.97,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.77,
+        "used": 9.94,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.4% - 10.94 GB of 23.58 GB, RAM: 63.77% - 9.94 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5234388992,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:27 am",
+          "time_str": 1773633426,
+          "read_data": 73591.466667,
+          "write_data": 2509030.4
+        },
+        "operations": {
+          "time": "9:27 am",
+          "time_str": 1773633426,
+          "read_data": 5.216667,
+          "write_data": 98.5
+        },
+        "average_wait": {
+          "time": "9:27 am",
+          "time_str": 1773633426,
+          "read_data": 0.000363,
+          "write_data": 0.001149
+        },
+        "latency": {
+          "time": "9:27 am",
+          "time_str": 1773633426,
+          "latency": 0.49
+        }
+      },
+      "threads": {
+        "time": "9:27 am",
+        "time_str": 1773633426,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "9:27 am",
+        "time_str": 1773633426,
+        "established": 1096,
+        "time_wait": 144,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 167491,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:27 am",
+          "time_str": 1773633426,
+          "in_bandwidth": 687540.444397,
+          "out_bandwidth": 48170.167542,
+          "in_unicast": 1103.180028,
+          "out_unicast": 203.615703,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77f92f01414648935aa42"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773633487,
+      "sample_time_text": "9:28 am",
+      "source_id": "69b77fcff014146489365bc9",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 21.21,
+        "details": "Total CPU: 21.21%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:28 am",
+        "time_str": 1773633487,
+        "total1": 2.4,
+        "total5": 2.45,
+        "total": 2.86,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.74,
+        "used": 9.93,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.38% - 10.94 GB of 23.58 GB, RAM: 63.74% - 9.93 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5258543104,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:28 am",
+          "time_str": 1773633487,
+          "read_data": 41506.133333,
+          "write_data": 2190310.4
+        },
+        "operations": {
+          "time": "9:28 am",
+          "time_str": 1773633487,
+          "read_data": 3.133333,
+          "write_data": 105.3
+        },
+        "average_wait": {
+          "time": "9:28 am",
+          "time_str": 1773633487,
+          "read_data": 0.00034,
+          "write_data": 0.000787
+        },
+        "latency": {
+          "time": "9:28 am",
+          "time_str": 1773633487,
+          "latency": 0.51
+        }
+      },
+      "threads": {
+        "time": "9:28 am",
+        "time_str": 1773633487,
+        "thread_data": 1358
+      },
+      "tcp": {
+        "time": "9:28 am",
+        "time_str": 1773633487,
+        "established": 1093,
+        "time_wait": 133,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 167552,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:28 am",
+          "time_str": 1773633487,
+          "in_bandwidth": 489643.055981,
+          "out_bandwidth": 44328.934926,
+          "in_unicast": 772.582378,
+          "out_unicast": 194.030817,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b77fcff014146489365bcc"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773633547,
+      "sample_time_text": "9:29 am",
+      "source_id": "69b7800bf014146489370a07",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 30.05,
+        "details": "Total CPU: 30.05%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:29 am",
+        "time_str": 1773633547,
+        "total1": 2.44,
+        "total5": 2.68,
+        "total": 2.88,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.59,
+        "used": 9.91,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.29% - 10.92 GB of 23.58 GB, RAM: 63.59% - 9.91 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5249052672,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:29 am",
+          "time_str": 1773633547,
+          "read_data": 70951.050847,
+          "write_data": 2480110.644068
+        },
+        "operations": {
+          "time": "9:29 am",
+          "time_str": 1773633547,
+          "read_data": 5.457627,
+          "write_data": 98.559322
+        },
+        "average_wait": {
+          "time": "9:29 am",
+          "time_str": 1773633547,
+          "read_data": 0.000343,
+          "write_data": 0.000894
+        },
+        "latency": {
+          "time": "9:29 am",
+          "time_str": 1773633547,
+          "latency": 0.37
+        }
+      },
+      "threads": {
+        "time": "9:29 am",
+        "time_str": 1773633547,
+        "thread_data": 1359
+      },
+      "tcp": {
+        "time": "9:29 am",
+        "time_str": 1773633547,
+        "established": 1093,
+        "time_wait": 138,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 167611,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:29 am",
+          "time_str": 1773633547,
+          "in_bandwidth": 586518.235991,
+          "out_bandwidth": 47636.399703,
+          "in_unicast": 932.69978,
+          "out_unicast": 204.790145,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b7800bf014146489370a0a"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773633615,
+      "sample_time_text": "9:30 am",
+      "source_id": "69b7804ff01414648937c4b2",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 18.69,
+        "details": "Total CPU: 18.69%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:30 am",
+        "time_str": 1773633615,
+        "total1": 2.41,
+        "total5": 2.33,
+        "total": 2.72,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.48,
+        "used": 9.89,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.22% - 10.90 GB of 23.58 GB, RAM: 63.48% - 9.89 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5282402304,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:30 am",
+          "time_str": 1773633615,
+          "read_data": 46734.688525,
+          "write_data": 2517268.983607
+        },
+        "operations": {
+          "time": "9:30 am",
+          "time_str": 1773633615,
+          "read_data": 3.688525,
+          "write_data": 103.196721
+        },
+        "average_wait": {
+          "time": "9:30 am",
+          "time_str": 1773633615,
+          "read_data": 0.000328,
+          "write_data": 0.001
+        },
+        "latency": {
+          "time": "9:30 am",
+          "time_str": 1773633615,
+          "latency": 0.4
+        }
+      },
+      "threads": {
+        "time": "9:30 am",
+        "time_str": 1773633615,
+        "thread_data": 1360
+      },
+      "tcp": {
+        "time": "9:30 am",
+        "time_str": 1773633615,
+        "established": 1091,
+        "time_wait": 136,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 167680,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:30 am",
+          "time_str": 1773633615,
+          "in_bandwidth": 479211.341334,
+          "out_bandwidth": 42870.512986,
+          "in_unicast": 750.587961,
+          "out_unicast": 186.104686,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b7804ff01414648937c4b5"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773633668,
+      "sample_time_text": "9:31 am",
+      "source_id": "69b78084f0141464893879e7",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 29.4,
+        "details": "Total CPU: 29.40%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:31 am",
+        "time_str": 1773633668,
+        "total1": 2.5,
+        "total5": 3.53,
+        "total": 2.93,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.72,
+        "used": 9.93,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.38% - 10.94 GB of 23.58 GB, RAM: 63.72% - 9.93 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5185699840,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:31 am",
+          "time_str": 1773633668,
+          "read_data": 55227.733333,
+          "write_data": 2929979.733333
+        },
+        "operations": {
+          "time": "9:31 am",
+          "time_str": 1773633668,
+          "read_data": 3.866667,
+          "write_data": 91.933333
+        },
+        "average_wait": {
+          "time": "9:31 am",
+          "time_str": 1773633668,
+          "read_data": 0.000349,
+          "write_data": 0.00096
+        },
+        "latency": {
+          "time": "9:31 am",
+          "time_str": 1773633668,
+          "latency": 0.39
+        }
+      },
+      "threads": {
+        "time": "9:31 am",
+        "time_str": 1773633668,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "9:31 am",
+        "time_str": 1773633668,
+        "established": 1100,
+        "time_wait": 154,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 167732,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:31 am",
+          "time_str": 1773633668,
+          "in_bandwidth": 490035.974932,
+          "out_bandwidth": 49971.90097,
+          "in_unicast": 782.61563,
+          "out_unicast": 221.993379,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b78084f0141464893879ea"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773633728,
+      "sample_time_text": "9:32 am",
+      "source_id": "69b780c0f014146489397b8d",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 46.89,
+        "details": "Total CPU: 46.89%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:32 am",
+        "time_str": 1773633728,
+        "total1": 2.79,
+        "total5": 5.24,
+        "total": 3.66,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.69,
+        "used": 9.92,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.37% - 10.93 GB of 23.58 GB, RAM: 63.69% - 9.92 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5228843008,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:32 am",
+          "time_str": 1773633728,
+          "read_data": 31812.266667,
+          "write_data": 2857344
+        },
+        "operations": {
+          "time": "9:32 am",
+          "time_str": 1773633728,
+          "read_data": 2.166667,
+          "write_data": 111.9
+        },
+        "average_wait": {
+          "time": "9:32 am",
+          "time_str": 1773633728,
+          "read_data": 0.000347,
+          "write_data": 0.000778
+        },
+        "latency": {
+          "time": "9:32 am",
+          "time_str": 1773633728,
+          "latency": 0.37
+        }
+      },
+      "threads": {
+        "time": "9:32 am",
+        "time_str": 1773633728,
+        "thread_data": 1363
+      },
+      "tcp": {
+        "time": "9:32 am",
+        "time_str": 1773633728,
+        "established": 1097,
+        "time_wait": 153,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 167792,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:32 am",
+          "time_str": 1773633728,
+          "in_bandwidth": 691814.435927,
+          "out_bandwidth": 63554.851998,
+          "in_unicast": 1123.352639,
+          "out_unicast": 296.179995,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b780c0f014146489397b90"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773633787,
+      "sample_time_text": "9:33 am",
+      "source_id": "69b780fbf0141464893a28d7",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 25.19,
+        "details": "Total CPU: 25.19%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:33 am",
+        "time_str": 1773633787,
+        "total1": 2.78,
+        "total5": 3.59,
+        "total": 3.48,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.76,
+        "used": 9.93,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.41% - 10.94 GB of 23.58 GB, RAM: 63.76% - 9.93 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5235994624,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:33 am",
+          "time_str": 1773633787,
+          "read_data": 15342.644068,
+          "write_data": 1811707.661017
+        },
+        "operations": {
+          "time": "9:33 am",
+          "time_str": 1773633787,
+          "read_data": 0.779661,
+          "write_data": 48.033898
+        },
+        "average_wait": {
+          "time": "9:33 am",
+          "time_str": 1773633787,
+          "read_data": 0.000419,
+          "write_data": 0.001206
+        },
+        "latency": {
+          "time": "9:33 am",
+          "time_str": 1773633787,
+          "latency": 0.72
+        }
+      },
+      "threads": {
+        "time": "9:33 am",
+        "time_str": 1773633787,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "9:33 am",
+        "time_str": 1773633787,
+        "established": 1095,
+        "time_wait": 150,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 167851,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:33 am",
+          "time_str": 1773633787,
+          "in_bandwidth": 647384.655477,
+          "out_bandwidth": 56713.660021,
+          "in_unicast": 1051.76087,
+          "out_unicast": 258.784837,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b780fbf0141464893a28da"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773633847,
+      "sample_time_text": "9:34 am",
+      "source_id": "69b78137f0141464893b4a4b",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 23.85,
+        "details": "Total CPU: 23.85%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:34 am",
+        "time_str": 1773633847,
+        "total1": 2.77,
+        "total5": 3.41,
+        "total": 3.34,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.69,
+        "used": 9.92,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.37% - 10.93 GB of 23.58 GB, RAM: 63.69% - 9.92 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5248823296,
+        "cached": 4.9,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:34 am",
+          "time_str": 1773633847,
+          "read_data": 11146.491803,
+          "write_data": 3234706.885246
+        },
+        "operations": {
+          "time": "9:34 am",
+          "time_str": 1773633847,
+          "read_data": 0.491803,
+          "write_data": 98.327869
+        },
+        "average_wait": {
+          "time": "9:34 am",
+          "time_str": 1773633847,
+          "read_data": 0.000417,
+          "write_data": 0.00132
+        },
+        "latency": {
+          "time": "9:34 am",
+          "time_str": 1773633847,
+          "latency": 0.5
+        }
+      },
+      "threads": {
+        "time": "9:34 am",
+        "time_str": 1773633847,
+        "thread_data": 1362
+      },
+      "tcp": {
+        "time": "9:34 am",
+        "time_str": 1773633847,
+        "established": 1094,
+        "time_wait": 146,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 167911,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:34 am",
+          "time_str": 1773633847,
+          "in_bandwidth": 564534.156363,
+          "out_bandwidth": 52424.017287,
+          "in_unicast": 917.703512,
+          "out_unicast": 240.888716,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b78137f0141464893b4a4e"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773633907,
+      "sample_time_text": "9:35 am",
+      "source_id": "69b78173f0141464893c50e4",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 26.46,
+        "details": "Total CPU: 26.46%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:35 am",
+        "time_str": 1773633907,
+        "total1": 2.74,
+        "total5": 2.58,
+        "total": 3.16,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.71,
+        "used": 9.93,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.38% - 10.94 GB of 23.58 GB, RAM: 63.71% - 9.93 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5153394688,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:35 am",
+          "time_str": 1773633907,
+          "read_data": 7577.6,
+          "write_data": 3582489.6
+        },
+        "operations": {
+          "time": "9:35 am",
+          "time_str": 1773633907,
+          "read_data": 0.5,
+          "write_data": 104.716667
+        },
+        "average_wait": {
+          "time": "9:35 am",
+          "time_str": 1773633907,
+          "read_data": 0.000333,
+          "write_data": 0.001293
+        },
+        "latency": {
+          "time": "9:35 am",
+          "time_str": 1773633907,
+          "latency": 0.6
+        }
+      },
+      "threads": {
+        "time": "9:35 am",
+        "time_str": 1773633907,
+        "thread_data": 1360
+      },
+      "tcp": {
+        "time": "9:35 am",
+        "time_str": 1773633907,
+        "established": 1094,
+        "time_wait": 147,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 167971,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:35 am",
+          "time_str": 1773633907,
+          "in_bandwidth": 557844.997789,
+          "out_bandwidth": 63986.218828,
+          "in_unicast": 898.838155,
+          "out_unicast": 315.726232,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b78173f0141464893c50e7"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773633969,
+      "sample_time_text": "9:36 am",
+      "source_id": "69b781b1f0141464893d29df",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 19.86,
+        "details": "Total CPU: 19.86%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:36 am",
+        "time_str": 1773633969,
+        "total1": 2.66,
+        "total5": 1.86,
+        "total": 2.84,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.62,
+        "used": 9.91,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.32% - 10.92 GB of 23.58 GB, RAM: 63.62% - 9.91 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5162090496,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:36 am",
+          "time_str": 1773633969,
+          "read_data": 73728,
+          "write_data": 3731377.898305
+        },
+        "operations": {
+          "time": "9:36 am",
+          "time_str": 1773633969,
+          "read_data": 3.813559,
+          "write_data": 99.932203
+        },
+        "average_wait": {
+          "time": "9:36 am",
+          "time_str": 1773633969,
+          "read_data": 0.000416,
+          "write_data": 0.001063
+        },
+        "latency": {
+          "time": "9:36 am",
+          "time_str": 1773633969,
+          "latency": 0.6
+        }
+      },
+      "threads": {
+        "time": "9:36 am",
+        "time_str": 1773633969,
+        "thread_data": 1363
+      },
+      "tcp": {
+        "time": "9:36 am",
+        "time_str": 1773633969,
+        "established": 1098,
+        "time_wait": 170,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 168034,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:36 am",
+          "time_str": 1773633969,
+          "in_bandwidth": 575396.031584,
+          "out_bandwidth": 59031.703045,
+          "in_unicast": 930.422786,
+          "out_unicast": 277.691259,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b781b1f0141464893d29e2"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773634028,
+      "sample_time_text": "9:37 am",
+      "source_id": "69b781ecf0141464893e73ee",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 28.52,
+        "details": "Total CPU: 28.52%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:37 am",
+        "time_str": 1773634028,
+        "total1": 2.67,
+        "total5": 2.77,
+        "total": 2.86,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.79,
+        "used": 9.94,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.43% - 10.95 GB of 23.58 GB, RAM: 63.79% - 9.94 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5172084736,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:37 am",
+          "time_str": 1773634028,
+          "read_data": 7990.557377,
+          "write_data": 3659490.622951
+        },
+        "operations": {
+          "time": "9:37 am",
+          "time_str": 1773634028,
+          "read_data": 0.47541,
+          "write_data": 105
+        },
+        "average_wait": {
+          "time": "9:37 am",
+          "time_str": 1773634028,
+          "read_data": 0.000413,
+          "write_data": 0.000976
+        },
+        "latency": {
+          "time": "9:37 am",
+          "time_str": 1773634028,
+          "latency": 0.57
+        }
+      },
+      "threads": {
+        "time": "9:37 am",
+        "time_str": 1773634028,
+        "thread_data": 1359
+      },
+      "tcp": {
+        "time": "9:37 am",
+        "time_str": 1773634028,
+        "established": 1103,
+        "time_wait": 162,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 168092,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:37 am",
+          "time_str": 1773634028,
+          "in_bandwidth": 622484.881528,
+          "out_bandwidth": 62470.652084,
+          "in_unicast": 1019.744764,
+          "out_unicast": 292.780831,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b781ecf0141464893e73f1"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773634089,
+      "sample_time_text": "9:38 am",
+      "source_id": "69b78229f0141464893f5555",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 34.43,
+        "details": "Total CPU: 34.43%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:38 am",
+        "time_str": 1773634089,
+        "total1": 2.9,
+        "total5": 5.32,
+        "total": 3.5,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.81,
+        "used": 9.94,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.44% - 10.95 GB of 23.58 GB, RAM: 63.81% - 9.94 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5188812800,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:38 am",
+          "time_str": 1773634089,
+          "read_data": 43758.933333,
+          "write_data": 3472853.333333
+        },
+        "operations": {
+          "time": "9:38 am",
+          "time_str": 1773634089,
+          "read_data": 1.983333,
+          "write_data": 112.066667
+        },
+        "average_wait": {
+          "time": "9:38 am",
+          "time_str": 1773634089,
+          "read_data": 0.0006,
+          "write_data": 0.001036
+        },
+        "latency": {
+          "time": "9:38 am",
+          "time_str": 1773634089,
+          "latency": 0.39
+        }
+      },
+      "threads": {
+        "time": "9:38 am",
+        "time_str": 1773634089,
+        "thread_data": 1361
+      },
+      "tcp": {
+        "time": "9:38 am",
+        "time_str": 1773634089,
+        "established": 1116,
+        "time_wait": 217,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 168154,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:38 am",
+          "time_str": 1773634089,
+          "in_bandwidth": 630862.102679,
+          "out_bandwidth": 86375.703945,
+          "in_unicast": 1036.797928,
+          "out_unicast": 324.168696,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b78229f0141464893f5558"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773634148,
+      "sample_time_text": "9:39 am",
+      "source_id": "69b78264f014146489400ee4",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 30.69,
+        "details": "Total CPU: 30.69%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:39 am",
+        "time_str": 1773634148,
+        "total1": 2.91,
+        "total5": 4.16,
+        "total": 3.43,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 64.04,
+        "used": 9.98,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.6% - 10.99 GB of 23.58 GB, RAM: 64.04% - 9.98 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5170229248,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:39 am",
+          "time_str": 1773634148,
+          "read_data": 20821.333333,
+          "write_data": 3509205.333333
+        },
+        "operations": {
+          "time": "9:39 am",
+          "time_str": 1773634148,
+          "read_data": 1.45,
+          "write_data": 99.016667
+        },
+        "average_wait": {
+          "time": "9:39 am",
+          "time_str": 1773634148,
+          "read_data": 0.000429,
+          "write_data": 0.000839
+        },
+        "latency": {
+          "time": "9:39 am",
+          "time_str": 1773634148,
+          "latency": 0.43
+        }
+      },
+      "threads": {
+        "time": "9:39 am",
+        "time_str": 1773634148,
+        "thread_data": 1360
+      },
+      "tcp": {
+        "time": "9:39 am",
+        "time_str": 1773634148,
+        "established": 1116,
+        "time_wait": 207,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 168213,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:39 am",
+          "time_str": 1773634148,
+          "in_bandwidth": 776182.797114,
+          "out_bandwidth": 65131.814124,
+          "in_unicast": 1282.087255,
+          "out_unicast": 295.701378,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b78264f014146489400ee7"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773634208,
+      "sample_time_text": "9:40 am",
+      "source_id": "69b782a0f01414648940c1a2",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 26.42,
+        "details": "Total CPU: 26.42%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:40 am",
+        "time_str": 1773634208,
+        "total1": 2.85,
+        "total5": 2.85,
+        "total": 3.17,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.94,
+        "used": 9.96,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.53% - 10.97 GB of 23.58 GB, RAM: 63.94% - 9.96 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5140340736,
+        "cached": 4.8,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:40 am",
+          "time_str": 1773634208,
+          "read_data": 39936,
+          "write_data": 2551074.133333
+        },
+        "operations": {
+          "time": "9:40 am",
+          "time_str": 1773634208,
+          "read_data": 3.116667,
+          "write_data": 89.733333
+        },
+        "average_wait": {
+          "time": "9:40 am",
+          "time_str": 1773634208,
+          "read_data": 0.000418,
+          "write_data": 0.001018
+        },
+        "latency": {
+          "time": "9:40 am",
+          "time_str": 1773634208,
+          "latency": 0.5
+        }
+      },
+      "threads": {
+        "time": "9:40 am",
+        "time_str": 1773634208,
+        "thread_data": 1362
+      },
+      "tcp": {
+        "time": "9:40 am",
+        "time_str": 1773634208,
+        "established": 1114,
+        "time_wait": 318,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 168273,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:40 am",
+          "time_str": 1773634208,
+          "in_bandwidth": 566297.284749,
+          "out_bandwidth": 59079.712553,
+          "in_unicast": 901.31737,
+          "out_unicast": 250.720973,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b782a0f01414648940c1a5"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773634268,
+      "sample_time_text": "9:41 am",
+      "source_id": "69b782dcf014146489417035",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 31.41,
+        "details": "Total CPU: 31.41%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:41 am",
+        "time_str": 1773634268,
+        "total1": 2.98,
+        "total5": 4.46,
+        "total": 3.5,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.87,
+        "used": 9.95,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.49% - 10.96 GB of 23.58 GB, RAM: 63.87% - 9.95 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 4988723200,
+        "cached": 4.6,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:41 am",
+          "time_str": 1773634268,
+          "read_data": 140902.4,
+          "write_data": 1961565.866667
+        },
+        "operations": {
+          "time": "9:41 am",
+          "time_str": 1773634268,
+          "read_data": 11,
+          "write_data": 97.45
+        },
+        "average_wait": {
+          "time": "9:41 am",
+          "time_str": 1773634268,
+          "read_data": 0.000568,
+          "write_data": 0.000739
+        },
+        "latency": {
+          "time": "9:41 am",
+          "time_str": 1773634268,
+          "latency": 0.47
+        }
+      },
+      "threads": {
+        "time": "9:41 am",
+        "time_str": 1773634268,
+        "thread_data": 1363
+      },
+      "tcp": {
+        "time": "9:41 am",
+        "time_str": 1773634268,
+        "established": 1113,
+        "time_wait": 212,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 168332,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:41 am",
+          "time_str": 1773634268,
+          "in_bandwidth": 550981.440994,
+          "out_bandwidth": 57471.910753,
+          "in_unicast": 884.134981,
+          "out_unicast": 235.540278,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b782dcf014146489417038"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773634327,
+      "sample_time_text": "9:42 am",
+      "source_id": "69b78317f014146489421ee8",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 28.21,
+        "details": "Total CPU: 28.21%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:42 am",
+        "time_str": 1773634327,
+        "total1": 3.07,
+        "total5": 4.77,
+        "total": 3.69,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 63.99,
+        "used": 9.97,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 46.57% - 10.98 GB of 23.58 GB, RAM: 63.99% - 9.97 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 5046935552,
+        "cached": 4.7,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:42 am",
+          "time_str": 1773634327,
+          "read_data": 36659.2,
+          "write_data": 2639505.066667
+        },
+        "operations": {
+          "time": "9:42 am",
+          "time_str": 1773634327,
+          "read_data": 2.716667,
+          "write_data": 100.016667
+        },
+        "average_wait": {
+          "time": "9:42 am",
+          "time_str": 1773634327,
+          "read_data": 0.000417,
+          "write_data": 0.000889
+        },
+        "latency": {
+          "time": "9:42 am",
+          "time_str": 1773634327,
+          "latency": 0.46
+        }
+      },
+      "threads": {
+        "time": "9:42 am",
+        "time_str": 1773634327,
+        "thread_data": 1363
+      },
+      "tcp": {
+        "time": "9:42 am",
+        "time_str": 1773634327,
+        "established": 1103,
+        "time_wait": 203,
+        "listen": 45
+      },
+      "uptime": {
+        "last_time": 168392,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:42 am",
+          "time_str": 1773634327,
+          "in_bandwidth": 748948.563468,
+          "out_bandwidth": 55724.501619,
+          "in_unicast": 1201.540383,
+          "out_unicast": 220.089857,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b78317f014146489421eeb"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    },
+    {
+      "sample_ts": 1773634387,
+      "sample_time_text": "9:43 am",
+      "source_id": "69b78353f01414648942d134",
+      "synthetic_seed": true,
+      "cpu": {
+        "percent_used": 30.45,
+        "details": "Total CPU: 30.45%",
+        "warn": null,
+        "crit": null,
+        "severity": "critical"
+      },
+      "cpu_load": {
+        "time": "9:43 am",
+        "time_str": 1773634387,
+        "total1": 3.04,
+        "total5": 3.5,
+        "total": 3.49,
+        "warn": 6.4,
+        "crit": 8
+      },
+      "ram": {
+        "percent_used": 69.52,
+        "used": 10.83,
+        "total": 15.58,
+        "used_unit": "GB",
+        "total_unit": "GB",
+        "details": "Total virtual memory: 50.43% - 11.89 GB of 23.58 GB, RAM: 69.52% - 10.83 GB of 15.58 GB (warn/crit at 60.00%/70.00% used)(!), 8 additional details available",
+        "warn": 60,
+        "crit": 70,
+        "severity": "warning"
+      },
+      "cache": {
+        "cached_data": 4243148800,
+        "cached": 4,
+        "cached_unit": "GB"
+      },
+      "disk_io": {
+        "throughput": {
+          "time": "9:43 am",
+          "time_str": 1773634387,
+          "read_data": 3586662.4,
+          "write_data": 3078357.333333
+        },
+        "operations": {
+          "time": "9:43 am",
+          "time_str": 1773634387,
+          "read_data": 198.983333,
+          "write_data": 116.2
+        },
+        "average_wait": {
+          "time": "9:43 am",
+          "time_str": 1773634387,
+          "read_data": 0.000345,
+          "write_data": 0.000547
+        },
+        "latency": {
+          "time": "9:43 am",
+          "time_str": 1773634387,
+          "latency": 0.56
+        }
+      },
+      "threads": {
+        "time": "9:43 am",
+        "time_str": 1773634387,
+        "thread_data": 1492
+      },
+      "tcp": {
+        "time": "9:43 am",
+        "time_str": 1773634387,
+        "established": 1118,
+        "time_wait": 315,
+        "listen": 48
+      },
+      "uptime": {
+        "last_time": 168452,
+        "details": "Up since Mar 14 2026 10:55:36, Uptime: 1 day 22 hours",
+        "boot_time": 1773465936
+      },
+      "interfaces": [
+        {
+          "interface_name": "interface 3",
+          "time": "9:43 am",
+          "time_str": 1773634387,
+          "in_bandwidth": 584580.674588,
+          "out_bandwidth": 101088.93458,
+          "in_unicast": 947.71381,
+          "out_unicast": 246.29634,
+          "in_multicast": 0,
+          "out_multicast": 0,
+          "in_err": 0,
+          "out_err": 0,
+          "in_disc": 0,
+          "out_disc": 0,
+          "in_bandwidth_percent": 0,
+          "out_bandwidth_percent": 0,
+          "link_speed": 1250000000,
+          "source_id": "69b78353f01414648942d137"
+        }
+      ],
+      "labels": [
+        "ram_alert",
+        "cpu_alert",
+        "high_tcp",
+        "high_disk_write"
+      ]
+    }
+  ]
+}

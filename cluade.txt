@@ -1,0 +1,99 @@
+{
+  "case_id": "demo-001",
+  "computed_metrics": {
+    "cpu_avg_pct": 20.3995,
+    "ram_avg_pct": 63.5955,
+    "tcp_established_avg": 1096.2333,
+    "tcp_time_wait_avg": 162.15,
+    "disk_write_avg": 2367939.5625
+  },
+  "contradictions_detected": [
+    {
+      "field": "ram_usage",
+      "source_a": "HTML system report: 13.33%",
+      "source_b": "Telemetry summary: 63.5955% avg (range 63.15%–69.52%)",
+      "explanation": "The HTML report claims system RAM usage is 13.33%, while 60 aligned telemetry samples over the same 1-hour window show an average of 63.60% with a minimum of 63.15%. The discrepancy (~50 percentage points) is too large to attribute to rounding or timing differences. The HTML value likely reflects a single snapshot, a different metric definition (e.g., one VM vs. full host), or a reporting bug."
+    }
+  ],
+  "chosen_source_for_ram": {
+    "source": "telemetry",
+    "justification": "The telemetry source provides 60 samples across the full 3600-second window with a tight standard deviation (min 63.15%, max 69.52%), giving high statistical confidence. The HTML value is a single scalar with no methodology disclosed. A consistently high RAM reading across 60 samples is far more reliable for incident reasoning than one outlier figure."
+  },
+  "root_cause": {
+    "summary": "The host servicing connections to 180.179.176.101 is under sustained memory pressure (63.6% RAM) and high disk-write load (~2.37 MB/s avg, peak ~3.73 MB/s), which is degrading TCP stack performance. This manifests as elevated retransmissions (14,887 packets), high internal latency (1,590.08 ms), and 8 connection timeouts. The high TCP ESTABLISHED count (~1,096 avg) combined with significant TIME_WAIT buildup (162 avg, peak 318) indicates socket exhaustion or buffer contention on the internal host, consistent with the INTERNAL ISSUE classification.",
+    "confidence": "medium"
+  },
+  "evidence_points": [
+    "RAM sustained at 63.15%–69.52% across all 60 telemetry samples indicates persistent memory pressure",
+    "TCP ESTABLISHED avg 1,096 with max 1,118 shows high concurrent connection load",
+    "TCP TIME_WAIT avg 162 with max 318 indicates connections closing faster than the OS can recycle sockets",
+    "Disk write avg 2,367,939 bytes/s (~2.37 MB/s) with peak ~3.73 MB/s suggests heavy I/O that competes with network buffer operations",
+    "Internal latency of 1,590.08 ms is far above normal (<10 ms for LAN); points to host-side queuing, not network transit delay",
+    "14,887 retransmitted packets over 1 hour implies the TCP send buffer is being overwhelmed or NIC TX ring is backing up",
+    "8 timeouts confirm full connection stalls, not just slowness",
+    "Classification is INTERNAL ISSUE, ruling out remote-side or transit network as primary cause",
+    "CPU avg 20.4% (max 46.89%) is moderate—not the bottleneck, but spikes may coincide with retransmit storms"
+  ],
+  "diagnostics": [
+    "Check host-side TCP buffer tuning: net.ipv4.tcp_rmem, net.ipv4.tcp_wmem, net.core.somaxconn may be undersized for ~1,100 concurrent connections",
+    "Inspect TIME_WAIT recycling: net.ipv4.tcp_tw_reuse and net.ipv4.tcp_fin_timeout; peak 318 TIME_WAIT sockets suggests slow recycling",
+    "Correlate disk write peaks with retransmit spikes to determine if I/O contention is starving the network stack of CPU or memory bandwidth",
+    "Verify whether the 13.33% HTML RAM figure refers to a different scope (e.g., container vs. host) or is a reporting defect",
+    "Run ss -s and netstat -st during the next incident window to capture live socket and retransmit counters",
+    "Check NIC error counters (ethtool -S) for TX drops or ring buffer overruns on the interface facing 180.179.176.101"
+  ],
+  "fixes": [
+    "Increase TCP buffer sizes: sysctl -w net.ipv4.tcp_wmem='4096 65536 16777216' and net.ipv4.tcp_rmem similarly, to reduce retransmit pressure under high connection counts",
+    "Enable TIME_WAIT socket reuse: sysctl -w net.ipv4.tcp_tw_reuse=1 and reduce tcp_fin_timeout to 30s to free sockets faster",
+    "Investigate and reduce RAM consumption: at 63–70% sustained, the host has limited headroom; identify top-memory processes and consider scaling vertically or offloading workloads",
+    "Tune disk I/O scheduler (e.g., switch to 'none' or 'mq-deadline' for NVMe) to reduce write latency that may be blocking network buffer flushes",
+    "If connection count cannot be reduced, deploy connection pooling or a reverse proxy to multiplex requests and lower per-connection overhead",
+    "Raise NIC TX ring buffer size (ethtool -G eth0 tx 4096) to absorb burst retransmissions without drops"
+  ]
+}
+
+
+
+Simple Field Guide (JSON Parameters)
+
+- case_id: Unique name of this test case. Here it is demo-001.
+
+- computed_metrics: These are average values calculated for the 1-hour incident window.
+  cpu_avg_pct: Average CPU usage percent (20.3995). CPU is not overloaded.
+  ram_avg_pct: Average RAM usage percent (63.5955). Memory is moderately high.
+  tcp_established_avg: Average active TCP connections (1096.2333). This is high connection load.
+  tcp_time_wait_avg: Average TIME_WAIT sockets (162.15). Higher value means more connection churn.
+  disk_write_avg: Average disk write bytes per second (2367939.5625). Indicates steady write activity.
+
+- contradictions_detected: Shows conflicting values from different sources.
+  field: Which metric has conflict (ram_usage).
+  source_a: RAM from HTML report (13.33%).
+  source_b: RAM from telemetry average (63.5955%).
+  explanation: Why the mismatch matters and why it should be reviewed.
+
+- chosen_source_for_ram: Which RAM source should be trusted for analysis.
+  source: telemetry.
+  justification: Telemetry is based on many samples across the full hour, so it is more reliable than one static HTML value.
+
+Simple English Summary
+
+What happened:
+- This is mainly an internal host issue.
+- Internal latency is very high, packet retransmissions are very high, and timeouts happened.
+
+Main likely causes:
+- The host appears to be under sustained pressure from many active TCP connections.
+- TIME_WAIT buildup suggests connections are closing/reopening quickly and sockets are not recycled fast enough.
+- RAM pressure is moderate-to-high over the full window, and disk write load may be adding extra stress.
+
+Important data note:
+- HTML shows RAM at 13.33%, but telemetry shows about 63.6% average during the incident window.
+- Telemetry is preferred for reasoning because it is sampled repeatedly across the whole hour.
+
+Simple actions to take:
+- Tune TCP buffer and socket settings.
+- Improve connection reuse and reduce connection churn.
+- Check NIC and kernel counters for drops, backlog, and retransmit behavior.
+- Correlate disk write spikes with latency and retransmit spikes.
+- Investigate top memory consumers and increase capacity if pressure remains high.
+

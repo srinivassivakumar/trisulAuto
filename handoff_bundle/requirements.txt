@@ -1,0 +1,4 @@
+dspy-ai
+pyzmq
+protobuf
+requests

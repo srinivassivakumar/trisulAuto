@@ -1,0 +1,81 @@
+{
+  "case_id": "demo-001",
+  "sources": {
+    "synthetic_auto_curl": "synthetic_auto_curl.json",
+    "synthetic_auto_html": "synthetic_auto_html.json"
+  },
+  "telemetry_from_curl": {
+    "alignment": {
+      "start_epoch": 1773630841,
+      "end_epoch": 1773634441,
+      "duration_sec": 3600,
+      "aligned_record_count": 60
+    },
+    "summary": {
+      "cpu": {
+        "avg_pct": 20.3995,
+        "min_pct": 7.11,
+        "max_pct": 46.89
+      },
+      "ram": {
+        "avg_pct": 63.5955,
+        "min_pct": 63.15,
+        "max_pct": 69.52
+      },
+      "tcp": {
+        "established_avg": 1096.2333,
+        "established_max": 1118,
+        "time_wait_avg": 162.15,
+        "time_wait_max": 318,
+        "listen_avg": 45.05
+      },
+      "disk_throughput": {
+        "read_avg": 88411.5837,
+        "read_max": 3586662.4,
+        "write_avg": 2367939.5625,
+        "write_max": 3731377.898305
+      }
+    },
+    "sample_record": {
+      "sample_ts": 1773630846,
+      "sample_time_text": "8:44 am",
+      "cpu_percent_used": 15.34,
+      "ram_percent_used": 63.34,
+      "tcp_established": 1093,
+      "tcp_time_wait": 143,
+      "disk_write_data": 1906756.266667
+    }
+  },
+  "issue_from_html": {
+    "report_window": {
+      "window_start": "2026-03-23 09:45:13",
+      "window_end": "2026-03-23 10:45:13"
+    },
+    "system_ram_usage_html": "13.33%",
+    "issue": {
+      "ip": "180.179.176.101",
+      "classification": "INTERNAL ISSUE",
+      "meter_name": "Latency Internal (µs)",
+      "issue_metrics": [
+        {
+          "name": "Latency Internal (µs)",
+          "value": "1,590.08 ms"
+        },
+        {
+          "name": "Retransmitted Packets Internal",
+          "value": "14,887 pkts"
+        },
+        {
+          "name": "Timeouts",
+          "value": "8"
+        }
+      ],
+      "geo": {
+        "country": "India",
+        "state": "Maharashtra",
+        "city": "Powai",
+        "isp": "Netmagic Solution Network"
+      }
+    }
+  }
+}

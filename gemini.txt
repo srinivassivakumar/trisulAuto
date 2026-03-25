@@ -1,0 +1,88 @@
+{
+"case_id": "demo-001",
+"computed_metrics": {
+"cpu_avg_pct": 20.3995,
+"ram_avg_pct": 63.5955,
+"tcp_established_avg": 1096.2333,
+"tcp_time_wait_avg": 162.15,
+"disk_write_avg": 2367939.5625
+},
+"contradictions_detected": [
+{
+"field": "ram_usage",
+"source_a": "html_system_ram_usage (13.33%)",
+"source_b": "telemetry_ram_avg (63.5955%)",
+"explanation": "Significant discrepancy between the system-level snapshot reported in HTML and the time-averaged telemetry data over the 1-hour window."
+}
+],
+"chosen_source_for_ram": {
+"source": "telemetry",
+"justification": "The telemetry data provides a 60-sample average over the specific 1-hour issue window, making it more representative of the system state during the incident than a static HTML report value."
+},
+"root_cause": {
+"summary": "Host-side TCP stack congestion and resource pressure, specifically indicated by high latency and high retransmits on internal interfaces coinciding with elevated RAM and established connection counts.",
+"confidence": "high"
+},
+"evidence_points": [
+"Latency Internal reported at 1,590.08 ms.",
+"Retransmitted Packets Internal reached 14,887 pkts.",
+"8 TCP Timeouts recorded in the issue window.",
+"RAM usage averaged 63.59% in telemetry, peaking at 69.52%.",
+"Average of 1,096 established TCP connections during the incident."
+],
+"diagnostics": [
+"Check for TCP kernel buffer exhaustion or backlog queue overflows.",
+"Monitor for high context switching or interrupt storms that could cause the 1.5s internal latency spikes.",
+"Verify if the elevated RAM usage (up to 69%) is causing swapping or affecting network buffer allocation."
+],
+"fixes": [
+"Tune TCP stack parameters (e.g., net.core.rmem_max, net.core.wmem_max) to handle high internal traffic.",
+"Investigate the source of the 1,000+ established connections to ensure they are legitimate and not a leak.",
+"Increase system memory if the 63%+ usage is consistently causing latency in packet processing."
+]
+}
+
+Simple Field Guide (JSON Parameters)
+
+- case_id: Unique name of this test case. Here it is demo-001.
+
+- computed_metrics: These are averaged telemetry metrics for the 1-hour issue window.
+	cpu_avg_pct: Average CPU usage percent (20.3995). CPU is not the main bottleneck.
+	ram_avg_pct: Average RAM usage percent (63.5955). Memory usage is moderately high.
+	tcp_established_avg: Average active TCP connections (1096.2333). Indicates heavy concurrent traffic.
+	tcp_time_wait_avg: Average TIME_WAIT sockets (162.15). Points to connection churn.
+	disk_write_avg: Average disk write bytes per second (2367939.5625). Indicates notable write load.
+
+- contradictions_detected: Captures conflicts between data sources.
+	field: Which metric is conflicting (ram_usage).
+	source_a: HTML RAM value (13.33%).
+	source_b: Telemetry RAM average (63.5955%).
+	explanation: Explains the mismatch and why it should be considered during diagnosis.
+
+- chosen_source_for_ram: Selected source for RAM reasoning.
+	source: telemetry.
+	justification: Telemetry uses many samples across the full incident period, so it is more trustworthy for this case.
+
+
+
+Simple English Summary
+
+What happened:
+- The issue is inside the host itself (not mainly outside network path).
+- Internal latency is very high (about 1.59 seconds), retransmissions are very high, and timeouts are present.
+
+Main likely causes:
+- Too much internal TCP connection pressure.
+- Network stack queues or buffers may be overloaded.
+- Host resources (especially memory and connection handling) may be under stress.
+
+Important data note:
+- HTML RAM says 13.33%, but telemetry average RAM is about 63.6% in the same window.
+- For troubleshooting, telemetry is more reliable here because it is based on many samples over the full hour.
+
+Simple actions to take:
+- Check TCP buffer and backlog settings on the host.
+- Find why so many active connections exist and whether there is a connection leak.
+- Correlate retransmit spikes with latency spikes.
+- Verify memory pressure and check if scaling memory is needed.
+

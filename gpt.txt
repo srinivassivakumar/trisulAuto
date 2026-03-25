@@ -1,0 +1,92 @@
+Optimizing tool selection...{
+  "case_id": "demo-001",
+  "computed_metrics": {
+    "cpu_avg_pct": 20.3995,
+    "ram_avg_pct": 63.5955,
+    "tcp_established_avg": 1096.2333,
+    "tcp_time_wait_avg": 162.15,
+    "disk_write_avg": 2367939.5625
+  },
+  "contradictions_detected": [
+    {
+      "field": "ram_usage",
+      "source_a": "HTML system RAM usage = 13.33%",
+      "source_b": "Telemetry RAM average = 63.5955%",
+      "explanation": "The HTML-reported RAM usage and the telemetry window average differ materially for the same case, so they cannot both represent the same memory state for incident reasoning without additional context."
+    }
+  ],
+  "chosen_source_for_ram": {
+    "source": "telemetry",
+    "justification": "Telemetry provides a summarized measurement across the aligned 3600-second incident window, whereas the HTML value is a single conflicting point with no supporting detail in the input. For reasoning about the issue window, the window-aligned telemetry is the stronger source."
+  },
+  "root_cause": {
+    "summary": "Likely internal host-side TCP/session pressure associated with the monitored system during the incident window, reflected by very high internal latency, heavy retransmissions, nonzero timeouts, and a high volume of established and TIME_WAIT connections. RAM does not appear to be the primary limiting factor based on the telemetry average, and CPU average is not high enough by itself to explain the incident.",
+    "confidence": "medium"
+  },
+  "evidence_points": [
+    "Issue classification is INTERNAL ISSUE, which points to an internal-side problem rather than an external remote endpoint issue.",
+    "Latency Internal is 1,590.08 ms, indicating severe internal latency during the incident.",
+    "Retransmitted Packets Internal is 14,887 pkts, which is strong evidence of TCP delivery inefficiency or session instability.",
+    "Timeouts = 8, which indicates failed or stalled network interactions during the same case.",
+    "Telemetry shows tcp_established_avg = 1096.2333 and tcp_time_wait_avg = 162.15, indicating sustained connection load and notable connection churn.",
+    "Telemetry RAM average is 63.5955%, which contradicts the HTML RAM value of 13.33%; this makes the HTML RAM value less reliable for root-cause reasoning.",
+    "Telemetry CPU average is 20.3995%, so the input does not support CPU saturation as the dominant cause."
+  ],
+  "diagnostics": [
+    "Validate whether the host had excessive concurrent internal TCP sessions during the incident window, using the high established connection average as the first lead.",
+    "Inspect why retransmissions reached 14,887 packets and correlate them with the affected internal flows for 180.179.176.101.",
+    "Review socket lifecycle and connection reuse behavior because tcp_time_wait_avg = 162.15 suggests meaningful connection churn.",
+    "Check whether the timeouts and retransmissions were concentrated around the same periods as the internal latency spike.",
+    "Treat the RAM discrepancy as a data-quality issue and verify which collector produced the HTML 13.33% RAM figure."
+  ],
+  "fixes": [
+    "Investigate and reduce excessive internal TCP connection pressure on the host if confirmed, including improving connection reuse and limiting unnecessary concurrent sessions.",
+    "Trace the internal path and application flows associated with 180.179.176.101 to isolate the source of retransmissions and timeouts.",
+    "Verify host and application network stack behavior during the incident window, especially around session handling and retransmission triggers.",
+    "Use telemetry RAM as the primary memory signal for this case until the HTML RAM reporting discrepancy is resolved.",
+    "Add validation in the pipeline to flag contradictory host metrics such as RAM before model reasoning is performed."
+  ]
+}
+
+
+Simple Field Guide (JSON Parameters)
+
+- case_id: Unique name of this test case. Here it is demo-001.
+
+- computed_metrics: These are average values calculated for the 1-hour incident window.
+  cpu_avg_pct: Average CPU usage percent (20.3995). CPU is not saturated.
+  ram_avg_pct: Average RAM usage percent (63.5955). Memory usage is moderate to high.
+  tcp_established_avg: Average active TCP connections (1096.2333). This indicates heavy session load.
+  tcp_time_wait_avg: Average TIME_WAIT sockets (162.15). This suggests connection churn.
+  disk_write_avg: Average disk write bytes per second (2367939.5625). Shows significant write activity.
+
+- contradictions_detected: Shows conflicting values from different sources.
+  field: Which metric has conflict (ram_usage).
+  source_a: RAM from HTML report (13.33%).
+  source_b: RAM from telemetry average (63.5955%).
+  explanation: Why this mismatch is important for root-cause reasoning.
+
+- chosen_source_for_ram: Which RAM source is preferred for this incident.
+  source: telemetry.
+  justification: Telemetry covers the entire aligned window using repeated samples, so it is more dependable.
+Simple English Summary
+
+What happened:
+- The issue is likely on the internal host side.
+- Internal latency is very high, retransmitted packets are very high, and timeouts occurred.
+
+Main likely causes:
+- The host is handling too many active TCP sessions.
+- Connection churn (ESTABLISHED and TIME_WAIT levels) suggests session pressure.
+- CPU is not extremely high on average, so CPU alone is probably not the main bottleneck.
+
+Important data note:
+- HTML RAM (13.33%) and telemetry RAM average (63.5955%) conflict.
+- Telemetry is the better source for this window because it summarizes the full 1-hour period.
+
+Simple actions to take:
+- Inspect and reduce unnecessary concurrent connections.
+- Investigate retransmission and timeout patterns for this internal flow.
+- Tune TCP/session handling where needed.
+- Add data-quality checks so conflicting metrics are flagged before analysis.
+

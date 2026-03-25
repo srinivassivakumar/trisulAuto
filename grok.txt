@@ -1,0 +1,87 @@
+Optimizing tool selection...{
+  "case_id": "demo-001",
+  "computed_metrics": {
+    "cpu_avg_pct": 20.3995,
+    "ram_avg_pct": 63.5955,
+    "tcp_established_avg": 1096.2333,
+    "tcp_time_wait_avg": 162.15,
+    "disk_write_avg": 2367939.5625
+  },
+  "contradictions_detected": [
+    {
+      "field": "ram_usage",
+      "source_a": "html_system_ram_usage_html",
+      "source_b": "telemetry_summary.ram.avg_pct",
+      "explanation": "HTML reports 13.33% RAM usage while telemetry summary shows 63.5955% average RAM usage over the same window, a difference of over 50 percentage points"
+    }
+  ],
+  "chosen_source_for_ram": {
+    "source": "telemetry",
+    "justification": "Telemetry provides averaged measurements over the full 1-hour window with min/max ranges, offering more comprehensive data than the single HTML snapshot value"
+  },
+  "root_cause": {
+    "summary": "Host-side resource contention causing TCP buffer exhaustion and retransmission storms",
+    "confidence": "medium"
+  },
+  "evidence_points": [
+    "INTERNAL ISSUE classification indicates problem originates on this host, not remote IP",
+    "High retransmitted packets (14,887) and timeouts (8) suggest TCP stack stress",
+    "RAM usage at 63.6% average indicates memory pressure potentially causing buffer allocation issues",
+    "TCP established connections averaging 1096 with time_wait at 162 suggests active connection handling",
+    "Disk write throughput averaging 2.37MB/s indicates I/O activity that could contribute to CPU load at 20.4%"
+  ],
+  "diagnostics": [
+    "Check TCP buffer sizes and memory allocation for socket operations",
+    "Monitor kernel logs for TCP retransmission and timeout events during the window",
+    "Verify if RAM usage spikes correlate with latency spikes",
+    "Examine process memory usage to identify potential memory leaks or high-usage applications"
+  ],
+  "fixes": [
+    "Increase TCP buffer sizes (net.core.rmem_max, net.core.wmem_max) if kernel limits are constraining",
+    "Optimize application memory usage or add more RAM if consistently above 60%",
+    "Implement connection pooling or rate limiting to reduce TCP connection churn",
+    "Tune disk I/O scheduling to reduce write latency impact on network operations"
+  ]
+}
+
+Simple Field Guide (JSON Parameters)
+
+- case_id: Unique name of this test case. Here it is demo-001.
+
+- computed_metrics: These are average values from telemetry for the 1-hour window.
+  cpu_avg_pct: Average CPU usage percent (20.3995). CPU looks manageable.
+  ram_avg_pct: Average RAM usage percent (63.5955). RAM is moderately loaded.
+  tcp_established_avg: Average active TCP connections (1096.2333). This is a high number of concurrent sessions.
+  tcp_time_wait_avg: Average TIME_WAIT sockets (162.15). Indicates frequent connection close/reopen cycles.
+  disk_write_avg: Average disk write bytes per second (2367939.5625). Shows sustained disk write load.
+
+- contradictions_detected: Highlights conflicting measurements.
+  field: Conflicting metric name (ram_usage).
+  source_a: HTML RAM value (13.33%).
+  source_b: Telemetry RAM average (63.5955%).
+  explanation: Describes the mismatch and why it affects analysis.
+
+- chosen_source_for_ram: Preferred RAM source for incident reasoning.
+  source: telemetry.
+  justification: Telemetry represents the full period with multiple samples, which is better than one snapshot value.
+
+Simple English Summary
+
+What happened:
+- The problem looks internal to the host, with slow internal response and many packet retries.
+- There were also some timeouts, which means some requests did not complete in time.
+
+Main likely causes:
+- Resource contention on the host (memory + connection handling + I/O effects).
+- TCP buffers may be insufficient during heavy load.
+
+Important data note:
+- HTML shows 13.33% RAM, but telemetry average is about 63.6% for the same incident window.
+- Use telemetry RAM for analysis because it represents the full time window.
+
+Simple actions to take:
+- Review TCP buffer settings and socket limits.
+- Check process memory usage and identify top consumers.
+- Reduce unnecessary connection churn (reuse or pool connections).
+- Check disk write pressure during the same time as retransmissions.
+

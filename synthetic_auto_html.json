@@ -1,0 +1,3229 @@
+{
+  "dataset_name": "synthetic_auto_html",
+  "source_file": "html_extractor_output.json",
+  "alignment": {
+    "start_epoch": 1773630841,
+    "end_epoch": 1773634441,
+    "duration_sec": 3600,
+    "aligned_telemetry_records": 60
+  },
+  "telemetry_summary_for_reasoning": {
+    "record_count": 60,
+    "cpu": {
+      "avg_pct": 20.3995,
+      "min_pct": 7.11,
+      "max_pct": 46.89
+    },
+    "ram": {
+      "avg_pct": 63.5955,
+      "min_pct": 63.15,
+      "max_pct": 69.52
+    },
+    "tcp": {
+      "established_avg": 1096.2333,
+      "established_max": 1118,
+      "time_wait_avg": 162.15,
+      "time_wait_max": 318,
+      "listen_avg": 45.05
+    },
+    "disk_throughput": {
+      "read_avg": 88411.5837,
+      "read_max": 3586662.4,
+      "write_avg": 2367939.5625,
+      "write_max": 3731377.898305
+    }
+  },
+  "html_data": {
+    "sources": {
+      "html": "C:\\sri\\trisulauto\\tcp-report.html",
+      "vm_json": "C:\\sri\\trisulauto\\vm_data.json",
+      "ram_json": "C:\\sri\\trisulauto\\ram_resources.json",
+      "cpu_json": "C:\\sri\\trisulauto\\CPU_resources.json"
+    },
+    "extracted_at_utc": "2026-03-23T07:27:26Z",
+    "report": {
+      "generated_at": "2026-03-23 10:45:13",
+      "window_start": "2026-03-23 09:45:13",
+      "window_end": "2026-03-23 10:45:13"
+    },
+    "system": {
+      "cpu_usage": "0.35%",
+      "ram_usage": "13.33%",
+      "ram_size": "16 GB",
+      "disk_size": "300 GB",
+      "vm": {
+        "hostname": "mcr42vm-tj-noren-fix-agg-live",
+        "lan_ip": "10.192.2.217",
+        "wan_ip": "103.174.106.192",
+        "cpu_cores": 8,
+        "ram": "16 GB",
+        "disk": "300 GB",
+        "power_status": "POWERED_ON",
+        "os": "Ubuntu Linux (64-bit)"
+      },
+      "cpu_stats": {
+        "latest_pct": 0.35,
+        "avg_pct": 0.37,
+        "peak_pct": 0.41,
+        "warn_pct": 60.0,
+        "crit_pct": 70.0
+      },
+      "ram_stats": {
+        "latest_pct": 13.33,
+        "avg_pct": 13.29,
+        "peak_pct": 13.33,
+        "used_gb_latest": 2.1,
+        "total_gb": 15.6,
+        "warn_pct": 60.0,
+        "crit_pct": 70.0
+      },
+      "timestamp_epoch": 1773634441
+    },
+    "issues": [
+      {
+        "meter_id": 0,
+        "meter_name": "Latency Internal (\u00b5s)",
+        "meter_summary": {
+          "min": "0.00 ms",
+          "max": "0.00 ms",
+          "avg": "0.00 ms",
+          "latest": "0.00 ms"
+        },
+        "rank": 1,
+        "ip": "180.179.176.101",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency Internal (\u00b5s)",
+            "value": "1,590.08 ms"
+          },
+          {
+            "name": "Retransmitted Packets Internal",
+            "value": "14,887 pkts"
+          },
+          {
+            "name": "Timeouts",
+            "value": "8"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Offload or upgrade overloaded devices urgently",
+            "2. Optimize security rule processing",
+            "3. Tune TCP timers appropriately",
+            "4. Implement traffic bypass for trusted flows",
+            "5. Add hardware acceleration",
+            "6. Fix control plane instabilities",
+            "7. Increase link capacity",
+            "8. Deploy fast failover"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Maharashtra",
+          "city": "Powai",
+          "isp": "Netmagic Solution Network"
+        },
+        "top_values": [
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "1,590.08 ms",
+            "raw": 1590078
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "14,887 pkts",
+            "raw": 14887
+          },
+          {
+            "metric": "Timeouts",
+            "value": "8",
+            "raw": 8
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 0,
+        "meter_name": "Latency Internal (\u00b5s)",
+        "meter_summary": {
+          "min": "0.00 ms",
+          "max": "0.00 ms",
+          "avg": "0.00 ms",
+          "latest": "0.00 ms"
+        },
+        "rank": 2,
+        "ip": "103.174.107.44",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency Internal (\u00b5s)",
+            "value": "791.50 ms"
+          },
+          {
+            "name": "Retransmitted Packets Internal",
+            "value": "824 pkts"
+          },
+          {
+            "name": "Timeouts",
+            "value": "9"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Offload or upgrade overloaded devices urgently",
+            "2. Optimize security rule processing",
+            "3. Tune TCP timers appropriately",
+            "4. Implement traffic bypass for trusted flows",
+            "5. Add hardware acceleration",
+            "6. Fix control plane instabilities",
+            "7. Increase link capacity",
+            "8. Deploy fast failover"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Karnataka",
+          "city": "Bengaluru",
+          "isp": "Zybisys Consulting Services LLP"
+        },
+        "top_values": [
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "791.50 ms",
+            "raw": 791501
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "824 pkts",
+            "raw": 824
+          },
+          {
+            "metric": "Timeouts",
+            "value": "9",
+            "raw": 9
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 0,
+        "meter_name": "Latency Internal (\u00b5s)",
+        "meter_summary": {
+          "min": "0.00 ms",
+          "max": "0.00 ms",
+          "avg": "0.00 ms",
+          "latest": "0.00 ms"
+        },
+        "rank": 3,
+        "ip": "103.174.107.43",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency Internal (\u00b5s)",
+            "value": "430.11 ms"
+          },
+          {
+            "name": "Retransmitted Packets Internal",
+            "value": "383 pkts"
+          },
+          {
+            "name": "Timeouts",
+            "value": "9"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Offload or upgrade overloaded devices urgently",
+            "2. Optimize security rule processing",
+            "3. Tune TCP timers appropriately",
+            "4. Implement traffic bypass for trusted flows",
+            "5. Add hardware acceleration",
+            "6. Fix control plane instabilities",
+            "7. Increase link capacity",
+            "8. Deploy fast failover"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Karnataka",
+          "city": "Bengaluru",
+          "isp": "Zybisys Consulting Services LLP"
+        },
+        "top_values": [
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "430.11 ms",
+            "raw": 430111
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "383 pkts",
+            "raw": 383
+          },
+          {
+            "metric": "Timeouts",
+            "value": "9",
+            "raw": 9
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 0,
+        "meter_name": "Latency Internal (\u00b5s)",
+        "meter_summary": {
+          "min": "0.00 ms",
+          "max": "0.00 ms",
+          "avg": "0.00 ms",
+          "latest": "0.00 ms"
+        },
+        "rank": 4,
+        "ip": "103.174.107.83",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency Internal (\u00b5s)",
+            "value": "73.30 ms"
+          },
+          {
+            "name": "Timeouts",
+            "value": "10"
+          }
+        ],
+        "rule": {
+          "problem": "Packets are delayed beyond TCP Retransmission Timeout (RTO) values (typically 200ms-3s depending on configuration). This forces TCP to assume packet loss and trigger expensive retransmission timeouts. Can be caused by extreme congestion, device CPU overload freezing packet forwarding, or processing delays in security appliances (firewall deep packet inspection, IPS scanning).",
+          "diagnostics": [
+            "Check maximum queue depths and peak latency values",
+            "Monitor firewall/IPS processing delays and session table utilization",
+            "Review device CPU spikes correlating with timeout periods",
+            "Check for routing loops or suboptimal path selection (traceroute analysis)",
+            "Examine security appliance logs for dropped/delayed sessions",
+            "Monitor application server backend database query times",
+            "Check for DNS resolution delays"
+          ],
+          "fix": [
+            "1. Offload firewall/IPS to more powerful hardware or distribute load across multiple devices",
+            "2. Tune firewall session timeout values appropriately for applications",
+            "3. Optimize security policy rules (move frequently hit rules to top, remove unnecessary deep inspection)",
+            "4. Increase device resources or optimize control plane protection",
+            "5. Implement bypass mechanisms for trusted internal traffic",
+            "6. Adjust TCP RTO parameters on servers if appropriate for environment (careful tuning required)",
+            "7. Fix routing issues to prevent suboptimal paths (adjust metrics, fix routing protocols)",
+            "8. Optimize slow database queries causing application-layer delays",
+            "9. Enable hardware acceleration for crypto/inspection functions"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Karnataka",
+          "city": "Bengaluru",
+          "isp": "Zybisys Consulting Services LLP"
+        },
+        "top_values": [
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "73.30 ms",
+            "raw": 73298
+          },
+          {
+            "metric": "Timeouts",
+            "value": "10",
+            "raw": 10
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "0 pkts",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 0,
+        "meter_name": "Latency Internal (\u00b5s)",
+        "meter_summary": {
+          "min": "0.00 ms",
+          "max": "0.00 ms",
+          "avg": "0.00 ms",
+          "latest": "0.00 ms"
+        },
+        "rank": 5,
+        "ip": "103.174.107.148",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency Internal (\u00b5s)",
+            "value": "82.38 ms"
+          },
+          {
+            "name": "Retransmitted Packets Internal",
+            "value": "1 pkts"
+          },
+          {
+            "name": "Timeouts",
+            "value": "11"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Offload or upgrade overloaded devices urgently",
+            "2. Optimize security rule processing",
+            "3. Tune TCP timers appropriately",
+            "4. Implement traffic bypass for trusted flows",
+            "5. Add hardware acceleration",
+            "6. Fix control plane instabilities",
+            "7. Increase link capacity",
+            "8. Deploy fast failover"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Karnataka",
+          "city": "Bengaluru",
+          "isp": "Zybisys Consulting Services LLP"
+        },
+        "top_values": [
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "82.38 ms",
+            "raw": 82384
+          },
+          {
+            "metric": "Timeouts",
+            "value": "11",
+            "raw": 11
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "1 pkts",
+            "raw": 1
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 1,
+        "meter_name": "Latency External (\u00b5s)",
+        "meter_summary": {
+          "min": "0.00 ms",
+          "max": "0.00 ms",
+          "avg": "0.00 ms",
+          "latest": "0.00 ms"
+        },
+        "rank": 1,
+        "ip": "199.45.154.188",
+        "classification": "INTERNAL + EXTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency External (\u00b5s)",
+            "value": "1,500.18 ms"
+          },
+          {
+            "name": "Timeouts",
+            "value": "1"
+          }
+        ],
+        "rule": {
+          "problem": "Packets are delayed beyond TCP Retransmission Timeout (RTO) values (typically 200ms-3s depending on configuration). This forces TCP to assume packet loss and trigger expensive retransmission timeouts. Can be caused by extreme congestion, device CPU overload freezing packet forwarding, or processing delays in security appliances (firewall deep packet inspection, IPS scanning).",
+          "diagnostics": [
+            "Check maximum queue depths and peak latency values",
+            "Monitor firewall/IPS processing delays and session table utilization",
+            "Review device CPU spikes correlating with timeout periods",
+            "Check for routing loops or suboptimal path selection (traceroute analysis)",
+            "Examine security appliance logs for dropped/delayed sessions",
+            "Monitor application server backend database query times",
+            "Check for DNS resolution delays"
+          ],
+          "fix": [
+            "1. Offload firewall/IPS to more powerful hardware or distribute load across multiple devices",
+            "2. Tune firewall session timeout values appropriately for applications",
+            "3. Optimize security policy rules (move frequently hit rules to top, remove unnecessary deep inspection)",
+            "4. Increase device resources or optimize control plane protection",
+            "5. Implement bypass mechanisms for trusted internal traffic",
+            "6. Adjust TCP RTO parameters on servers if appropriate for environment (careful tuning required)",
+            "7. Fix routing issues to prevent suboptimal paths (adjust metrics, fix routing protocols)",
+            "8. Optimize slow database queries causing application-layer delays",
+            "9. Enable hardware acceleration for crypto/inspection functions"
+          ]
+        },
+        "geo": {
+          "country": "United States",
+          "state": "New York",
+          "city": "New York",
+          "isp": "Censys, Inc."
+        },
+        "top_values": [
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "1,500.18 ms",
+            "raw": 1500182
+          },
+          {
+            "metric": "Timeouts",
+            "value": "1",
+            "raw": 1
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "0 pkts",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 1,
+        "meter_name": "Latency External (\u00b5s)",
+        "meter_summary": {
+          "min": "0.00 ms",
+          "max": "0.00 ms",
+          "avg": "0.00 ms",
+          "latest": "0.00 ms"
+        },
+        "rank": 2,
+        "ip": "73.88.239.171",
+        "classification": "INTERNAL + EXTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency External (\u00b5s)",
+            "value": "1,850.32 ms"
+          },
+          {
+            "name": "Timeouts",
+            "value": "20"
+          }
+        ],
+        "rule": {
+          "problem": "Packets are delayed beyond TCP Retransmission Timeout (RTO) values (typically 200ms-3s depending on configuration). This forces TCP to assume packet loss and trigger expensive retransmission timeouts. Can be caused by extreme congestion, device CPU overload freezing packet forwarding, or processing delays in security appliances (firewall deep packet inspection, IPS scanning).",
+          "diagnostics": [
+            "Check maximum queue depths and peak latency values",
+            "Monitor firewall/IPS processing delays and session table utilization",
+            "Review device CPU spikes correlating with timeout periods",
+            "Check for routing loops or suboptimal path selection (traceroute analysis)",
+            "Examine security appliance logs for dropped/delayed sessions",
+            "Monitor application server backend database query times",
+            "Check for DNS resolution delays"
+          ],
+          "fix": [
+            "1. Offload firewall/IPS to more powerful hardware or distribute load across multiple devices",
+            "2. Tune firewall session timeout values appropriately for applications",
+            "3. Optimize security policy rules (move frequently hit rules to top, remove unnecessary deep inspection)",
+            "4. Increase device resources or optimize control plane protection",
+            "5. Implement bypass mechanisms for trusted internal traffic",
+            "6. Adjust TCP RTO parameters on servers if appropriate for environment (careful tuning required)",
+            "7. Fix routing issues to prevent suboptimal paths (adjust metrics, fix routing protocols)",
+            "8. Optimize slow database queries causing application-layer delays",
+            "9. Enable hardware acceleration for crypto/inspection functions"
+          ]
+        },
+        "geo": {
+          "country": "United States",
+          "state": "Tennessee",
+          "city": "Antioch",
+          "isp": "Comcast Cable Communications"
+        },
+        "top_values": [
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "1,850.32 ms",
+            "raw": 1850321
+          },
+          {
+            "metric": "Timeouts",
+            "value": "20",
+            "raw": 20
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "0 pkts",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 1,
+        "meter_name": "Latency External (\u00b5s)",
+        "meter_summary": {
+          "min": "0.00 ms",
+          "max": "0.00 ms",
+          "avg": "0.00 ms",
+          "latest": "0.00 ms"
+        },
+        "rank": 3,
+        "ip": "162.240.229.21",
+        "classification": "EXTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency External (\u00b5s)",
+            "value": "271.12 ms"
+          }
+        ],
+        "rule": {
+          "problem": "Internal path latency is elevated due to internal congestion, queueing, or device processing delay.",
+          "diagnostics": [
+            "Check core/distribution link utilization and queue depth",
+            "Check switch/router/firewall CPU and forwarding latency",
+            "Validate interface health and duplex/speed consistency"
+          ],
+          "fix": [
+            "1. Apply QoS priority for latency-sensitive traffic",
+            "2. Rebalance traffic away from congested links",
+            "3. Fix interface errors and duplex mismatch"
+          ]
+        },
+        "geo": {
+          "country": "United States",
+          "state": "Utah",
+          "city": "Provo",
+          "isp": "Unified Layer"
+        },
+        "top_values": [
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "271.12 ms",
+            "raw": 271115
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "0 pkts",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmission Rate % Internal",
+            "value": "0.00%",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 1,
+        "meter_name": "Latency External (\u00b5s)",
+        "meter_summary": {
+          "min": "0.00 ms",
+          "max": "0.00 ms",
+          "avg": "0.00 ms",
+          "latest": "0.00 ms"
+        },
+        "rank": 4,
+        "ip": "211.57.201.61",
+        "classification": "EXTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency External (\u00b5s)",
+            "value": "392.60 ms"
+          }
+        ],
+        "rule": {
+          "problem": "Internal path latency is elevated due to internal congestion, queueing, or device processing delay.",
+          "diagnostics": [
+            "Check core/distribution link utilization and queue depth",
+            "Check switch/router/firewall CPU and forwarding latency",
+            "Validate interface health and duplex/speed consistency"
+          ],
+          "fix": [
+            "1. Apply QoS priority for latency-sensitive traffic",
+            "2. Rebalance traffic away from congested links",
+            "3. Fix interface errors and duplex mismatch"
+          ]
+        },
+        "geo": {
+          "country": "South Korea",
+          "state": "Gyeongsangbuk-do",
+          "city": "Andong",
+          "isp": "Korea Telecom"
+        },
+        "top_values": [
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "392.60 ms",
+            "raw": 392597
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "0 pkts",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmission Rate % Internal",
+            "value": "0.00%",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 1,
+        "meter_name": "Latency External (\u00b5s)",
+        "meter_summary": {
+          "min": "0.00 ms",
+          "max": "0.00 ms",
+          "avg": "0.00 ms",
+          "latest": "0.00 ms"
+        },
+        "rank": 5,
+        "ip": "204.141.43.62",
+        "classification": "EXTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency External (\u00b5s)",
+            "value": "247.19 ms"
+          }
+        ],
+        "rule": {
+          "problem": "Internal path latency is elevated due to internal congestion, queueing, or device processing delay.",
+          "diagnostics": [
+            "Check core/distribution link utilization and queue depth",
+            "Check switch/router/firewall CPU and forwarding latency",
+            "Validate interface health and duplex/speed consistency"
+          ],
+          "fix": [
+            "1. Apply QoS priority for latency-sensitive traffic",
+            "2. Rebalance traffic away from congested links",
+            "3. Fix interface errors and duplex mismatch"
+          ]
+        },
+        "geo": {
+          "country": "United States",
+          "state": "Washington",
+          "city": "Seattle",
+          "isp": "Zoho Corp"
+        },
+        "top_values": [
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "247.19 ms",
+            "raw": 247195
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "0 pkts",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmission Rate % Internal",
+            "value": "0.00%",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 2,
+        "meter_name": "Retransmitted Packets Internal",
+        "meter_summary": {
+          "min": "2,925 pkts",
+          "max": "79,057 pkts",
+          "avg": "23,164 pkts",
+          "latest": "8,111 pkts"
+        },
+        "rank": 1,
+        "ip": "180.179.176.101",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency Internal (\u00b5s)",
+            "value": "1,590.08 ms"
+          },
+          {
+            "name": "Retransmitted Packets Internal",
+            "value": "14,887 pkts"
+          },
+          {
+            "name": "Timeouts",
+            "value": "8"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Offload or upgrade overloaded devices urgently",
+            "2. Optimize security rule processing",
+            "3. Tune TCP timers appropriately",
+            "4. Implement traffic bypass for trusted flows",
+            "5. Add hardware acceleration",
+            "6. Fix control plane instabilities",
+            "7. Increase link capacity",
+            "8. Deploy fast failover"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Maharashtra",
+          "city": "Powai",
+          "isp": "Netmagic Solution Network"
+        },
+        "top_values": [
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "1,590.08 ms",
+            "raw": 1590078
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "14,887 pkts",
+            "raw": 14887
+          },
+          {
+            "metric": "Timeouts",
+            "value": "8",
+            "raw": 8
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 2,
+        "meter_name": "Retransmitted Packets Internal",
+        "meter_summary": {
+          "min": "2,925 pkts",
+          "max": "79,057 pkts",
+          "avg": "23,164 pkts",
+          "latest": "8,111 pkts"
+        },
+        "rank": 2,
+        "ip": "103.174.107.87",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency Internal (\u00b5s)",
+            "value": "0.04 ms"
+          },
+          {
+            "name": "Retransmitted Packets Internal",
+            "value": "4,062 pkts"
+          },
+          {
+            "name": "Timeouts",
+            "value": "12"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Offload or upgrade overloaded devices urgently",
+            "2. Optimize security rule processing",
+            "3. Tune TCP timers appropriately",
+            "4. Implement traffic bypass for trusted flows",
+            "5. Add hardware acceleration",
+            "6. Fix control plane instabilities",
+            "7. Increase link capacity",
+            "8. Deploy fast failover"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Karnataka",
+          "city": "Bengaluru",
+          "isp": "Zybisys Consulting Services LLP"
+        },
+        "top_values": [
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "4,062 pkts",
+            "raw": 4062
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.04 ms",
+            "raw": 43
+          },
+          {
+            "metric": "Timeouts",
+            "value": "12",
+            "raw": 12
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 2,
+        "meter_name": "Retransmitted Packets Internal",
+        "meter_summary": {
+          "min": "2,925 pkts",
+          "max": "79,057 pkts",
+          "avg": "23,164 pkts",
+          "latest": "8,111 pkts"
+        },
+        "rank": 3,
+        "ip": "103.174.107.255",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency Internal (\u00b5s)",
+            "value": "0.90 ms"
+          },
+          {
+            "name": "Retransmitted Packets Internal",
+            "value": "1,476 pkts"
+          },
+          {
+            "name": "Timeouts",
+            "value": "8"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Offload or upgrade overloaded devices urgently",
+            "2. Optimize security rule processing",
+            "3. Tune TCP timers appropriately",
+            "4. Implement traffic bypass for trusted flows",
+            "5. Add hardware acceleration",
+            "6. Fix control plane instabilities",
+            "7. Increase link capacity",
+            "8. Deploy fast failover"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Karnataka",
+          "city": "Bengaluru",
+          "isp": "Zybisys Consulting Services LLP"
+        },
+        "top_values": [
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "1,476 pkts",
+            "raw": 1476
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.90 ms",
+            "raw": 895
+          },
+          {
+            "metric": "Timeouts",
+            "value": "8",
+            "raw": 8
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 2,
+        "meter_name": "Retransmitted Packets Internal",
+        "meter_summary": {
+          "min": "2,925 pkts",
+          "max": "79,057 pkts",
+          "avg": "23,164 pkts",
+          "latest": "8,111 pkts"
+        },
+        "rank": 4,
+        "ip": "103.174.107.39",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency Internal (\u00b5s)",
+            "value": "10.45 ms"
+          },
+          {
+            "name": "Retransmitted Packets Internal",
+            "value": "587 pkts"
+          },
+          {
+            "name": "Retransmission Rate % Internal",
+            "value": "1.00%"
+          },
+          {
+            "name": "Poor Quality Flows",
+            "value": "1"
+          },
+          {
+            "name": "Timeouts",
+            "value": "8"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + R% + PQF + TO) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + R% + PQF + TO indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. **EMERGENCY RESPONSE**: Full network triage",
+            "2. Identify and isolate failure domain",
+            "3. Emergency capacity addition",
+            "4. Emergency hardware replacement",
+            "5. Implement emergency QoS",
+            "6. Aggressive traffic reduction",
+            "7. Failover to backup infrastructure",
+            "8. Full incident response activation",
+            "9. Executive escalation",
+            "10. Vendor emergency support"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Karnataka",
+          "city": "Bengaluru",
+          "isp": "Zybisys Consulting Services LLP"
+        },
+        "top_values": [
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "10.45 ms",
+            "raw": 10452
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "587 pkts",
+            "raw": 587
+          },
+          {
+            "metric": "Timeouts",
+            "value": "8",
+            "raw": 8
+          },
+          {
+            "metric": "Retransmission Rate % Internal",
+            "value": "1.00%",
+            "raw": 1
+          },
+          {
+            "metric": "Poor Quality Flows",
+            "value": "1",
+            "raw": 1
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 2,
+        "meter_name": "Retransmitted Packets Internal",
+        "meter_summary": {
+          "min": "2,925 pkts",
+          "max": "79,057 pkts",
+          "avg": "23,164 pkts",
+          "latest": "8,111 pkts"
+        },
+        "rank": 5,
+        "ip": "103.174.107.44",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency Internal (\u00b5s)",
+            "value": "791.50 ms"
+          },
+          {
+            "name": "Retransmitted Packets Internal",
+            "value": "824 pkts"
+          },
+          {
+            "name": "Timeouts",
+            "value": "9"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Offload or upgrade overloaded devices urgently",
+            "2. Optimize security rule processing",
+            "3. Tune TCP timers appropriately",
+            "4. Implement traffic bypass for trusted flows",
+            "5. Add hardware acceleration",
+            "6. Fix control plane instabilities",
+            "7. Increase link capacity",
+            "8. Deploy fast failover"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Karnataka",
+          "city": "Bengaluru",
+          "isp": "Zybisys Consulting Services LLP"
+        },
+        "top_values": [
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "791.50 ms",
+            "raw": 791501
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "824 pkts",
+            "raw": 824
+          },
+          {
+            "metric": "Timeouts",
+            "value": "9",
+            "raw": 9
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 3,
+        "meter_name": "Retransmitted Packets External",
+        "meter_summary": {
+          "min": "2,925 pkts",
+          "max": "79,057 pkts",
+          "avg": "23,164 pkts",
+          "latest": "8,111 pkts"
+        },
+        "rank": 1,
+        "ip": "15.206.138.61",
+        "classification": "EXTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency External (\u00b5s)",
+            "value": "3.01 ms"
+          },
+          {
+            "name": "Retransmitted Packets External",
+            "value": "9,911 pkts"
+          }
+        ],
+        "rule": {
+          "problem": "Network congestion or buffer overflow at intermediate hops. Queue buildup increases latency while full buffers drop packets requiring retransmission. May also indicate interface speed mismatch or oversubscribed uplinks.",
+          "diagnostics": [
+            "Check switch/router interface statistics (show interface counters, queue depth)",
+            "Monitor bandwidth utilization on core/distribution layer switches (SNMP, NetFlow)",
+            "Review QoS policies and queue configurations",
+            "Check for jumbo frame mismatches between segments",
+            "Examine buffer allocation on switches handling this traffic",
+            "Look for egress queue drops in interface statistics"
+          ],
+          "fix": [
+            "1. Identify congested links via SNMP monitoring (>80% utilization sustained)",
+            "2. Implement or adjust QoS policies to prioritize critical traffic",
+            "3. Upgrade link capacity on oversubscribed segments",
+            "4. Enable flow control (IEEE 802.3x) if appropriate for environment",
+            "5. Adjust buffer allocation on switches/routers",
+            "6. Consider traffic shaping to smooth bursts",
+            "7. Deploy LACP link aggregation for additional bandwidth",
+            "8. Segment traffic using VLANs to isolate heavy consumers"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Maharashtra",
+          "city": "Mumbai",
+          "isp": "Amazon Technologies Inc."
+        },
+        "top_values": [
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "9,911 pkts",
+            "raw": 9911
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "3.01 ms",
+            "raw": 3006
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "0 pkts",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmission Rate % Internal",
+            "value": "0.00%",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 3,
+        "meter_name": "Retransmitted Packets External",
+        "meter_summary": {
+          "min": "2,925 pkts",
+          "max": "79,057 pkts",
+          "avg": "23,164 pkts",
+          "latest": "8,111 pkts"
+        },
+        "rank": 2,
+        "ip": "74.125.130.188",
+        "classification": "EXTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency External (\u00b5s)",
+            "value": "60.33 ms"
+          },
+          {
+            "name": "Retransmitted Packets External",
+            "value": "4,775 pkts"
+          },
+          {
+            "name": "Retransmission Rate % External",
+            "value": "43.00%"
+          },
+          {
+            "name": "Poor Quality Flows",
+            "value": "1"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + R% + PQF) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + R% + PQF indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Emergency capacity upgrade",
+            "2. Comprehensive QoS deployment",
+            "3. Traffic engineering",
+            "4. Load distribution",
+            "5. Buffer optimization",
+            "6. WRED/ECN implementation",
+            "7. Critical traffic separation",
+            "8. Infrastructure upgrade"
+          ]
+        },
+        "geo": {
+          "country": "United States",
+          "state": "California",
+          "city": "Mountain View",
+          "isp": "Google LLC"
+        },
+        "top_values": [
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "60.33 ms",
+            "raw": 60332
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "4,775 pkts",
+            "raw": 4775
+          },
+          {
+            "metric": "Retransmission Rate % External",
+            "value": "43.00%",
+            "raw": 43
+          },
+          {
+            "metric": "Poor Quality Flows",
+            "value": "1",
+            "raw": 1
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 3,
+        "meter_name": "Retransmitted Packets External",
+        "meter_summary": {
+          "min": "2,925 pkts",
+          "max": "79,057 pkts",
+          "avg": "23,164 pkts",
+          "latest": "8,111 pkts"
+        },
+        "rank": 3,
+        "ip": "192.178.211.188",
+        "classification": "EXTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency External (\u00b5s)",
+            "value": "2.06 ms"
+          },
+          {
+            "name": "Retransmitted Packets External",
+            "value": "2,040 pkts"
+          },
+          {
+            "name": "Retransmission Rate % External",
+            "value": "40.00%"
+          },
+          {
+            "name": "Poor Quality Flows",
+            "value": "1"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + R% + PQF) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + R% + PQF indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Emergency capacity upgrade",
+            "2. Comprehensive QoS deployment",
+            "3. Traffic engineering",
+            "4. Load distribution",
+            "5. Buffer optimization",
+            "6. WRED/ECN implementation",
+            "7. Critical traffic separation",
+            "8. Infrastructure upgrade"
+          ]
+        },
+        "geo": {
+          "country": "United States",
+          "state": "California",
+          "city": "Mountain View",
+          "isp": "Google LLC"
+        },
+        "top_values": [
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "2.06 ms",
+            "raw": 2062
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "2,040 pkts",
+            "raw": 2040
+          },
+          {
+            "metric": "Retransmission Rate % External",
+            "value": "40.00%",
+            "raw": 40
+          },
+          {
+            "metric": "Poor Quality Flows",
+            "value": "1",
+            "raw": 1
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 3,
+        "meter_name": "Retransmitted Packets External",
+        "meter_summary": {
+          "min": "2,925 pkts",
+          "max": "79,057 pkts",
+          "avg": "23,164 pkts",
+          "latest": "8,111 pkts"
+        },
+        "rank": 4,
+        "ip": "23.193.114.51",
+        "classification": "EXTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency External (\u00b5s)",
+            "value": "1.44 ms"
+          },
+          {
+            "name": "Retransmitted Packets External",
+            "value": "16 pkts"
+          }
+        ],
+        "rule": {
+          "problem": "Network congestion or buffer overflow at intermediate hops. Queue buildup increases latency while full buffers drop packets requiring retransmission. May also indicate interface speed mismatch or oversubscribed uplinks.",
+          "diagnostics": [
+            "Check switch/router interface statistics (show interface counters, queue depth)",
+            "Monitor bandwidth utilization on core/distribution layer switches (SNMP, NetFlow)",
+            "Review QoS policies and queue configurations",
+            "Check for jumbo frame mismatches between segments",
+            "Examine buffer allocation on switches handling this traffic",
+            "Look for egress queue drops in interface statistics"
+          ],
+          "fix": [
+            "1. Identify congested links via SNMP monitoring (>80% utilization sustained)",
+            "2. Implement or adjust QoS policies to prioritize critical traffic",
+            "3. Upgrade link capacity on oversubscribed segments",
+            "4. Enable flow control (IEEE 802.3x) if appropriate for environment",
+            "5. Adjust buffer allocation on switches/routers",
+            "6. Consider traffic shaping to smooth bursts",
+            "7. Deploy LACP link aggregation for additional bandwidth",
+            "8. Segment traffic using VLANs to isolate heavy consumers"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Maharashtra",
+          "city": "Mumbai",
+          "isp": "Akamai International B.V."
+        },
+        "top_values": [
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "1.44 ms",
+            "raw": 1440
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "16 pkts",
+            "raw": 16
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "0 pkts",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmission Rate % Internal",
+            "value": "0.00%",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 3,
+        "meter_name": "Retransmitted Packets External",
+        "meter_summary": {
+          "min": "2,925 pkts",
+          "max": "79,057 pkts",
+          "avg": "23,164 pkts",
+          "latest": "8,111 pkts"
+        },
+        "rank": 5,
+        "ip": "79.133.169.30",
+        "classification": "EXTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency External (\u00b5s)",
+            "value": "127.70 ms"
+          },
+          {
+            "name": "Retransmitted Packets External",
+            "value": "5 pkts"
+          },
+          {
+            "name": "Retransmission Rate % External",
+            "value": "4.00%"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + R%) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + R% indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Emergency capacity expansion on congested segments",
+            "2. Implement strict multi-class QoS",
+            "3. Enable WRED/ECN to reduce synchronized TCP backoff",
+            "4. Increase buffer allocations on core switches",
+            "5. Deploy traffic shaping to smooth bursts",
+            "6. Distribute load across ECMP paths",
+            "7. Upgrade critical uplinks immediately",
+            "8. Implement admission control for non-critical traffic"
+          ]
+        },
+        "geo": {
+          "country": "Russia",
+          "state": "Moscow",
+          "city": "Moscow",
+          "isp": "Kaspersky Lab Switzerland GmbH"
+        },
+        "top_values": [
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "127.70 ms",
+            "raw": 127705
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "5 pkts",
+            "raw": 5
+          },
+          {
+            "metric": "Retransmission Rate % External",
+            "value": "4.00%",
+            "raw": 4
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 4,
+        "meter_name": "Retransmission Rate % Internal",
+        "meter_summary": {
+          "min": "0.00%",
+          "max": "0.00%",
+          "avg": "0.00%",
+          "latest": "0.00%"
+        },
+        "rank": 1,
+        "ip": "103.174.107.255",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency Internal (\u00b5s)",
+            "value": "0.90 ms"
+          },
+          {
+            "name": "Retransmitted Packets Internal",
+            "value": "1,476 pkts"
+          },
+          {
+            "name": "Timeouts",
+            "value": "8"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Offload or upgrade overloaded devices urgently",
+            "2. Optimize security rule processing",
+            "3. Tune TCP timers appropriately",
+            "4. Implement traffic bypass for trusted flows",
+            "5. Add hardware acceleration",
+            "6. Fix control plane instabilities",
+            "7. Increase link capacity",
+            "8. Deploy fast failover"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Karnataka",
+          "city": "Bengaluru",
+          "isp": "Zybisys Consulting Services LLP"
+        },
+        "top_values": [
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "1,476 pkts",
+            "raw": 1476
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.90 ms",
+            "raw": 895
+          },
+          {
+            "metric": "Timeouts",
+            "value": "8",
+            "raw": 8
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 4,
+        "meter_name": "Retransmission Rate % Internal",
+        "meter_summary": {
+          "min": "0.00%",
+          "max": "0.00%",
+          "avg": "0.00%",
+          "latest": "0.00%"
+        },
+        "rank": 2,
+        "ip": "103.174.107.39",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency Internal (\u00b5s)",
+            "value": "10.45 ms"
+          },
+          {
+            "name": "Retransmitted Packets Internal",
+            "value": "587 pkts"
+          },
+          {
+            "name": "Retransmission Rate % Internal",
+            "value": "1.00%"
+          },
+          {
+            "name": "Poor Quality Flows",
+            "value": "1"
+          },
+          {
+            "name": "Timeouts",
+            "value": "8"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + R% + PQF + TO) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + R% + PQF + TO indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. **EMERGENCY RESPONSE**: Full network triage",
+            "2. Identify and isolate failure domain",
+            "3. Emergency capacity addition",
+            "4. Emergency hardware replacement",
+            "5. Implement emergency QoS",
+            "6. Aggressive traffic reduction",
+            "7. Failover to backup infrastructure",
+            "8. Full incident response activation",
+            "9. Executive escalation",
+            "10. Vendor emergency support"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Karnataka",
+          "city": "Bengaluru",
+          "isp": "Zybisys Consulting Services LLP"
+        },
+        "top_values": [
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "10.45 ms",
+            "raw": 10452
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "587 pkts",
+            "raw": 587
+          },
+          {
+            "metric": "Timeouts",
+            "value": "8",
+            "raw": 8
+          },
+          {
+            "metric": "Retransmission Rate % Internal",
+            "value": "1.00%",
+            "raw": 1
+          },
+          {
+            "metric": "Poor Quality Flows",
+            "value": "1",
+            "raw": 1
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 4,
+        "meter_name": "Retransmission Rate % Internal",
+        "meter_summary": {
+          "min": "0.00%",
+          "max": "0.00%",
+          "avg": "0.00%",
+          "latest": "0.00%"
+        },
+        "rank": 3,
+        "ip": "103.174.107.227",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency Internal (\u00b5s)",
+            "value": "12.82 ms"
+          },
+          {
+            "name": "Retransmitted Packets Internal",
+            "value": "5 pkts"
+          },
+          {
+            "name": "Timeouts",
+            "value": "8"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Offload or upgrade overloaded devices urgently",
+            "2. Optimize security rule processing",
+            "3. Tune TCP timers appropriately",
+            "4. Implement traffic bypass for trusted flows",
+            "5. Add hardware acceleration",
+            "6. Fix control plane instabilities",
+            "7. Increase link capacity",
+            "8. Deploy fast failover"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Karnataka",
+          "city": "Bengaluru",
+          "isp": "Zybisys Consulting Services LLP"
+        },
+        "top_values": [
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "12.82 ms",
+            "raw": 12816
+          },
+          {
+            "metric": "Timeouts",
+            "value": "8",
+            "raw": 8
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "5 pkts",
+            "raw": 5
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 4,
+        "meter_name": "Retransmission Rate % Internal",
+        "meter_summary": {
+          "min": "0.00%",
+          "max": "0.00%",
+          "avg": "0.00%",
+          "latest": "0.00%"
+        },
+        "rank": 4,
+        "ip": "103.174.107.243",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency Internal (\u00b5s)",
+            "value": "0.08 ms"
+          },
+          {
+            "name": "Retransmitted Packets Internal",
+            "value": "591 pkts"
+          },
+          {
+            "name": "Timeouts",
+            "value": "8"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Offload or upgrade overloaded devices urgently",
+            "2. Optimize security rule processing",
+            "3. Tune TCP timers appropriately",
+            "4. Implement traffic bypass for trusted flows",
+            "5. Add hardware acceleration",
+            "6. Fix control plane instabilities",
+            "7. Increase link capacity",
+            "8. Deploy fast failover"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Karnataka",
+          "city": "Bengaluru",
+          "isp": "Zybisys Consulting Services LLP"
+        },
+        "top_values": [
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "591 pkts",
+            "raw": 591
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.08 ms",
+            "raw": 79
+          },
+          {
+            "metric": "Timeouts",
+            "value": "8",
+            "raw": 8
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 4,
+        "meter_name": "Retransmission Rate % Internal",
+        "meter_summary": {
+          "min": "0.00%",
+          "max": "0.00%",
+          "avg": "0.00%",
+          "latest": "0.00%"
+        },
+        "rank": 5,
+        "ip": "103.174.107.134",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency Internal (\u00b5s)",
+            "value": "16.38 ms"
+          },
+          {
+            "name": "Retransmitted Packets Internal",
+            "value": "7 pkts"
+          },
+          {
+            "name": "Timeouts",
+            "value": "11"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Offload or upgrade overloaded devices urgently",
+            "2. Optimize security rule processing",
+            "3. Tune TCP timers appropriately",
+            "4. Implement traffic bypass for trusted flows",
+            "5. Add hardware acceleration",
+            "6. Fix control plane instabilities",
+            "7. Increase link capacity",
+            "8. Deploy fast failover"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Karnataka",
+          "city": "Bengaluru",
+          "isp": "Zybisys Consulting Services LLP"
+        },
+        "top_values": [
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "16.38 ms",
+            "raw": 16379
+          },
+          {
+            "metric": "Timeouts",
+            "value": "11",
+            "raw": 11
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "7 pkts",
+            "raw": 7
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 5,
+        "meter_name": "Retransmission Rate % External",
+        "meter_summary": {
+          "min": "0.00%",
+          "max": "0.00%",
+          "avg": "0.00%",
+          "latest": "0.00%"
+        },
+        "rank": 1,
+        "ip": "74.125.130.188",
+        "classification": "EXTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency External (\u00b5s)",
+            "value": "60.33 ms"
+          },
+          {
+            "name": "Retransmitted Packets External",
+            "value": "4,775 pkts"
+          },
+          {
+            "name": "Retransmission Rate % External",
+            "value": "43.00%"
+          },
+          {
+            "name": "Poor Quality Flows",
+            "value": "1"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + R% + PQF) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + R% + PQF indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Emergency capacity upgrade",
+            "2. Comprehensive QoS deployment",
+            "3. Traffic engineering",
+            "4. Load distribution",
+            "5. Buffer optimization",
+            "6. WRED/ECN implementation",
+            "7. Critical traffic separation",
+            "8. Infrastructure upgrade"
+          ]
+        },
+        "geo": {
+          "country": "United States",
+          "state": "California",
+          "city": "Mountain View",
+          "isp": "Google LLC"
+        },
+        "top_values": [
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "60.33 ms",
+            "raw": 60332
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "4,775 pkts",
+            "raw": 4775
+          },
+          {
+            "metric": "Retransmission Rate % External",
+            "value": "43.00%",
+            "raw": 43
+          },
+          {
+            "metric": "Poor Quality Flows",
+            "value": "1",
+            "raw": 1
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 5,
+        "meter_name": "Retransmission Rate % External",
+        "meter_summary": {
+          "min": "0.00%",
+          "max": "0.00%",
+          "avg": "0.00%",
+          "latest": "0.00%"
+        },
+        "rank": 2,
+        "ip": "192.178.211.188",
+        "classification": "EXTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency External (\u00b5s)",
+            "value": "2.06 ms"
+          },
+          {
+            "name": "Retransmitted Packets External",
+            "value": "2,040 pkts"
+          },
+          {
+            "name": "Retransmission Rate % External",
+            "value": "40.00%"
+          },
+          {
+            "name": "Poor Quality Flows",
+            "value": "1"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + R% + PQF) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + R% + PQF indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Emergency capacity upgrade",
+            "2. Comprehensive QoS deployment",
+            "3. Traffic engineering",
+            "4. Load distribution",
+            "5. Buffer optimization",
+            "6. WRED/ECN implementation",
+            "7. Critical traffic separation",
+            "8. Infrastructure upgrade"
+          ]
+        },
+        "geo": {
+          "country": "United States",
+          "state": "California",
+          "city": "Mountain View",
+          "isp": "Google LLC"
+        },
+        "top_values": [
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "2.06 ms",
+            "raw": 2062
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "2,040 pkts",
+            "raw": 2040
+          },
+          {
+            "metric": "Retransmission Rate % External",
+            "value": "40.00%",
+            "raw": 40
+          },
+          {
+            "metric": "Poor Quality Flows",
+            "value": "1",
+            "raw": 1
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 5,
+        "meter_name": "Retransmission Rate % External",
+        "meter_summary": {
+          "min": "0.00%",
+          "max": "0.00%",
+          "avg": "0.00%",
+          "latest": "0.00%"
+        },
+        "rank": 3,
+        "ip": "79.133.169.30",
+        "classification": "EXTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency External (\u00b5s)",
+            "value": "127.70 ms"
+          },
+          {
+            "name": "Retransmitted Packets External",
+            "value": "5 pkts"
+          },
+          {
+            "name": "Retransmission Rate % External",
+            "value": "4.00%"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + R%) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + R% indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Emergency capacity expansion on congested segments",
+            "2. Implement strict multi-class QoS",
+            "3. Enable WRED/ECN to reduce synchronized TCP backoff",
+            "4. Increase buffer allocations on core switches",
+            "5. Deploy traffic shaping to smooth bursts",
+            "6. Distribute load across ECMP paths",
+            "7. Upgrade critical uplinks immediately",
+            "8. Implement admission control for non-critical traffic"
+          ]
+        },
+        "geo": {
+          "country": "Russia",
+          "state": "Moscow",
+          "city": "Moscow",
+          "isp": "Kaspersky Lab Switzerland GmbH"
+        },
+        "top_values": [
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "127.70 ms",
+            "raw": 127705
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "5 pkts",
+            "raw": 5
+          },
+          {
+            "metric": "Retransmission Rate % External",
+            "value": "4.00%",
+            "raw": 4
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 5,
+        "meter_name": "Retransmission Rate % External",
+        "meter_summary": {
+          "min": "0.00%",
+          "max": "0.00%",
+          "avg": "0.00%",
+          "latest": "0.00%"
+        },
+        "rank": 4,
+        "ip": "185.201.3.101",
+        "classification": "EXTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency External (\u00b5s)",
+            "value": "51.28 ms"
+          },
+          {
+            "name": "Retransmitted Packets External",
+            "value": "6 pkts"
+          },
+          {
+            "name": "Retransmission Rate % External",
+            "value": "5.00%"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + R%) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + R% indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Emergency capacity expansion on congested segments",
+            "2. Implement strict multi-class QoS",
+            "3. Enable WRED/ECN to reduce synchronized TCP backoff",
+            "4. Increase buffer allocations on core switches",
+            "5. Deploy traffic shaping to smooth bursts",
+            "6. Distribute load across ECMP paths",
+            "7. Upgrade critical uplinks immediately",
+            "8. Implement admission control for non-critical traffic"
+          ]
+        },
+        "geo": {
+          "country": "United Kingdom",
+          "state": "England",
+          "city": "Cheltenham",
+          "isp": "Kaspersky Lab Switzerland GmbH"
+        },
+        "top_values": [
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "51.28 ms",
+            "raw": 51284
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "6 pkts",
+            "raw": 6
+          },
+          {
+            "metric": "Retransmission Rate % External",
+            "value": "5.00%",
+            "raw": 5
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 5,
+        "meter_name": "Retransmission Rate % External",
+        "meter_summary": {
+          "min": "0.00%",
+          "max": "0.00%",
+          "avg": "0.00%",
+          "latest": "0.00%"
+        },
+        "rank": 5,
+        "ip": "4.1.82.185",
+        "classification": "EXTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency External (\u00b5s)",
+            "value": "49.51 ms"
+          },
+          {
+            "name": "Retransmitted Packets External",
+            "value": "3 pkts"
+          },
+          {
+            "name": "Retransmission Rate % External",
+            "value": "1.00%"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + R%) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + R% indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Emergency capacity expansion on congested segments",
+            "2. Implement strict multi-class QoS",
+            "3. Enable WRED/ECN to reduce synchronized TCP backoff",
+            "4. Increase buffer allocations on core switches",
+            "5. Deploy traffic shaping to smooth bursts",
+            "6. Distribute load across ECMP paths",
+            "7. Upgrade critical uplinks immediately",
+            "8. Implement admission control for non-critical traffic"
+          ]
+        },
+        "geo": {
+          "country": "Singapore",
+          "state": "North West",
+          "city": "Singapore",
+          "isp": "Level 3 Communications, Inc."
+        },
+        "top_values": [
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "49.51 ms",
+            "raw": 49507
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "3 pkts",
+            "raw": 3
+          },
+          {
+            "metric": "Retransmission Rate % External",
+            "value": "1.00%",
+            "raw": 1
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 6,
+        "meter_name": "Poor Quality Flows",
+        "meter_summary": {
+          "min": "2",
+          "max": "22",
+          "avg": "11",
+          "latest": "2"
+        },
+        "rank": 1,
+        "ip": "103.174.107.39",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency Internal (\u00b5s)",
+            "value": "10.45 ms"
+          },
+          {
+            "name": "Retransmitted Packets Internal",
+            "value": "587 pkts"
+          },
+          {
+            "name": "Retransmission Rate % Internal",
+            "value": "1.00%"
+          },
+          {
+            "name": "Poor Quality Flows",
+            "value": "1"
+          },
+          {
+            "name": "Timeouts",
+            "value": "8"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + R% + PQF + TO) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + R% + PQF + TO indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. **EMERGENCY RESPONSE**: Full network triage",
+            "2. Identify and isolate failure domain",
+            "3. Emergency capacity addition",
+            "4. Emergency hardware replacement",
+            "5. Implement emergency QoS",
+            "6. Aggressive traffic reduction",
+            "7. Failover to backup infrastructure",
+            "8. Full incident response activation",
+            "9. Executive escalation",
+            "10. Vendor emergency support"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Karnataka",
+          "city": "Bengaluru",
+          "isp": "Zybisys Consulting Services LLP"
+        },
+        "top_values": [
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "10.45 ms",
+            "raw": 10452
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "587 pkts",
+            "raw": 587
+          },
+          {
+            "metric": "Timeouts",
+            "value": "8",
+            "raw": 8
+          },
+          {
+            "metric": "Retransmission Rate % Internal",
+            "value": "1.00%",
+            "raw": 1
+          },
+          {
+            "metric": "Poor Quality Flows",
+            "value": "1",
+            "raw": 1
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 6,
+        "meter_name": "Poor Quality Flows",
+        "meter_summary": {
+          "min": "2",
+          "max": "22",
+          "avg": "11",
+          "latest": "2"
+        },
+        "rank": 2,
+        "ip": "103.174.107.134",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency Internal (\u00b5s)",
+            "value": "16.38 ms"
+          },
+          {
+            "name": "Retransmitted Packets Internal",
+            "value": "7 pkts"
+          },
+          {
+            "name": "Timeouts",
+            "value": "11"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Offload or upgrade overloaded devices urgently",
+            "2. Optimize security rule processing",
+            "3. Tune TCP timers appropriately",
+            "4. Implement traffic bypass for trusted flows",
+            "5. Add hardware acceleration",
+            "6. Fix control plane instabilities",
+            "7. Increase link capacity",
+            "8. Deploy fast failover"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Karnataka",
+          "city": "Bengaluru",
+          "isp": "Zybisys Consulting Services LLP"
+        },
+        "top_values": [
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "16.38 ms",
+            "raw": 16379
+          },
+          {
+            "metric": "Timeouts",
+            "value": "11",
+            "raw": 11
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "7 pkts",
+            "raw": 7
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 6,
+        "meter_name": "Poor Quality Flows",
+        "meter_summary": {
+          "min": "2",
+          "max": "22",
+          "avg": "11",
+          "latest": "2"
+        },
+        "rank": 3,
+        "ip": "103.174.107.145",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency Internal (\u00b5s)",
+            "value": "13.49 ms"
+          },
+          {
+            "name": "Retransmitted Packets Internal",
+            "value": "6 pkts"
+          },
+          {
+            "name": "Timeouts",
+            "value": "11"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Offload or upgrade overloaded devices urgently",
+            "2. Optimize security rule processing",
+            "3. Tune TCP timers appropriately",
+            "4. Implement traffic bypass for trusted flows",
+            "5. Add hardware acceleration",
+            "6. Fix control plane instabilities",
+            "7. Increase link capacity",
+            "8. Deploy fast failover"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Karnataka",
+          "city": "Bengaluru",
+          "isp": "Zybisys Consulting Services LLP"
+        },
+        "top_values": [
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "13.49 ms",
+            "raw": 13495
+          },
+          {
+            "metric": "Timeouts",
+            "value": "11",
+            "raw": 11
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "6 pkts",
+            "raw": 6
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 6,
+        "meter_name": "Poor Quality Flows",
+        "meter_summary": {
+          "min": "2",
+          "max": "22",
+          "avg": "11",
+          "latest": "2"
+        },
+        "rank": 4,
+        "ip": "103.174.107.227",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency Internal (\u00b5s)",
+            "value": "12.82 ms"
+          },
+          {
+            "name": "Retransmitted Packets Internal",
+            "value": "5 pkts"
+          },
+          {
+            "name": "Timeouts",
+            "value": "8"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Offload or upgrade overloaded devices urgently",
+            "2. Optimize security rule processing",
+            "3. Tune TCP timers appropriately",
+            "4. Implement traffic bypass for trusted flows",
+            "5. Add hardware acceleration",
+            "6. Fix control plane instabilities",
+            "7. Increase link capacity",
+            "8. Deploy fast failover"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Karnataka",
+          "city": "Bengaluru",
+          "isp": "Zybisys Consulting Services LLP"
+        },
+        "top_values": [
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "12.82 ms",
+            "raw": 12816
+          },
+          {
+            "metric": "Timeouts",
+            "value": "8",
+            "raw": 8
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "5 pkts",
+            "raw": 5
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 6,
+        "meter_name": "Poor Quality Flows",
+        "meter_summary": {
+          "min": "2",
+          "max": "22",
+          "avg": "11",
+          "latest": "2"
+        },
+        "rank": 5,
+        "ip": "79.133.169.30",
+        "classification": "EXTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Latency External (\u00b5s)",
+            "value": "127.70 ms"
+          },
+          {
+            "name": "Retransmitted Packets External",
+            "value": "5 pkts"
+          },
+          {
+            "name": "Retransmission Rate % External",
+            "value": "4.00%"
+          }
+        ],
+        "rule": {
+          "problem": "Combined indicators (LAT + RPKT + R%) suggest a multi-factor network issue affecting stability and performance.",
+          "diagnostics": [
+            "Validate interface errors, drops, and utilization on impacted hops",
+            "Verify routing symmetry and firewall/NAT session behavior for affected flows",
+            "Correlate timeframe of LAT + RPKT + R% indicators with device CPU/memory and queue depth"
+          ],
+          "fix": [
+            "1. Emergency capacity expansion on congested segments",
+            "2. Implement strict multi-class QoS",
+            "3. Enable WRED/ECN to reduce synchronized TCP backoff",
+            "4. Increase buffer allocations on core switches",
+            "5. Deploy traffic shaping to smooth bursts",
+            "6. Distribute load across ECMP paths",
+            "7. Upgrade critical uplinks immediately",
+            "8. Implement admission control for non-critical traffic"
+          ]
+        },
+        "geo": {
+          "country": "Russia",
+          "state": "Moscow",
+          "city": "Moscow",
+          "isp": "Kaspersky Lab Switzerland GmbH"
+        },
+        "top_values": [
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "127.70 ms",
+            "raw": 127705
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "5 pkts",
+            "raw": 5
+          },
+          {
+            "metric": "Retransmission Rate % External",
+            "value": "4.00%",
+            "raw": 4
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 7,
+        "meter_name": "Timeouts",
+        "meter_summary": {
+          "min": "4,812",
+          "max": "8,304",
+          "avg": "6,301",
+          "latest": "5,698"
+        },
+        "rank": 1,
+        "ip": "103.174.107.12",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Timeouts",
+            "value": "138"
+          }
+        ],
+        "rule": {
+          "problem": "Internal session timeouts indicate severe delay/loss or processing bottlenecks.",
+          "diagnostics": [
+            "Check firewall/IPS processing delay",
+            "Check queue peak latency and drops",
+            "Verify route stability and absence of loops"
+          ],
+          "fix": [
+            "1. Remove internal processing bottlenecks",
+            "2. Repair hotspot links and queuing saturation",
+            "3. Stabilize routing and device resource usage"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Karnataka",
+          "city": "Bengaluru",
+          "isp": "Zybisys Consulting Services LLP"
+        },
+        "top_values": [
+          {
+            "metric": "Timeouts",
+            "value": "138",
+            "raw": 138
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "0 pkts",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 7,
+        "meter_name": "Timeouts",
+        "meter_summary": {
+          "min": "4,812",
+          "max": "8,304",
+          "avg": "6,301",
+          "latest": "5,698"
+        },
+        "rank": 2,
+        "ip": "122.187.68.46",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Timeouts",
+            "value": "130"
+          }
+        ],
+        "rule": {
+          "problem": "Internal session timeouts indicate severe delay/loss or processing bottlenecks.",
+          "diagnostics": [
+            "Check firewall/IPS processing delay",
+            "Check queue peak latency and drops",
+            "Verify route stability and absence of loops"
+          ],
+          "fix": [
+            "1. Remove internal processing bottlenecks",
+            "2. Repair hotspot links and queuing saturation",
+            "3. Stabilize routing and device resource usage"
+          ]
+        },
+        "geo": {
+          "country": "India",
+          "state": "Tamil Nadu",
+          "city": "Chennai",
+          "isp": "Bharti Airtel"
+        },
+        "top_values": [
+          {
+            "metric": "Timeouts",
+            "value": "130",
+            "raw": 130
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "0 pkts",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 7,
+        "meter_name": "Timeouts",
+        "meter_summary": {
+          "min": "4,812",
+          "max": "8,304",
+          "avg": "6,301",
+          "latest": "5,698"
+        },
+        "rank": 3,
+        "ip": "115.231.78.3",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Timeouts",
+            "value": "112"
+          }
+        ],
+        "rule": {
+          "problem": "Internal session timeouts indicate severe delay/loss or processing bottlenecks.",
+          "diagnostics": [
+            "Check firewall/IPS processing delay",
+            "Check queue peak latency and drops",
+            "Verify route stability and absence of loops"
+          ],
+          "fix": [
+            "1. Remove internal processing bottlenecks",
+            "2. Repair hotspot links and queuing saturation",
+            "3. Stabilize routing and device resource usage"
+          ]
+        },
+        "geo": {
+          "country": "China",
+          "state": "Zhejiang",
+          "city": "Hangzhou",
+          "isp": "Chinanet"
+        },
+        "top_values": [
+          {
+            "metric": "Timeouts",
+            "value": "112",
+            "raw": 112
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "0 pkts",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 7,
+        "meter_name": "Timeouts",
+        "meter_summary": {
+          "min": "4,812",
+          "max": "8,304",
+          "avg": "6,301",
+          "latest": "5,698"
+        },
+        "rank": 4,
+        "ip": "204.76.203.73",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Timeouts",
+            "value": "123"
+          }
+        ],
+        "rule": {
+          "problem": "Internal session timeouts indicate severe delay/loss or processing bottlenecks.",
+          "diagnostics": [
+            "Check firewall/IPS processing delay",
+            "Check queue peak latency and drops",
+            "Verify route stability and absence of loops"
+          ],
+          "fix": [
+            "1. Remove internal processing bottlenecks",
+            "2. Repair hotspot links and queuing saturation",
+            "3. Stabilize routing and device resource usage"
+          ]
+        },
+        "geo": {
+          "country": "Netherlands",
+          "state": "Limburg",
+          "city": "Eygelshoven",
+          "isp": "Pfcloud UG"
+        },
+        "top_values": [
+          {
+            "metric": "Timeouts",
+            "value": "123",
+            "raw": 123
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "0 pkts",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      },
+      {
+        "meter_id": 7,
+        "meter_name": "Timeouts",
+        "meter_summary": {
+          "min": "4,812",
+          "max": "8,304",
+          "avg": "6,301",
+          "latest": "5,698"
+        },
+        "rank": 5,
+        "ip": "204.76.203.212",
+        "classification": "INTERNAL ISSUE",
+        "issue_metrics": [
+          {
+            "name": "Timeouts",
+            "value": "79"
+          }
+        ],
+        "rule": {
+          "problem": "Internal session timeouts indicate severe delay/loss or processing bottlenecks.",
+          "diagnostics": [
+            "Check firewall/IPS processing delay",
+            "Check queue peak latency and drops",
+            "Verify route stability and absence of loops"
+          ],
+          "fix": [
+            "1. Remove internal processing bottlenecks",
+            "2. Repair hotspot links and queuing saturation",
+            "3. Stabilize routing and device resource usage"
+          ]
+        },
+        "geo": {
+          "country": "Netherlands",
+          "state": "Limburg",
+          "city": "Eygelshoven",
+          "isp": "Pfcloud UG"
+        },
+        "top_values": [
+          {
+            "metric": "Timeouts",
+            "value": "79",
+            "raw": 79
+          },
+          {
+            "metric": "Latency Internal (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Latency External (\u00b5s)",
+            "value": "0.00 ms",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets Internal",
+            "value": "0 pkts",
+            "raw": 0
+          },
+          {
+            "metric": "Retransmitted Packets External",
+            "value": "0 pkts",
+            "raw": 0
+          }
+        ],
+        "infra": null,
+        "flow_issues": []
+      }
+    ],
+    "issue_count": 40
+  }
+}
