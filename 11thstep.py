@@ -974,6 +974,21 @@ def classify_issue(ip_meters):
     return "UNKNOWN"
 
 
+def extract_15_internal_ips(meter_results):
+    """Return up to 15 unique IPs from top 5 entries of meters 0, 2, and 4."""
+    selected_ips = []
+    seen = set()
+    for meter in (0, 2, 4):
+        for entry in meter_results.get(meter, [])[:5]:
+            ip = str(entry.get("ip", "")).strip()
+            if ip and ip not in seen:
+                selected_ips.append(ip)
+                seen.add(ip)
+            if len(selected_ips) >= 15:
+                return selected_ips
+    return selected_ips
+
+
 def fetch_tcp_analyzer_counters(group_id, output_file=None, infra_snapshot=None):
     """Main analyzer pipeline: collect counters, map issues, and emit report/console output."""
     rules = load_rules()
@@ -991,20 +1006,25 @@ def fetch_tcp_analyzer_counters(group_id, output_file=None, infra_snapshot=None)
         meter_summaries[meter] = fetch_meter_summary(group_id, meter, from_ts, to_ts)
         meter_results[meter] = fetch_topper_keys(group_id, meter, from_ts, to_ts, maxitems=5)
 
+    if output_file:
+        selected_ips = extract_15_internal_ips(meter_results)
+        print("\n" + "=" * 50)
+        print("INTERNAL IPs ONLY (Meters 0, 2, 4)")
+        print("=" * 50)
+        if selected_ips:
+            for ip in selected_ips:
+                print(ip)
+            print("-" * 50)
+            print(f"Total unique INTERNAL IPs: {len(selected_ips)}")
+        else:
+            print("No INTERNAL IPs found")
+
     ranked_ips = []
     for meter, entries in meter_results.items():
         for rank, entry in enumerate(entries, start=1):
             ranked_ips.append({"meter": meter, "rank": rank, "ip": entry["ip"]})
 
     ip_list = [item["ip"] for item in ranked_ips]
-    post_payload = json.dumps({"ips": ip_list}, separators=(",", ":"))
-    curl_cmd = (
-        "curl -X POST \"http://127.0.0.1:8080/api/ip_flows\" "
-        "-H \"Content-Type: application/json\" "
-        f"-d '{post_payload}'"
-    )
-
-    print(curl_cmd)
 
     ip_to_meters = {}
     ip_to_meter_values = {}

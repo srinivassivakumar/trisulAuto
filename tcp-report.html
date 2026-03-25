@@ -240,7 +240,7 @@
 
     <div class="header">
         <h1>TCP Analyzer Top Counters Report</h1>
-        <div class="timestamp">Generated: 2026-03-25 15:28:24 | Time Range: Last 1 hour (from 2026-03-25 14:28:24 to 2026-03-25 15:28:24)</div>
+        <div class="timestamp">Generated: 2026-03-25 16:26:24 | Time Range: Last 1 hour (from 2026-03-25 15:26:24 to 2026-03-25 16:26:24)</div>
     </div>
 
     <div class="infra-section">
@@ -292,11 +292,11 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency Internal (µs): <strong>1,657.39 ms</strong></div>
+                            <div class="issue-metric">• Latency Internal (µs): <strong>2,107.68 ms</strong></div>
 
-                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>15,135 pkts</strong></div>
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>16,127 pkts</strong></div>
 
-                            <div class="issue-metric">• Timeouts: <strong>7</strong></div>
+                            <div class="issue-metric">• Timeouts: <strong>6</strong></div>
 
                             <div class="classification internal">🎯 INTERNAL ISSUE</div>
 
@@ -340,7 +340,7 @@
 
                 <tr>
                     <td>2</td>
-                    <td><button class="ip-link" data-ip="180.179.176.102" data-target="flow-row-0-2">180.179.176.102</button></td>
+                    <td><button class="ip-link" data-ip="103.174.107.230" data-target="flow-row-0-2">103.174.107.230</button></td>
                 </tr>
                 <tr id="flow-row-0-2" class="flow-details-row" style="display:none;">
                     <td colspan="3">
@@ -356,208 +356,7 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency Internal (µs): <strong>184.25 ms</strong></div>
-
-                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>188 pkts</strong></div>
-
-                            <div class="issue-metric">• Timeouts: <strong>10</strong></div>
-
-                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
-
-                            <div class="rule-box">
-
-                                <div class="rule-section">
-                                    <h4>📋 Problem:</h4>
-                                    <p>Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.</p>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>🔧 Diagnostics:</h4>
-                                    <ul>
-                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
-                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
-                                        <li>Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth</li>
-
-                                    </ul>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>✅ Fix:</h4>
-                                    <ul>
-                                        <li>1. Offload or upgrade overloaded devices urgently</li>
-                                        <li>2. Optimize security rule processing</li>
-                                        <li>3. Tune TCP timers appropriately</li>
-                                        <li>4. Implement traffic bypass for trusted flows</li>
-                                        <li>5. Add hardware acceleration</li>
-                                        <li>6. Fix control plane instabilities</li>
-                                        <li>7. Increase link capacity</li>
-                                        <li>8. Deploy fast failover</li>
-
-                                    </ul>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>3</td>
-                    <td><button class="ip-link" data-ip="103.174.107.134" data-target="flow-row-0-3">103.174.107.134</button></td>
-                </tr>
-                <tr id="flow-row-0-3" class="flow-details-row" style="display:none;">
-                    <td colspan="3">
-                        <div class="flow-details" data-loaded="0">
-                            <div class="flow-title">Top 5 Flow Issues</div>
-                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td colspan="3">
-                        <div class="ip-analysis">
-                            <div class="issues-header">🔍 Issues Detected:</div>
-
-                            <div class="issue-metric">• Latency Internal (µs): <strong>58.30 ms</strong></div>
-
-                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>8 pkts</strong></div>
-
-                            <div class="issue-metric">• Retransmission Rate % Internal: <strong>1.00%</strong></div>
-
-                            <div class="issue-metric">• Poor Quality Flows: <strong>1</strong></div>
-
-                            <div class="issue-metric">• Timeouts: <strong>10</strong></div>
-
-                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
-
-                            <div class="rule-box">
-
-                                <div class="rule-section">
-                                    <h4>📋 Problem:</h4>
-                                    <p>Combined indicators (LAT + RPKT + R% + PQF + TO) suggest a multi-factor network issue affecting stability and performance.</p>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>🔧 Diagnostics:</h4>
-                                    <ul>
-                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
-                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
-                                        <li>Correlate timeframe of LAT + RPKT + R% + PQF + TO indicators with device CPU/memory and queue depth</li>
-
-                                    </ul>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>✅ Fix:</h4>
-                                    <ul>
-                                        <li>1. **EMERGENCY RESPONSE**: Full network triage</li>
-                                        <li>2. Identify and isolate failure domain</li>
-                                        <li>3. Emergency capacity addition</li>
-                                        <li>4. Emergency hardware replacement</li>
-                                        <li>5. Implement emergency QoS</li>
-                                        <li>6. Aggressive traffic reduction</li>
-                                        <li>7. Failover to backup infrastructure</li>
-                                        <li>8. Full incident response activation</li>
-                                        <li>9. Executive escalation</li>
-                                        <li>10. Vendor emergency support</li>
-
-                                    </ul>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>4</td>
-                    <td><button class="ip-link" data-ip="103.174.107.83" data-target="flow-row-0-4">103.174.107.83</button></td>
-                </tr>
-                <tr id="flow-row-0-4" class="flow-details-row" style="display:none;">
-                    <td colspan="3">
-                        <div class="flow-details" data-loaded="0">
-                            <div class="flow-title">Top 5 Flow Issues</div>
-                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td colspan="3">
-                        <div class="ip-analysis">
-                            <div class="issues-header">🔍 Issues Detected:</div>
-
-                            <div class="issue-metric">• Latency Internal (µs): <strong>66.61 ms</strong></div>
-
-                            <div class="issue-metric">• Timeouts: <strong>8</strong></div>
-
-                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
-
-                            <div class="rule-box">
-
-                                <div class="rule-section">
-                                    <h4>📋 Problem:</h4>
-                                    <p>Packets are delayed beyond TCP Retransmission Timeout (RTO) values (typically 200ms-3s depending on configuration). This forces TCP to assume packet loss and trigger expensive retransmission timeouts. Can be caused by extreme congestion, device CPU overload freezing packet forwarding, or processing delays in security appliances (firewall deep packet inspection, IPS scanning).</p>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>🔧 Diagnostics:</h4>
-                                    <ul>
-                                        <li>Check maximum queue depths and peak latency values</li>
-                                        <li>Monitor firewall/IPS processing delays and session table utilization</li>
-                                        <li>Review device CPU spikes correlating with timeout periods</li>
-                                        <li>Check for routing loops or suboptimal path selection (traceroute analysis)</li>
-                                        <li>Examine security appliance logs for dropped/delayed sessions</li>
-                                        <li>Monitor application server backend database query times</li>
-                                        <li>Check for DNS resolution delays</li>
-
-                                    </ul>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>✅ Fix:</h4>
-                                    <ul>
-                                        <li>1. Offload firewall/IPS to more powerful hardware or distribute load across multiple devices</li>
-                                        <li>2. Tune firewall session timeout values appropriately for applications</li>
-                                        <li>3. Optimize security policy rules (move frequently hit rules to top, remove unnecessary deep inspection)</li>
-                                        <li>4. Increase device resources or optimize control plane protection</li>
-                                        <li>5. Implement bypass mechanisms for trusted internal traffic</li>
-                                        <li>6. Adjust TCP RTO parameters on servers if appropriate for environment (careful tuning required)</li>
-                                        <li>7. Fix routing issues to prevent suboptimal paths (adjust metrics, fix routing protocols)</li>
-                                        <li>8. Optimize slow database queries causing application-layer delays</li>
-                                        <li>9. Enable hardware acceleration for crypto/inspection functions</li>
-
-                                    </ul>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>5</td>
-                    <td><button class="ip-link" data-ip="103.174.107.43" data-target="flow-row-0-5">103.174.107.43</button></td>
-                </tr>
-                <tr id="flow-row-0-5" class="flow-details-row" style="display:none;">
-                    <td colspan="3">
-                        <div class="flow-details" data-loaded="0">
-                            <div class="flow-title">Top 5 Flow Issues</div>
-                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td colspan="3">
-                        <div class="ip-analysis">
-                            <div class="issues-header">🔍 Issues Detected:</div>
-
-                            <div class="issue-metric">• Latency Internal (µs): <strong>93.52 ms</strong></div>
+                            <div class="issue-metric">• Latency Internal (µs): <strong>55.70 ms</strong></div>
 
                             <div class="issue-metric">• Timeouts: <strong>7</strong></div>
 
@@ -606,6 +405,203 @@
                     </td>
                 </tr>
 
+                <tr>
+                    <td>3</td>
+                    <td><button class="ip-link" data-ip="103.174.107.43" data-target="flow-row-0-3">103.174.107.43</button></td>
+                </tr>
+                <tr id="flow-row-0-3" class="flow-details-row" style="display:none;">
+                    <td colspan="3">
+                        <div class="flow-details" data-loaded="0">
+                            <div class="flow-title">Top 5 Flow Issues</div>
+                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>280.03 ms</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>7</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Packets are delayed beyond TCP Retransmission Timeout (RTO) values (typically 200ms-3s depending on configuration). This forces TCP to assume packet loss and trigger expensive retransmission timeouts. Can be caused by extreme congestion, device CPU overload freezing packet forwarding, or processing delays in security appliances (firewall deep packet inspection, IPS scanning).</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Check maximum queue depths and peak latency values</li>
+                                        <li>Monitor firewall/IPS processing delays and session table utilization</li>
+                                        <li>Review device CPU spikes correlating with timeout periods</li>
+                                        <li>Check for routing loops or suboptimal path selection (traceroute analysis)</li>
+                                        <li>Examine security appliance logs for dropped/delayed sessions</li>
+                                        <li>Monitor application server backend database query times</li>
+                                        <li>Check for DNS resolution delays</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Offload firewall/IPS to more powerful hardware or distribute load across multiple devices</li>
+                                        <li>2. Tune firewall session timeout values appropriately for applications</li>
+                                        <li>3. Optimize security policy rules (move frequently hit rules to top, remove unnecessary deep inspection)</li>
+                                        <li>4. Increase device resources or optimize control plane protection</li>
+                                        <li>5. Implement bypass mechanisms for trusted internal traffic</li>
+                                        <li>6. Adjust TCP RTO parameters on servers if appropriate for environment (careful tuning required)</li>
+                                        <li>7. Fix routing issues to prevent suboptimal paths (adjust metrics, fix routing protocols)</li>
+                                        <li>8. Optimize slow database queries causing application-layer delays</li>
+                                        <li>9. Enable hardware acceleration for crypto/inspection functions</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td><button class="ip-link" data-ip="180.179.176.102" data-target="flow-row-0-4">180.179.176.102</button></td>
+                </tr>
+                <tr id="flow-row-0-4" class="flow-details-row" style="display:none;">
+                    <td colspan="3">
+                        <div class="flow-details" data-loaded="0">
+                            <div class="flow-title">Top 5 Flow Issues</div>
+                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>195.61 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>209 pkts</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>10</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Offload or upgrade overloaded devices urgently</li>
+                                        <li>2. Optimize security rule processing</li>
+                                        <li>3. Tune TCP timers appropriately</li>
+                                        <li>4. Implement traffic bypass for trusted flows</li>
+                                        <li>5. Add hardware acceleration</li>
+                                        <li>6. Fix control plane instabilities</li>
+                                        <li>7. Increase link capacity</li>
+                                        <li>8. Deploy fast failover</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td><button class="ip-link" data-ip="103.174.107.60" data-target="flow-row-0-5">103.174.107.60</button></td>
+                </tr>
+                <tr id="flow-row-0-5" class="flow-details-row" style="display:none;">
+                    <td colspan="3">
+                        <div class="flow-details" data-loaded="0">
+                            <div class="flow-title">Top 5 Flow Issues</div>
+                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>220.85 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>2,817 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % Internal: <strong>1.00%</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>8</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R% + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. **EMERGENCY**: Identify failing component</li>
+                                        <li>2. Immediate failover</li>
+                                        <li>3. Emergency hardware replacement</li>
+                                        <li>4. Emergency traffic reduction</li>
+                                        <li>5. Critical prioritization only</li>
+                                        <li>6. Bypass failures</li>
+                                        <li>7. Redundancy activation</li>
+                                        <li>8. Full incident response</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
             </tbody>
         </table>
 
@@ -634,7 +630,7 @@
 
                 <tr>
                     <td>1</td>
-                    <td><button class="ip-link" data-ip="46.225.19.95" data-target="flow-row-1-1">46.225.19.95</button></td>
+                    <td><button class="ip-link" data-ip="138.246.253.24" data-target="flow-row-1-1">138.246.253.24</button></td>
                 </tr>
                 <tr id="flow-row-1-1" class="flow-details-row" style="display:none;">
                     <td colspan="3">
@@ -650,7 +646,7 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency External (µs): <strong>1,401.64 ms</strong></div>
+                            <div class="issue-metric">• Latency External (µs): <strong>2,212.20 ms</strong></div>
 
                             <div class="issue-metric">• Timeouts: <strong>1</strong></div>
 
@@ -701,7 +697,7 @@
 
                 <tr>
                     <td>2</td>
-                    <td><button class="ip-link" data-ip="221.147.160.73" data-target="flow-row-1-2">221.147.160.73</button></td>
+                    <td><button class="ip-link" data-ip="200.57.149.148" data-target="flow-row-1-2">200.57.149.148</button></td>
                 </tr>
                 <tr id="flow-row-1-2" class="flow-details-row" style="display:none;">
                     <td colspan="3">
@@ -717,23 +713,29 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency External (µs): <strong>372.73 ms</strong></div>
+                            <div class="issue-metric">• Latency External (µs): <strong>737.67 ms</strong></div>
 
-                            <div class="classification external">🎯 EXTERNAL ISSUE</div>
+                            <div class="issue-metric">• Timeouts: <strong>5</strong></div>
+
+                            <div class="classification external">🎯 INTERNAL + EXTERNAL ISSUE</div>
 
                             <div class="rule-box">
 
                                 <div class="rule-section">
                                     <h4>📋 Problem:</h4>
-                                    <p>Internal path latency is elevated due to internal congestion, queueing, or device processing delay.</p>
+                                    <p>Packets are delayed beyond TCP Retransmission Timeout (RTO) values (typically 200ms-3s depending on configuration). This forces TCP to assume packet loss and trigger expensive retransmission timeouts. Can be caused by extreme congestion, device CPU overload freezing packet forwarding, or processing delays in security appliances (firewall deep packet inspection, IPS scanning).</p>
                                 </div>
 
                                 <div class="rule-section">
                                     <h4>🔧 Diagnostics:</h4>
                                     <ul>
-                                        <li>Check core/distribution link utilization and queue depth</li>
-                                        <li>Check switch/router/firewall CPU and forwarding latency</li>
-                                        <li>Validate interface health and duplex/speed consistency</li>
+                                        <li>Check maximum queue depths and peak latency values</li>
+                                        <li>Monitor firewall/IPS processing delays and session table utilization</li>
+                                        <li>Review device CPU spikes correlating with timeout periods</li>
+                                        <li>Check for routing loops or suboptimal path selection (traceroute analysis)</li>
+                                        <li>Examine security appliance logs for dropped/delayed sessions</li>
+                                        <li>Monitor application server backend database query times</li>
+                                        <li>Check for DNS resolution delays</li>
 
                                     </ul>
                                 </div>
@@ -741,9 +743,15 @@
                                 <div class="rule-section">
                                     <h4>✅ Fix:</h4>
                                     <ul>
-                                        <li>1. Apply QoS priority for latency-sensitive traffic</li>
-                                        <li>2. Rebalance traffic away from congested links</li>
-                                        <li>3. Fix interface errors and duplex mismatch</li>
+                                        <li>1. Offload firewall/IPS to more powerful hardware or distribute load across multiple devices</li>
+                                        <li>2. Tune firewall session timeout values appropriately for applications</li>
+                                        <li>3. Optimize security policy rules (move frequently hit rules to top, remove unnecessary deep inspection)</li>
+                                        <li>4. Increase device resources or optimize control plane protection</li>
+                                        <li>5. Implement bypass mechanisms for trusted internal traffic</li>
+                                        <li>6. Adjust TCP RTO parameters on servers if appropriate for environment (careful tuning required)</li>
+                                        <li>7. Fix routing issues to prevent suboptimal paths (adjust metrics, fix routing protocols)</li>
+                                        <li>8. Optimize slow database queries causing application-layer delays</li>
+                                        <li>9. Enable hardware acceleration for crypto/inspection functions</li>
 
                                     </ul>
                                 </div>
@@ -756,7 +764,7 @@
 
                 <tr>
                     <td>3</td>
-                    <td><button class="ip-link" data-ip="204.141.43.62" data-target="flow-row-1-3">204.141.43.62</button></td>
+                    <td><button class="ip-link" data-ip="157.50.5.40" data-target="flow-row-1-3">157.50.5.40</button></td>
                 </tr>
                 <tr id="flow-row-1-3" class="flow-details-row" style="display:none;">
                     <td colspan="3">
@@ -772,7 +780,13 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency External (µs): <strong>251.62 ms</strong></div>
+                            <div class="issue-metric">• Latency External (µs): <strong>2,985.60 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>5 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % External: <strong>15.00%</strong></div>
+
+                            <div class="issue-metric">• Poor Quality Flows: <strong>1</strong></div>
 
                             <div class="classification external">🎯 EXTERNAL ISSUE</div>
 
@@ -780,15 +794,15 @@
 
                                 <div class="rule-section">
                                     <h4>📋 Problem:</h4>
-                                    <p>Internal path latency is elevated due to internal congestion, queueing, or device processing delay.</p>
+                                    <p>Combined indicators (LAT + RPKT + R% + PQF) suggest a multi-factor network issue affecting stability and performance.</p>
                                 </div>
 
                                 <div class="rule-section">
                                     <h4>🔧 Diagnostics:</h4>
                                     <ul>
-                                        <li>Check core/distribution link utilization and queue depth</li>
-                                        <li>Check switch/router/firewall CPU and forwarding latency</li>
-                                        <li>Validate interface health and duplex/speed consistency</li>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% + PQF indicators with device CPU/memory and queue depth</li>
 
                                     </ul>
                                 </div>
@@ -796,9 +810,14 @@
                                 <div class="rule-section">
                                     <h4>✅ Fix:</h4>
                                     <ul>
-                                        <li>1. Apply QoS priority for latency-sensitive traffic</li>
-                                        <li>2. Rebalance traffic away from congested links</li>
-                                        <li>3. Fix interface errors and duplex mismatch</li>
+                                        <li>1. Emergency capacity upgrade</li>
+                                        <li>2. Comprehensive QoS deployment</li>
+                                        <li>3. Traffic engineering</li>
+                                        <li>4. Load distribution</li>
+                                        <li>5. Buffer optimization</li>
+                                        <li>6. WRED/ECN implementation</li>
+                                        <li>7. Critical traffic separation</li>
+                                        <li>8. Infrastructure upgrade</li>
 
                                     </ul>
                                 </div>
@@ -811,7 +830,7 @@
 
                 <tr>
                     <td>4</td>
-                    <td><button class="ip-link" data-ip="162.240.229.21" data-target="flow-row-1-4">162.240.229.21</button></td>
+                    <td><button class="ip-link" data-ip="44.198.248.209" data-target="flow-row-1-4">44.198.248.209</button></td>
                 </tr>
                 <tr id="flow-row-1-4" class="flow-details-row" style="display:none;">
                     <td colspan="3">
@@ -827,23 +846,29 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency External (µs): <strong>244.66 ms</strong></div>
+                            <div class="issue-metric">• Latency External (µs): <strong>2,978.16 ms</strong></div>
 
-                            <div class="classification external">🎯 EXTERNAL ISSUE</div>
+                            <div class="issue-metric">• Timeouts: <strong>8</strong></div>
+
+                            <div class="classification external">🎯 INTERNAL + EXTERNAL ISSUE</div>
 
                             <div class="rule-box">
 
                                 <div class="rule-section">
                                     <h4>📋 Problem:</h4>
-                                    <p>Internal path latency is elevated due to internal congestion, queueing, or device processing delay.</p>
+                                    <p>Packets are delayed beyond TCP Retransmission Timeout (RTO) values (typically 200ms-3s depending on configuration). This forces TCP to assume packet loss and trigger expensive retransmission timeouts. Can be caused by extreme congestion, device CPU overload freezing packet forwarding, or processing delays in security appliances (firewall deep packet inspection, IPS scanning).</p>
                                 </div>
 
                                 <div class="rule-section">
                                     <h4>🔧 Diagnostics:</h4>
                                     <ul>
-                                        <li>Check core/distribution link utilization and queue depth</li>
-                                        <li>Check switch/router/firewall CPU and forwarding latency</li>
-                                        <li>Validate interface health and duplex/speed consistency</li>
+                                        <li>Check maximum queue depths and peak latency values</li>
+                                        <li>Monitor firewall/IPS processing delays and session table utilization</li>
+                                        <li>Review device CPU spikes correlating with timeout periods</li>
+                                        <li>Check for routing loops or suboptimal path selection (traceroute analysis)</li>
+                                        <li>Examine security appliance logs for dropped/delayed sessions</li>
+                                        <li>Monitor application server backend database query times</li>
+                                        <li>Check for DNS resolution delays</li>
 
                                     </ul>
                                 </div>
@@ -851,9 +876,15 @@
                                 <div class="rule-section">
                                     <h4>✅ Fix:</h4>
                                     <ul>
-                                        <li>1. Apply QoS priority for latency-sensitive traffic</li>
-                                        <li>2. Rebalance traffic away from congested links</li>
-                                        <li>3. Fix interface errors and duplex mismatch</li>
+                                        <li>1. Offload firewall/IPS to more powerful hardware or distribute load across multiple devices</li>
+                                        <li>2. Tune firewall session timeout values appropriately for applications</li>
+                                        <li>3. Optimize security policy rules (move frequently hit rules to top, remove unnecessary deep inspection)</li>
+                                        <li>4. Increase device resources or optimize control plane protection</li>
+                                        <li>5. Implement bypass mechanisms for trusted internal traffic</li>
+                                        <li>6. Adjust TCP RTO parameters on servers if appropriate for environment (careful tuning required)</li>
+                                        <li>7. Fix routing issues to prevent suboptimal paths (adjust metrics, fix routing protocols)</li>
+                                        <li>8. Optimize slow database queries causing application-layer delays</li>
+                                        <li>9. Enable hardware acceleration for crypto/inspection functions</li>
 
                                     </ul>
                                 </div>
@@ -866,7 +897,7 @@
 
                 <tr>
                     <td>5</td>
-                    <td><button class="ip-link" data-ip="128.221.236.246" data-target="flow-row-1-5">128.221.236.246</button></td>
+                    <td><button class="ip-link" data-ip="204.141.43.62" data-target="flow-row-1-5">204.141.43.62</button></td>
                 </tr>
                 <tr id="flow-row-1-5" class="flow-details-row" style="display:none;">
                     <td colspan="3">
@@ -882,7 +913,7 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency External (µs): <strong>224.04 ms</strong></div>
+                            <div class="issue-metric">• Latency External (µs): <strong>250.88 ms</strong></div>
 
                             <div class="classification external">🎯 EXTERNAL ISSUE</div>
 
@@ -928,10 +959,10 @@
         <div class="meter-header">
             <span class="meter-id">2</span>Retransmitted Packets Internal
             <div class="meter-stats">
-                Min: 11 pkts |
-                Max: 89,136 pkts |
-                Avg: 30,735 pkts |
-                Latest: 1,743 pkts
+                Min: 60 pkts |
+                Max: 89,901 pkts |
+                Avg: 31,635 pkts |
+                Latest: 89,217 pkts
             </div>
 
         </div>
@@ -963,11 +994,11 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency Internal (µs): <strong>1,657.39 ms</strong></div>
+                            <div class="issue-metric">• Latency Internal (µs): <strong>2,107.68 ms</strong></div>
 
-                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>15,135 pkts</strong></div>
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>16,127 pkts</strong></div>
 
-                            <div class="issue-metric">• Timeouts: <strong>7</strong></div>
+                            <div class="issue-metric">• Timeouts: <strong>6</strong></div>
 
                             <div class="classification internal">🎯 INTERNAL ISSUE</div>
 
@@ -1027,9 +1058,9 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency Internal (µs): <strong>0.05 ms</strong></div>
+                            <div class="issue-metric">• Latency Internal (µs): <strong>0.03 ms</strong></div>
 
-                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>8,639 pkts</strong></div>
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>7,329 pkts</strong></div>
 
                             <div class="issue-metric">• Timeouts: <strong>9</strong></div>
 
@@ -1075,7 +1106,7 @@
 
                 <tr>
                     <td>3</td>
-                    <td><button class="ip-link" data-ip="103.174.107.255" data-target="flow-row-2-3">103.174.107.255</button></td>
+                    <td><button class="ip-link" data-ip="103.174.107.60" data-target="flow-row-2-3">103.174.107.60</button></td>
                 </tr>
                 <tr id="flow-row-2-3" class="flow-details-row" style="display:none;">
                     <td colspan="3">
@@ -1091,73 +1122,9 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency Internal (µs): <strong>2.66 ms</strong></div>
+                            <div class="issue-metric">• Latency Internal (µs): <strong>220.85 ms</strong></div>
 
-                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>2,128 pkts</strong></div>
-
-                            <div class="issue-metric">• Timeouts: <strong>7</strong></div>
-
-                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
-
-                            <div class="rule-box">
-
-                                <div class="rule-section">
-                                    <h4>📋 Problem:</h4>
-                                    <p>Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.</p>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>🔧 Diagnostics:</h4>
-                                    <ul>
-                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
-                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
-                                        <li>Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth</li>
-
-                                    </ul>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>✅ Fix:</h4>
-                                    <ul>
-                                        <li>1. Offload or upgrade overloaded devices urgently</li>
-                                        <li>2. Optimize security rule processing</li>
-                                        <li>3. Tune TCP timers appropriately</li>
-                                        <li>4. Implement traffic bypass for trusted flows</li>
-                                        <li>5. Add hardware acceleration</li>
-                                        <li>6. Fix control plane instabilities</li>
-                                        <li>7. Increase link capacity</li>
-                                        <li>8. Deploy fast failover</li>
-
-                                    </ul>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>4</td>
-                    <td><button class="ip-link" data-ip="103.174.107.60" data-target="flow-row-2-4">103.174.107.60</button></td>
-                </tr>
-                <tr id="flow-row-2-4" class="flow-details-row" style="display:none;">
-                    <td colspan="3">
-                        <div class="flow-details" data-loaded="0">
-                            <div class="flow-title">Top 5 Flow Issues</div>
-                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td colspan="3">
-                        <div class="ip-analysis">
-                            <div class="issues-header">🔍 Issues Detected:</div>
-
-                            <div class="issue-metric">• Latency Internal (µs): <strong>59.03 ms</strong></div>
-
-                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>2,599 pkts</strong></div>
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>2,817 pkts</strong></div>
 
                             <div class="issue-metric">• Retransmission Rate % Internal: <strong>1.00%</strong></div>
 
@@ -1204,6 +1171,70 @@
                 </tr>
 
                 <tr>
+                    <td>4</td>
+                    <td><button class="ip-link" data-ip="103.174.107.255" data-target="flow-row-2-4">103.174.107.255</button></td>
+                </tr>
+                <tr id="flow-row-2-4" class="flow-details-row" style="display:none;">
+                    <td colspan="3">
+                        <div class="flow-details" data-loaded="0">
+                            <div class="flow-title">Top 5 Flow Issues</div>
+                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>0.80 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>2,143 pkts</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>6</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Offload or upgrade overloaded devices urgently</li>
+                                        <li>2. Optimize security rule processing</li>
+                                        <li>3. Tune TCP timers appropriately</li>
+                                        <li>4. Implement traffic bypass for trusted flows</li>
+                                        <li>5. Add hardware acceleration</li>
+                                        <li>6. Fix control plane instabilities</li>
+                                        <li>7. Increase link capacity</li>
+                                        <li>8. Deploy fast failover</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
                     <td>5</td>
                     <td><button class="ip-link" data-ip="103.174.107.39" data-target="flow-row-2-5">103.174.107.39</button></td>
                 </tr>
@@ -1221,15 +1252,15 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency Internal (µs): <strong>12.46 ms</strong></div>
+                            <div class="issue-metric">• Latency Internal (µs): <strong>10.05 ms</strong></div>
 
-                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>1,422 pkts</strong></div>
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>1,390 pkts</strong></div>
 
                             <div class="issue-metric">• Retransmission Rate % Internal: <strong>2.00%</strong></div>
 
                             <div class="issue-metric">• Poor Quality Flows: <strong>1</strong></div>
 
-                            <div class="issue-metric">• Timeouts: <strong>7</strong></div>
+                            <div class="issue-metric">• Timeouts: <strong>6</strong></div>
 
                             <div class="classification internal">🎯 INTERNAL ISSUE</div>
 
@@ -1282,10 +1313,10 @@
         <div class="meter-header">
             <span class="meter-id">3</span>Retransmitted Packets External
             <div class="meter-stats">
-                Min: 11 pkts |
-                Max: 89,136 pkts |
-                Avg: 30,735 pkts |
-                Latest: 1,743 pkts
+                Min: 60 pkts |
+                Max: 89,901 pkts |
+                Avg: 31,635 pkts |
+                Latest: 89,217 pkts
             </div>
 
         </div>
@@ -1317,9 +1348,9 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency External (µs): <strong>2.57 ms</strong></div>
+                            <div class="issue-metric">• Latency External (µs): <strong>2.58 ms</strong></div>
 
-                            <div class="issue-metric">• Retransmitted Packets External: <strong>21,957 pkts</strong></div>
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>23,532 pkts</strong></div>
 
                             <div class="classification external">🎯 EXTERNAL ISSUE</div>
 
@@ -1382,11 +1413,11 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency External (µs): <strong>60.48 ms</strong></div>
+                            <div class="issue-metric">• Latency External (µs): <strong>61.74 ms</strong></div>
 
-                            <div class="issue-metric">• Retransmitted Packets External: <strong>8,812 pkts</strong></div>
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>8,280 pkts</strong></div>
 
-                            <div class="issue-metric">• Retransmission Rate % External: <strong>44.00%</strong></div>
+                            <div class="issue-metric">• Retransmission Rate % External: <strong>41.00%</strong></div>
 
                             <div class="issue-metric">• Poor Quality Flows: <strong>1</strong></div>
 
@@ -1450,7 +1481,7 @@
 
                             <div class="issue-metric">• Latency External (µs): <strong>31.73 ms</strong></div>
 
-                            <div class="issue-metric">• Retransmitted Packets External: <strong>685 pkts</strong></div>
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>807 pkts</strong></div>
 
                             <div class="issue-metric">• Retransmission Rate % External: <strong>2.00%</strong></div>
 
@@ -1496,7 +1527,7 @@
 
                 <tr>
                     <td>4</td>
-                    <td><button class="ip-link" data-ip="45.254.36.70" data-target="flow-row-3-4">45.254.36.70</button></td>
+                    <td><button class="ip-link" data-ip="52.172.254.38" data-target="flow-row-3-4">52.172.254.38</button></td>
                 </tr>
                 <tr id="flow-row-3-4" class="flow-details-row" style="display:none;">
                     <td colspan="3">
@@ -1512,73 +1543,9 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency External (µs): <strong>2.34 ms</strong></div>
+                            <div class="issue-metric">• Latency External (µs): <strong>2.96 ms</strong></div>
 
-                            <div class="issue-metric">• Retransmitted Packets External: <strong>105 pkts</strong></div>
-
-                            <div class="issue-metric">• Retransmission Rate % External: <strong>5.00%</strong></div>
-
-                            <div class="classification external">🎯 EXTERNAL ISSUE</div>
-
-                            <div class="rule-box">
-
-                                <div class="rule-section">
-                                    <h4>📋 Problem:</h4>
-                                    <p>Combined indicators (LAT + RPKT + R%) suggest a multi-factor network issue affecting stability and performance.</p>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>🔧 Diagnostics:</h4>
-                                    <ul>
-                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
-                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
-                                        <li>Correlate timeframe of LAT + RPKT + R% indicators with device CPU/memory and queue depth</li>
-
-                                    </ul>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>✅ Fix:</h4>
-                                    <ul>
-                                        <li>1. Emergency capacity expansion on congested segments</li>
-                                        <li>2. Implement strict multi-class QoS</li>
-                                        <li>3. Enable WRED/ECN to reduce synchronized TCP backoff</li>
-                                        <li>4. Increase buffer allocations on core switches</li>
-                                        <li>5. Deploy traffic shaping to smooth bursts</li>
-                                        <li>6. Distribute load across ECMP paths</li>
-                                        <li>7. Upgrade critical uplinks immediately</li>
-                                        <li>8. Implement admission control for non-critical traffic</li>
-
-                                    </ul>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>5</td>
-                    <td><button class="ip-link" data-ip="52.172.254.38" data-target="flow-row-3-5">52.172.254.38</button></td>
-                </tr>
-                <tr id="flow-row-3-5" class="flow-details-row" style="display:none;">
-                    <td colspan="3">
-                        <div class="flow-details" data-loaded="0">
-                            <div class="flow-title">Top 5 Flow Issues</div>
-                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td colspan="3">
-                        <div class="ip-analysis">
-                            <div class="issues-header">🔍 Issues Detected:</div>
-
-                            <div class="issue-metric">• Latency External (µs): <strong>2.84 ms</strong></div>
-
-                            <div class="issue-metric">• Retransmitted Packets External: <strong>17 pkts</strong></div>
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>18 pkts</strong></div>
 
                             <div class="classification external">🎯 EXTERNAL ISSUE</div>
 
@@ -1623,6 +1590,70 @@
                     </td>
                 </tr>
 
+                <tr>
+                    <td>5</td>
+                    <td><button class="ip-link" data-ip="45.254.36.71" data-target="flow-row-3-5">45.254.36.71</button></td>
+                </tr>
+                <tr id="flow-row-3-5" class="flow-details-row" style="display:none;">
+                    <td colspan="3">
+                        <div class="flow-details" data-loaded="0">
+                            <div class="flow-title">Top 5 Flow Issues</div>
+                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>2.38 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>113 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % External: <strong>5.00%</strong></div>
+
+                            <div class="classification external">🎯 EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R%) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Emergency capacity expansion on congested segments</li>
+                                        <li>2. Implement strict multi-class QoS</li>
+                                        <li>3. Enable WRED/ECN to reduce synchronized TCP backoff</li>
+                                        <li>4. Increase buffer allocations on core switches</li>
+                                        <li>5. Deploy traffic shaping to smooth bursts</li>
+                                        <li>6. Distribute load across ECMP paths</li>
+                                        <li>7. Upgrade critical uplinks immediately</li>
+                                        <li>8. Implement admission control for non-critical traffic</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
             </tbody>
         </table>
 
@@ -1651,7 +1682,7 @@
 
                 <tr>
                     <td>1</td>
-                    <td><button class="ip-link" data-ip="103.174.107.39" data-target="flow-row-4-1">103.174.107.39</button></td>
+                    <td><button class="ip-link" data-ip="103.174.107.255" data-target="flow-row-4-1">103.174.107.255</button></td>
                 </tr>
                 <tr id="flow-row-4-1" class="flow-details-row" style="display:none;">
                     <td colspan="3">
@@ -1667,79 +1698,9 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency Internal (µs): <strong>12.46 ms</strong></div>
+                            <div class="issue-metric">• Latency Internal (µs): <strong>0.80 ms</strong></div>
 
-                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>1,422 pkts</strong></div>
-
-                            <div class="issue-metric">• Retransmission Rate % Internal: <strong>2.00%</strong></div>
-
-                            <div class="issue-metric">• Poor Quality Flows: <strong>1</strong></div>
-
-                            <div class="issue-metric">• Timeouts: <strong>7</strong></div>
-
-                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
-
-                            <div class="rule-box">
-
-                                <div class="rule-section">
-                                    <h4>📋 Problem:</h4>
-                                    <p>Combined indicators (LAT + RPKT + R% + PQF + TO) suggest a multi-factor network issue affecting stability and performance.</p>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>🔧 Diagnostics:</h4>
-                                    <ul>
-                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
-                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
-                                        <li>Correlate timeframe of LAT + RPKT + R% + PQF + TO indicators with device CPU/memory and queue depth</li>
-
-                                    </ul>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>✅ Fix:</h4>
-                                    <ul>
-                                        <li>1. **EMERGENCY RESPONSE**: Full network triage</li>
-                                        <li>2. Identify and isolate failure domain</li>
-                                        <li>3. Emergency capacity addition</li>
-                                        <li>4. Emergency hardware replacement</li>
-                                        <li>5. Implement emergency QoS</li>
-                                        <li>6. Aggressive traffic reduction</li>
-                                        <li>7. Failover to backup infrastructure</li>
-                                        <li>8. Full incident response activation</li>
-                                        <li>9. Executive escalation</li>
-                                        <li>10. Vendor emergency support</li>
-
-                                    </ul>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>2</td>
-                    <td><button class="ip-link" data-ip="103.174.107.227" data-target="flow-row-4-2">103.174.107.227</button></td>
-                </tr>
-                <tr id="flow-row-4-2" class="flow-details-row" style="display:none;">
-                    <td colspan="3">
-                        <div class="flow-details" data-loaded="0">
-                            <div class="flow-title">Top 5 Flow Issues</div>
-                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td colspan="3">
-                        <div class="ip-analysis">
-                            <div class="issues-header">🔍 Issues Detected:</div>
-
-                            <div class="issue-metric">• Latency Internal (µs): <strong>13.06 ms</strong></div>
-
-                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>5 pkts</strong></div>
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>2,143 pkts</strong></div>
 
                             <div class="issue-metric">• Timeouts: <strong>6</strong></div>
 
@@ -1784,10 +1745,10 @@
                 </tr>
 
                 <tr>
-                    <td>3</td>
-                    <td><button class="ip-link" data-ip="103.174.107.255" data-target="flow-row-4-3">103.174.107.255</button></td>
+                    <td>2</td>
+                    <td><button class="ip-link" data-ip="103.174.107.39" data-target="flow-row-4-2">103.174.107.39</button></td>
                 </tr>
-                <tr id="flow-row-4-3" class="flow-details-row" style="display:none;">
+                <tr id="flow-row-4-2" class="flow-details-row" style="display:none;">
                     <td colspan="3">
                         <div class="flow-details" data-loaded="0">
                             <div class="flow-title">Top 5 Flow Issues</div>
@@ -1801,79 +1762,15 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency Internal (µs): <strong>2.66 ms</strong></div>
+                            <div class="issue-metric">• Latency Internal (µs): <strong>10.05 ms</strong></div>
 
-                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>2,128 pkts</strong></div>
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>1,390 pkts</strong></div>
 
-                            <div class="issue-metric">• Timeouts: <strong>7</strong></div>
-
-                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
-
-                            <div class="rule-box">
-
-                                <div class="rule-section">
-                                    <h4>📋 Problem:</h4>
-                                    <p>Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.</p>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>🔧 Diagnostics:</h4>
-                                    <ul>
-                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
-                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
-                                        <li>Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth</li>
-
-                                    </ul>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>✅ Fix:</h4>
-                                    <ul>
-                                        <li>1. Offload or upgrade overloaded devices urgently</li>
-                                        <li>2. Optimize security rule processing</li>
-                                        <li>3. Tune TCP timers appropriately</li>
-                                        <li>4. Implement traffic bypass for trusted flows</li>
-                                        <li>5. Add hardware acceleration</li>
-                                        <li>6. Fix control plane instabilities</li>
-                                        <li>7. Increase link capacity</li>
-                                        <li>8. Deploy fast failover</li>
-
-                                    </ul>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>4</td>
-                    <td><button class="ip-link" data-ip="103.174.107.134" data-target="flow-row-4-4">103.174.107.134</button></td>
-                </tr>
-                <tr id="flow-row-4-4" class="flow-details-row" style="display:none;">
-                    <td colspan="3">
-                        <div class="flow-details" data-loaded="0">
-                            <div class="flow-title">Top 5 Flow Issues</div>
-                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td colspan="3">
-                        <div class="ip-analysis">
-                            <div class="issues-header">🔍 Issues Detected:</div>
-
-                            <div class="issue-metric">• Latency Internal (µs): <strong>58.30 ms</strong></div>
-
-                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>8 pkts</strong></div>
-
-                            <div class="issue-metric">• Retransmission Rate % Internal: <strong>1.00%</strong></div>
+                            <div class="issue-metric">• Retransmission Rate % Internal: <strong>2.00%</strong></div>
 
                             <div class="issue-metric">• Poor Quality Flows: <strong>1</strong></div>
 
-                            <div class="issue-metric">• Timeouts: <strong>10</strong></div>
+                            <div class="issue-metric">• Timeouts: <strong>6</strong></div>
 
                             <div class="classification internal">🎯 INTERNAL ISSUE</div>
 
@@ -1918,10 +1815,10 @@
                 </tr>
 
                 <tr>
-                    <td>5</td>
-                    <td><button class="ip-link" data-ip="103.174.107.243" data-target="flow-row-4-5">103.174.107.243</button></td>
+                    <td>3</td>
+                    <td><button class="ip-link" data-ip="103.174.107.227" data-target="flow-row-4-3">103.174.107.227</button></td>
                 </tr>
-                <tr id="flow-row-4-5" class="flow-details-row" style="display:none;">
+                <tr id="flow-row-4-3" class="flow-details-row" style="display:none;">
                     <td colspan="3">
                         <div class="flow-details" data-loaded="0">
                             <div class="flow-title">Top 5 Flow Issues</div>
@@ -1935,13 +1832,77 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency Internal (µs): <strong>1.74 ms</strong></div>
+                            <div class="issue-metric">• Latency Internal (µs): <strong>14.76 ms</strong></div>
 
-                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>724 pkts</strong></div>
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>7 pkts</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>6</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Offload or upgrade overloaded devices urgently</li>
+                                        <li>2. Optimize security rule processing</li>
+                                        <li>3. Tune TCP timers appropriately</li>
+                                        <li>4. Implement traffic bypass for trusted flows</li>
+                                        <li>5. Add hardware acceleration</li>
+                                        <li>6. Fix control plane instabilities</li>
+                                        <li>7. Increase link capacity</li>
+                                        <li>8. Deploy fast failover</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td><button class="ip-link" data-ip="103.174.107.243" data-target="flow-row-4-4">103.174.107.243</button></td>
+                </tr>
+                <tr id="flow-row-4-4" class="flow-details-row" style="display:none;">
+                    <td colspan="3">
+                        <div class="flow-details" data-loaded="0">
+                            <div class="flow-title">Top 5 Flow Issues</div>
+                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>1.83 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>734 pkts</strong></div>
 
                             <div class="issue-metric">• Retransmission Rate % Internal: <strong>1.00%</strong></div>
 
-                            <div class="issue-metric">• Timeouts: <strong>7</strong></div>
+                            <div class="issue-metric">• Timeouts: <strong>6</strong></div>
 
                             <div class="classification internal">🎯 INTERNAL ISSUE</div>
 
@@ -1973,6 +1934,70 @@
                                         <li>6. Bypass failures</li>
                                         <li>7. Redundancy activation</li>
                                         <li>8. Full incident response</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td><button class="ip-link" data-ip="103.174.107.145" data-target="flow-row-4-5">103.174.107.145</button></td>
+                </tr>
+                <tr id="flow-row-4-5" class="flow-details-row" style="display:none;">
+                    <td colspan="3">
+                        <div class="flow-details" data-loaded="0">
+                            <div class="flow-title">Top 5 Flow Issues</div>
+                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>18.35 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>7 pkts</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>9</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Offload or upgrade overloaded devices urgently</li>
+                                        <li>2. Optimize security rule processing</li>
+                                        <li>3. Tune TCP timers appropriately</li>
+                                        <li>4. Implement traffic bypass for trusted flows</li>
+                                        <li>5. Add hardware acceleration</li>
+                                        <li>6. Fix control plane instabilities</li>
+                                        <li>7. Increase link capacity</li>
+                                        <li>8. Deploy fast failover</li>
 
                                     </ul>
                                 </div>
@@ -2027,11 +2052,11 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency External (µs): <strong>60.48 ms</strong></div>
+                            <div class="issue-metric">• Latency External (µs): <strong>61.74 ms</strong></div>
 
-                            <div class="issue-metric">• Retransmitted Packets External: <strong>8,812 pkts</strong></div>
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>8,280 pkts</strong></div>
 
-                            <div class="issue-metric">• Retransmission Rate % External: <strong>44.00%</strong></div>
+                            <div class="issue-metric">• Retransmission Rate % External: <strong>41.00%</strong></div>
 
                             <div class="issue-metric">• Poor Quality Flows: <strong>1</strong></div>
 
@@ -2077,7 +2102,7 @@
 
                 <tr>
                     <td>2</td>
-                    <td><button class="ip-link" data-ip="79.133.168.18" data-target="flow-row-5-2">79.133.168.18</button></td>
+                    <td><button class="ip-link" data-ip="79.133.171.13" data-target="flow-row-5-2">79.133.171.13</button></td>
                 </tr>
                 <tr id="flow-row-5-2" class="flow-details-row" style="display:none;">
                     <td colspan="3">
@@ -2093,11 +2118,11 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency External (µs): <strong>146.95 ms</strong></div>
+                            <div class="issue-metric">• Latency External (µs): <strong>139.43 ms</strong></div>
 
                             <div class="issue-metric">• Retransmitted Packets External: <strong>6 pkts</strong></div>
 
-                            <div class="issue-metric">• Retransmission Rate % External: <strong>9.00%</strong></div>
+                            <div class="issue-metric">• Retransmission Rate % External: <strong>5.00%</strong></div>
 
                             <div class="classification external">🎯 EXTERNAL ISSUE</div>
 
@@ -2141,7 +2166,7 @@
 
                 <tr>
                     <td>3</td>
-                    <td><button class="ip-link" data-ip="185.201.3.104" data-target="flow-row-5-3">185.201.3.104</button></td>
+                    <td><button class="ip-link" data-ip="192.178.211.188" data-target="flow-row-5-3">192.178.211.188</button></td>
                 </tr>
                 <tr id="flow-row-5-3" class="flow-details-row" style="display:none;">
                     <td colspan="3">
@@ -2157,135 +2182,7 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency External (µs): <strong>50.06 ms</strong></div>
-
-                            <div class="issue-metric">• Retransmitted Packets External: <strong>4 pkts</strong></div>
-
-                            <div class="issue-metric">• Retransmission Rate % External: <strong>3.00%</strong></div>
-
-                            <div class="classification external">🎯 EXTERNAL ISSUE</div>
-
-                            <div class="rule-box">
-
-                                <div class="rule-section">
-                                    <h4>📋 Problem:</h4>
-                                    <p>Combined indicators (LAT + RPKT + R%) suggest a multi-factor network issue affecting stability and performance.</p>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>🔧 Diagnostics:</h4>
-                                    <ul>
-                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
-                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
-                                        <li>Correlate timeframe of LAT + RPKT + R% indicators with device CPU/memory and queue depth</li>
-
-                                    </ul>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>✅ Fix:</h4>
-                                    <ul>
-                                        <li>1. Emergency capacity expansion on congested segments</li>
-                                        <li>2. Implement strict multi-class QoS</li>
-                                        <li>3. Enable WRED/ECN to reduce synchronized TCP backoff</li>
-                                        <li>4. Increase buffer allocations on core switches</li>
-                                        <li>5. Deploy traffic shaping to smooth bursts</li>
-                                        <li>6. Distribute load across ECMP paths</li>
-                                        <li>7. Upgrade critical uplinks immediately</li>
-                                        <li>8. Implement admission control for non-critical traffic</li>
-
-                                    </ul>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>4</td>
-                    <td><button class="ip-link" data-ip="4.1.82.186" data-target="flow-row-5-4">4.1.82.186</button></td>
-                </tr>
-                <tr id="flow-row-5-4" class="flow-details-row" style="display:none;">
-                    <td colspan="3">
-                        <div class="flow-details" data-loaded="0">
-                            <div class="flow-title">Top 5 Flow Issues</div>
-                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td colspan="3">
-                        <div class="ip-analysis">
-                            <div class="issues-header">🔍 Issues Detected:</div>
-
-                            <div class="issue-metric">• Latency External (µs): <strong>55.58 ms</strong></div>
-
-                            <div class="issue-metric">• Retransmitted Packets External: <strong>7 pkts</strong></div>
-
-                            <div class="issue-metric">• Retransmission Rate % External: <strong>6.00%</strong></div>
-
-                            <div class="classification external">🎯 EXTERNAL ISSUE</div>
-
-                            <div class="rule-box">
-
-                                <div class="rule-section">
-                                    <h4>📋 Problem:</h4>
-                                    <p>Combined indicators (LAT + RPKT + R%) suggest a multi-factor network issue affecting stability and performance.</p>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>🔧 Diagnostics:</h4>
-                                    <ul>
-                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
-                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
-                                        <li>Correlate timeframe of LAT + RPKT + R% indicators with device CPU/memory and queue depth</li>
-
-                                    </ul>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>✅ Fix:</h4>
-                                    <ul>
-                                        <li>1. Emergency capacity expansion on congested segments</li>
-                                        <li>2. Implement strict multi-class QoS</li>
-                                        <li>3. Enable WRED/ECN to reduce synchronized TCP backoff</li>
-                                        <li>4. Increase buffer allocations on core switches</li>
-                                        <li>5. Deploy traffic shaping to smooth bursts</li>
-                                        <li>6. Distribute load across ECMP paths</li>
-                                        <li>7. Upgrade critical uplinks immediately</li>
-                                        <li>8. Implement admission control for non-critical traffic</li>
-
-                                    </ul>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>5</td>
-                    <td><button class="ip-link" data-ip="192.178.211.188" data-target="flow-row-5-5">192.178.211.188</button></td>
-                </tr>
-                <tr id="flow-row-5-5" class="flow-details-row" style="display:none;">
-                    <td colspan="3">
-                        <div class="flow-details" data-loaded="0">
-                            <div class="flow-title">Top 5 Flow Issues</div>
-                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td colspan="3">
-                        <div class="ip-analysis">
-                            <div class="issues-header">🔍 Issues Detected:</div>
-
-                            <div class="issue-metric">• Latency External (µs): <strong>2.61 ms</strong></div>
+                            <div class="issue-metric">• Latency External (µs): <strong>2.26 ms</strong></div>
 
                             <div class="issue-metric">• Retransmitted Packets External: <strong>7 pkts</strong></div>
 
@@ -2333,6 +2230,136 @@
                     </td>
                 </tr>
 
+                <tr>
+                    <td>4</td>
+                    <td><button class="ip-link" data-ip="185.201.3.101" data-target="flow-row-5-4">185.201.3.101</button></td>
+                </tr>
+                <tr id="flow-row-5-4" class="flow-details-row" style="display:none;">
+                    <td colspan="3">
+                        <div class="flow-details" data-loaded="0">
+                            <div class="flow-title">Top 5 Flow Issues</div>
+                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>50.20 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>4 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % External: <strong>2.00%</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>1</strong></div>
+
+                            <div class="classification external">🎯 INTERNAL + EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R% + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. **EMERGENCY**: Identify failing component</li>
+                                        <li>2. Immediate failover</li>
+                                        <li>3. Emergency hardware replacement</li>
+                                        <li>4. Emergency traffic reduction</li>
+                                        <li>5. Critical prioritization only</li>
+                                        <li>6. Bypass failures</li>
+                                        <li>7. Redundancy activation</li>
+                                        <li>8. Full incident response</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td><button class="ip-link" data-ip="8.8.4.4" data-target="flow-row-5-5">8.8.4.4</button></td>
+                </tr>
+                <tr id="flow-row-5-5" class="flow-details-row" style="display:none;">
+                    <td colspan="3">
+                        <div class="flow-details" data-loaded="0">
+                            <div class="flow-title">Top 5 Flow Issues</div>
+                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency External (µs): <strong>1.54 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets External: <strong>4 pkts</strong></div>
+
+                            <div class="issue-metric">• Retransmission Rate % External: <strong>10.00%</strong></div>
+
+                            <div class="classification external">🎯 EXTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + R%) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + R% indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Emergency capacity expansion on congested segments</li>
+                                        <li>2. Implement strict multi-class QoS</li>
+                                        <li>3. Enable WRED/ECN to reduce synchronized TCP backoff</li>
+                                        <li>4. Increase buffer allocations on core switches</li>
+                                        <li>5. Deploy traffic shaping to smooth bursts</li>
+                                        <li>6. Distribute load across ECMP paths</li>
+                                        <li>7. Upgrade critical uplinks immediately</li>
+                                        <li>8. Implement admission control for non-critical traffic</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
             </tbody>
         </table>
 
@@ -2342,8 +2369,8 @@
         <div class="meter-header">
             <span class="meter-id">6</span>Poor Quality Flows
             <div class="meter-stats">
-                Min: 0 |
-                Max: 24 |
+                Min: 2 |
+                Max: 20 |
                 Avg: 10 |
                 Latest: 18
             </div>
@@ -2377,15 +2404,15 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency Internal (µs): <strong>12.46 ms</strong></div>
+                            <div class="issue-metric">• Latency Internal (µs): <strong>10.05 ms</strong></div>
 
-                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>1,422 pkts</strong></div>
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>1,390 pkts</strong></div>
 
                             <div class="issue-metric">• Retransmission Rate % Internal: <strong>2.00%</strong></div>
 
                             <div class="issue-metric">• Poor Quality Flows: <strong>1</strong></div>
 
-                            <div class="issue-metric">• Timeouts: <strong>7</strong></div>
+                            <div class="issue-metric">• Timeouts: <strong>6</strong></div>
 
                             <div class="classification internal">🎯 INTERNAL ISSUE</div>
 
@@ -2431,7 +2458,7 @@
 
                 <tr>
                     <td>2</td>
-                    <td><button class="ip-link" data-ip="103.174.107.134" data-target="flow-row-6-2">103.174.107.134</button></td>
+                    <td><button class="ip-link" data-ip="103.174.107.145" data-target="flow-row-6-2">103.174.107.145</button></td>
                 </tr>
                 <tr id="flow-row-6-2" class="flow-details-row" style="display:none;">
                     <td colspan="3">
@@ -2447,81 +2474,11 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency Internal (µs): <strong>58.30 ms</strong></div>
-
-                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>8 pkts</strong></div>
-
-                            <div class="issue-metric">• Retransmission Rate % Internal: <strong>1.00%</strong></div>
-
-                            <div class="issue-metric">• Poor Quality Flows: <strong>1</strong></div>
-
-                            <div class="issue-metric">• Timeouts: <strong>10</strong></div>
-
-                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
-
-                            <div class="rule-box">
-
-                                <div class="rule-section">
-                                    <h4>📋 Problem:</h4>
-                                    <p>Combined indicators (LAT + RPKT + R% + PQF + TO) suggest a multi-factor network issue affecting stability and performance.</p>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>🔧 Diagnostics:</h4>
-                                    <ul>
-                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
-                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
-                                        <li>Correlate timeframe of LAT + RPKT + R% + PQF + TO indicators with device CPU/memory and queue depth</li>
-
-                                    </ul>
-                                </div>
-
-                                <div class="rule-section">
-                                    <h4>✅ Fix:</h4>
-                                    <ul>
-                                        <li>1. **EMERGENCY RESPONSE**: Full network triage</li>
-                                        <li>2. Identify and isolate failure domain</li>
-                                        <li>3. Emergency capacity addition</li>
-                                        <li>4. Emergency hardware replacement</li>
-                                        <li>5. Implement emergency QoS</li>
-                                        <li>6. Aggressive traffic reduction</li>
-                                        <li>7. Failover to backup infrastructure</li>
-                                        <li>8. Full incident response activation</li>
-                                        <li>9. Executive escalation</li>
-                                        <li>10. Vendor emergency support</li>
-
-                                    </ul>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>3</td>
-                    <td><button class="ip-link" data-ip="103.174.107.145" data-target="flow-row-6-3">103.174.107.145</button></td>
-                </tr>
-                <tr id="flow-row-6-3" class="flow-details-row" style="display:none;">
-                    <td colspan="3">
-                        <div class="flow-details" data-loaded="0">
-                            <div class="flow-title">Top 5 Flow Issues</div>
-                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td colspan="3">
-                        <div class="ip-analysis">
-                            <div class="issues-header">🔍 Issues Detected:</div>
-
-                            <div class="issue-metric">• Latency Internal (µs): <strong>16.82 ms</strong></div>
+                            <div class="issue-metric">• Latency Internal (µs): <strong>18.35 ms</strong></div>
 
                             <div class="issue-metric">• Retransmitted Packets Internal: <strong>7 pkts</strong></div>
 
-                            <div class="issue-metric">• Timeouts: <strong>10</strong></div>
+                            <div class="issue-metric">• Timeouts: <strong>9</strong></div>
 
                             <div class="classification internal">🎯 INTERNAL ISSUE</div>
 
@@ -2564,10 +2521,10 @@
                 </tr>
 
                 <tr>
-                    <td>4</td>
-                    <td><button class="ip-link" data-ip="103.174.107.227" data-target="flow-row-6-4">103.174.107.227</button></td>
+                    <td>3</td>
+                    <td><button class="ip-link" data-ip="103.174.107.227" data-target="flow-row-6-3">103.174.107.227</button></td>
                 </tr>
-                <tr id="flow-row-6-4" class="flow-details-row" style="display:none;">
+                <tr id="flow-row-6-3" class="flow-details-row" style="display:none;">
                     <td colspan="3">
                         <div class="flow-details" data-loaded="0">
                             <div class="flow-title">Top 5 Flow Issues</div>
@@ -2581,9 +2538,9 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency Internal (µs): <strong>13.06 ms</strong></div>
+                            <div class="issue-metric">• Latency Internal (µs): <strong>14.76 ms</strong></div>
 
-                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>5 pkts</strong></div>
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>7 pkts</strong></div>
 
                             <div class="issue-metric">• Timeouts: <strong>6</strong></div>
 
@@ -2628,8 +2585,72 @@
                 </tr>
 
                 <tr>
+                    <td>4</td>
+                    <td><button class="ip-link" data-ip="103.174.107.134" data-target="flow-row-6-4">103.174.107.134</button></td>
+                </tr>
+                <tr id="flow-row-6-4" class="flow-details-row" style="display:none;">
+                    <td colspan="3">
+                        <div class="flow-details" data-loaded="0">
+                            <div class="flow-title">Top 5 Flow Issues</div>
+                            <div class="flow-content flow-muted">Click the IP to load flow issues.</div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <div class="ip-analysis">
+                            <div class="issues-header">🔍 Issues Detected:</div>
+
+                            <div class="issue-metric">• Latency Internal (µs): <strong>29.22 ms</strong></div>
+
+                            <div class="issue-metric">• Retransmitted Packets Internal: <strong>5 pkts</strong></div>
+
+                            <div class="issue-metric">• Timeouts: <strong>10</strong></div>
+
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
+
+                            <div class="rule-box">
+
+                                <div class="rule-section">
+                                    <h4>📋 Problem:</h4>
+                                    <p>Combined indicators (LAT + RPKT + TO) suggest a multi-factor network issue affecting stability and performance.</p>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>🔧 Diagnostics:</h4>
+                                    <ul>
+                                        <li>Validate interface errors, drops, and utilization on impacted hops</li>
+                                        <li>Verify routing symmetry and firewall/NAT session behavior for affected flows</li>
+                                        <li>Correlate timeframe of LAT + RPKT + TO indicators with device CPU/memory and queue depth</li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="rule-section">
+                                    <h4>✅ Fix:</h4>
+                                    <ul>
+                                        <li>1. Offload or upgrade overloaded devices urgently</li>
+                                        <li>2. Optimize security rule processing</li>
+                                        <li>3. Tune TCP timers appropriately</li>
+                                        <li>4. Implement traffic bypass for trusted flows</li>
+                                        <li>5. Add hardware acceleration</li>
+                                        <li>6. Fix control plane instabilities</li>
+                                        <li>7. Increase link capacity</li>
+                                        <li>8. Deploy fast failover</li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
                     <td>5</td>
-                    <td><button class="ip-link" data-ip="79.133.168.18" data-target="flow-row-6-5">79.133.168.18</button></td>
+                    <td><button class="ip-link" data-ip="79.133.171.13" data-target="flow-row-6-5">79.133.171.13</button></td>
                 </tr>
                 <tr id="flow-row-6-5" class="flow-details-row" style="display:none;">
                     <td colspan="3">
@@ -2645,11 +2666,11 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency External (µs): <strong>146.95 ms</strong></div>
+                            <div class="issue-metric">• Latency External (µs): <strong>139.43 ms</strong></div>
 
                             <div class="issue-metric">• Retransmitted Packets External: <strong>6 pkts</strong></div>
 
-                            <div class="issue-metric">• Retransmission Rate % External: <strong>9.00%</strong></div>
+                            <div class="issue-metric">• Retransmission Rate % External: <strong>5.00%</strong></div>
 
                             <div class="classification external">🎯 EXTERNAL ISSUE</div>
 
@@ -2700,10 +2721,10 @@
         <div class="meter-header">
             <span class="meter-id">7</span>Timeouts
             <div class="meter-stats">
-                Min: 3,820 |
-                Max: 7,132 |
-                Avg: 5,416 |
-                Latest: 4,922
+                Min: 4,036 |
+                Max: 7,892 |
+                Avg: 5,298 |
+                Latest: 5,024
             </div>
 
         </div>
@@ -2735,7 +2756,7 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Timeouts: <strong>146</strong></div>
+                            <div class="issue-metric">• Timeouts: <strong>148</strong></div>
 
                             <div class="classification internal">🎯 INTERNAL ISSUE</div>
 
@@ -2790,7 +2811,7 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Timeouts: <strong>138</strong></div>
+                            <div class="issue-metric">• Timeouts: <strong>141</strong></div>
 
                             <div class="classification internal">🎯 INTERNAL ISSUE</div>
 
@@ -2845,7 +2866,7 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Timeouts: <strong>124</strong></div>
+                            <div class="issue-metric">• Timeouts: <strong>128</strong></div>
 
                             <div class="classification internal">🎯 INTERNAL ISSUE</div>
 
@@ -2884,7 +2905,7 @@
 
                 <tr>
                     <td>4</td>
-                    <td><button class="ip-link" data-ip="176.65.139.34" data-target="flow-row-7-4">176.65.139.34</button></td>
+                    <td><button class="ip-link" data-ip="204.76.203.73" data-target="flow-row-7-4">204.76.203.73</button></td>
                 </tr>
                 <tr id="flow-row-7-4" class="flow-details-row" style="display:none;">
                     <td colspan="3">
@@ -2900,29 +2921,23 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Latency External (µs): <strong>244.31 ms</strong></div>
+                            <div class="issue-metric">• Timeouts: <strong>117</strong></div>
 
-                            <div class="issue-metric">• Timeouts: <strong>148</strong></div>
-
-                            <div class="classification external">🎯 INTERNAL + EXTERNAL ISSUE</div>
+                            <div class="classification internal">🎯 INTERNAL ISSUE</div>
 
                             <div class="rule-box">
 
                                 <div class="rule-section">
                                     <h4>📋 Problem:</h4>
-                                    <p>Packets are delayed beyond TCP Retransmission Timeout (RTO) values (typically 200ms-3s depending on configuration). This forces TCP to assume packet loss and trigger expensive retransmission timeouts. Can be caused by extreme congestion, device CPU overload freezing packet forwarding, or processing delays in security appliances (firewall deep packet inspection, IPS scanning).</p>
+                                    <p>Internal session timeouts indicate severe delay/loss or processing bottlenecks.</p>
                                 </div>
 
                                 <div class="rule-section">
                                     <h4>🔧 Diagnostics:</h4>
                                     <ul>
-                                        <li>Check maximum queue depths and peak latency values</li>
-                                        <li>Monitor firewall/IPS processing delays and session table utilization</li>
-                                        <li>Review device CPU spikes correlating with timeout periods</li>
-                                        <li>Check for routing loops or suboptimal path selection (traceroute analysis)</li>
-                                        <li>Examine security appliance logs for dropped/delayed sessions</li>
-                                        <li>Monitor application server backend database query times</li>
-                                        <li>Check for DNS resolution delays</li>
+                                        <li>Check firewall/IPS processing delay</li>
+                                        <li>Check queue peak latency and drops</li>
+                                        <li>Verify route stability and absence of loops</li>
 
                                     </ul>
                                 </div>
@@ -2930,15 +2945,9 @@
                                 <div class="rule-section">
                                     <h4>✅ Fix:</h4>
                                     <ul>
-                                        <li>1. Offload firewall/IPS to more powerful hardware or distribute load across multiple devices</li>
-                                        <li>2. Tune firewall session timeout values appropriately for applications</li>
-                                        <li>3. Optimize security policy rules (move frequently hit rules to top, remove unnecessary deep inspection)</li>
-                                        <li>4. Increase device resources or optimize control plane protection</li>
-                                        <li>5. Implement bypass mechanisms for trusted internal traffic</li>
-                                        <li>6. Adjust TCP RTO parameters on servers if appropriate for environment (careful tuning required)</li>
-                                        <li>7. Fix routing issues to prevent suboptimal paths (adjust metrics, fix routing protocols)</li>
-                                        <li>8. Optimize slow database queries causing application-layer delays</li>
-                                        <li>9. Enable hardware acceleration for crypto/inspection functions</li>
+                                        <li>1. Remove internal processing bottlenecks</li>
+                                        <li>2. Repair hotspot links and queuing saturation</li>
+                                        <li>3. Stabilize routing and device resource usage</li>
 
                                     </ul>
                                 </div>
@@ -2967,7 +2976,7 @@
                         <div class="ip-analysis">
                             <div class="issues-header">🔍 Issues Detected:</div>
 
-                            <div class="issue-metric">• Timeouts: <strong>79</strong></div>
+                            <div class="issue-metric">• Timeouts: <strong>80</strong></div>
 
                             <div class="classification internal">🎯 INTERNAL ISSUE</div>
 
@@ -3060,8 +3069,8 @@
     <script>
     (function () {
     var PREFETCH_FLOW_ISSUES = {};
-    var PREFETCH_IP_TOP_VALUES = {"180.179.176.101": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "1,657.39 ms", "raw": 1657393}, {"metric": "Retransmitted Packets Internal", "value": "15,135 pkts", "raw": 15135}, {"metric": "Timeouts", "value": "7", "raw": 7}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "180.179.176.102": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "184.25 ms", "raw": 184253}, {"metric": "Retransmitted Packets Internal", "value": "188 pkts", "raw": 188}, {"metric": "Timeouts", "value": "10", "raw": 10}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "103.174.107.134": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "58.30 ms", "raw": 58303}, {"metric": "Timeouts", "value": "10", "raw": 10}, {"metric": "Retransmitted Packets Internal", "value": "8 pkts", "raw": 8}, {"metric": "Retransmission Rate % Internal", "value": "1.00%", "raw": 1}, {"metric": "Poor Quality Flows", "value": "1", "raw": 1}], "infra": null}, "103.174.107.83": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "66.61 ms", "raw": 66607}, {"metric": "Timeouts", "value": "8", "raw": 8}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "103.174.107.43": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "93.52 ms", "raw": 93519}, {"metric": "Timeouts", "value": "7", "raw": 7}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "46.225.19.95": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "1,401.64 ms", "raw": 1401640}, {"metric": "Timeouts", "value": "1", "raw": 1}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "221.147.160.73": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "372.73 ms", "raw": 372732}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}, {"metric": "Retransmission Rate % Internal", "value": "0.00%", "raw": 0}], "infra": null}, "204.141.43.62": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "251.62 ms", "raw": 251620}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}, {"metric": "Retransmission Rate % Internal", "value": "0.00%", "raw": 0}], "infra": null}, "162.240.229.21": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "244.66 ms", "raw": 244665}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}, {"metric": "Retransmission Rate % Internal", "value": "0.00%", "raw": 0}], "infra": null}, "128.221.236.246": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "224.04 ms", "raw": 224042}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}, {"metric": "Retransmission Rate % Internal", "value": "0.00%", "raw": 0}], "infra": null}, "103.174.107.87": {"metrics": [{"metric": "Retransmitted Packets Internal", "value": "8,639 pkts", "raw": 8639}, {"metric": "Latency Internal (\u00b5s)", "value": "0.05 ms", "raw": 49}, {"metric": "Timeouts", "value": "9", "raw": 9}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "103.174.107.255": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "2.66 ms", "raw": 2661}, {"metric": "Retransmitted Packets Internal", "value": "2,128 pkts", "raw": 2128}, {"metric": "Timeouts", "value": "7", "raw": 7}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "103.174.107.60": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "59.03 ms", "raw": 59031}, {"metric": "Retransmitted Packets Internal", "value": "2,599 pkts", "raw": 2599}, {"metric": "Timeouts", "value": "8", "raw": 8}, {"metric": "Retransmission Rate % Internal", "value": "1.00%", "raw": 1}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}], "infra": null}, "103.174.107.39": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "12.46 ms", "raw": 12463}, {"metric": "Retransmitted Packets Internal", "value": "1,422 pkts", "raw": 1422}, {"metric": "Timeouts", "value": "7", "raw": 7}, {"metric": "Retransmission Rate % Internal", "value": "2.00%", "raw": 2}, {"metric": "Poor Quality Flows", "value": "1", "raw": 1}], "infra": null}, "15.206.138.61": {"metrics": [{"metric": "Retransmitted Packets External", "value": "21,957 pkts", "raw": 21957}, {"metric": "Latency External (\u00b5s)", "value": "2.57 ms", "raw": 2572}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmission Rate % Internal", "value": "0.00%", "raw": 0}], "infra": null}, "74.125.130.188": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "60.48 ms", "raw": 60481}, {"metric": "Retransmitted Packets External", "value": "8,812 pkts", "raw": 8812}, {"metric": "Retransmission Rate % External", "value": "44.00%", "raw": 44}, {"metric": "Poor Quality Flows", "value": "1", "raw": 1}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}], "infra": null}, "183.82.32.21": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "31.73 ms", "raw": 31729}, {"metric": "Retransmitted Packets External", "value": "685 pkts", "raw": 685}, {"metric": "Retransmission Rate % External", "value": "2.00%", "raw": 2}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}], "infra": null}, "45.254.36.70": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "2.34 ms", "raw": 2341}, {"metric": "Retransmitted Packets External", "value": "105 pkts", "raw": 105}, {"metric": "Retransmission Rate % External", "value": "5.00%", "raw": 5}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}], "infra": null}, "52.172.254.38": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "2.84 ms", "raw": 2841}, {"metric": "Retransmitted Packets External", "value": "17 pkts", "raw": 17}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmission Rate % Internal", "value": "0.00%", "raw": 0}], "infra": null}, "103.174.107.227": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "13.06 ms", "raw": 13063}, {"metric": "Timeouts", "value": "6", "raw": 6}, {"metric": "Retransmitted Packets Internal", "value": "5 pkts", "raw": 5}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "103.174.107.243": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "1.74 ms", "raw": 1744}, {"metric": "Retransmitted Packets Internal", "value": "724 pkts", "raw": 724}, {"metric": "Timeouts", "value": "7", "raw": 7}, {"metric": "Retransmission Rate % Internal", "value": "1.00%", "raw": 1}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}], "infra": null}, "79.133.168.18": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "146.95 ms", "raw": 146947}, {"metric": "Retransmission Rate % External", "value": "9.00%", "raw": 9}, {"metric": "Retransmitted Packets External", "value": "6 pkts", "raw": 6}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}], "infra": null}, "185.201.3.104": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "50.06 ms", "raw": 50061}, {"metric": "Retransmitted Packets External", "value": "4 pkts", "raw": 4}, {"metric": "Retransmission Rate % External", "value": "3.00%", "raw": 3}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}], "infra": null}, "4.1.82.186": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "55.58 ms", "raw": 55583}, {"metric": "Retransmitted Packets External", "value": "7 pkts", "raw": 7}, {"metric": "Retransmission Rate % External", "value": "6.00%", "raw": 6}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}], "infra": null}, "192.178.211.188": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "2.61 ms", "raw": 2609}, {"metric": "Retransmission Rate % External", "value": "20.00%", "raw": 20}, {"metric": "Retransmitted Packets External", "value": "7 pkts", "raw": 7}, {"metric": "Poor Quality Flows", "value": "1", "raw": 1}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}], "infra": null}, "103.174.107.145": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "16.82 ms", "raw": 16816}, {"metric": "Timeouts", "value": "10", "raw": 10}, {"metric": "Retransmitted Packets Internal", "value": "7 pkts", "raw": 7}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "103.174.107.12": {"metrics": [{"metric": "Timeouts", "value": "146", "raw": 146}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "122.187.68.46": {"metrics": [{"metric": "Timeouts", "value": "138", "raw": 138}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "115.231.78.3": {"metrics": [{"metric": "Timeouts", "value": "124", "raw": 124}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "176.65.139.34": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "244.31 ms", "raw": 244308}, {"metric": "Timeouts", "value": "148", "raw": 148}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "204.76.203.212": {"metrics": [{"metric": "Timeouts", "value": "79", "raw": 79}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}};
-    var PREFETCH_IP_GEO = {"180.179.176.101": {"country": "India", "state": "Maharashtra", "city": "Powai", "isp": "Netmagic Solution Network"}, "180.179.176.102": {"country": "India", "state": "Maharashtra", "city": "Powai", "isp": "Netmagic Solution Network"}, "103.174.107.134": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "103.174.107.83": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "103.174.107.43": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "46.225.19.95": {"country": "Germany", "state": "Bavaria", "city": "Nuremberg", "isp": "Hetzner Online GmbH"}, "221.147.160.73": {"country": "South Korea", "state": "Gyeonggi-do", "city": "Suwon", "isp": "Korea Telecom"}, "204.141.43.62": {"country": "United States", "state": "Washington", "city": "Seattle", "isp": "Zoho Corp"}, "162.240.229.21": {"country": "United States", "state": "Utah", "city": "Provo", "isp": "Unified Layer"}, "128.221.236.246": {"country": "United States", "state": "Georgia", "city": "Atlanta", "isp": "Dell, Inc."}, "103.174.107.87": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "103.174.107.255": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "103.174.107.60": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "103.174.107.39": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "15.206.138.61": {"country": "India", "state": "Maharashtra", "city": "Mumbai", "isp": "Amazon Technologies Inc."}, "74.125.130.188": {"country": "United States", "state": "California", "city": "Mountain View", "isp": "Google LLC"}, "183.82.32.21": {"country": "India", "state": "Tamil Nadu", "city": "Chennai", "isp": "Atria Convergence Technologies Pvt. Ltd."}, "45.254.36.70": {"country": "India", "state": "Maharashtra", "city": "Navi Mumbai", "isp": "Acronis Asia Pte. Ltd"}, "52.172.254.38": {"country": "India", "state": "Maharashtra", "city": "Pune", "isp": "Microsoft Corporation"}, "103.174.107.227": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "103.174.107.243": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "79.133.168.18": {"country": "Germany", "state": "Hesse", "city": "Frankfurt am Main", "isp": "Kaspersky Lab Switzerland GmbH"}, "185.201.3.104": {"country": "United Kingdom", "state": "England", "city": "Cheltenham", "isp": "Kaspersky Lab Switzerland GmbH"}, "4.1.82.186": {"country": "Singapore", "state": "North West", "city": "Singapore", "isp": "Level 3 Communications, Inc."}, "192.178.211.188": {"country": "United States", "state": "California", "city": "Mountain View", "isp": "Google LLC"}, "103.174.107.145": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "103.174.107.12": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "122.187.68.46": {"country": "India", "state": "Tamil Nadu", "city": "Chennai", "isp": "Bharti Airtel"}, "115.231.78.3": {"country": "China", "state": "Zhejiang", "city": "Hangzhou", "isp": "Chinanet"}, "176.65.139.34": {"country": "The Netherlands", "state": "Limburg", "city": "Eygelshoven", "isp": "Pfcloud UG (haftungsbeschrankt)"}, "204.76.203.212": {"country": "Netherlands", "state": "Limburg", "city": "Eygelshoven", "isp": "Pfcloud UG"}};
+    var PREFETCH_IP_TOP_VALUES = {"180.179.176.101": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "2,107.68 ms", "raw": 2107683}, {"metric": "Retransmitted Packets Internal", "value": "16,127 pkts", "raw": 16127}, {"metric": "Timeouts", "value": "6", "raw": 6}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "103.174.107.230": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "55.70 ms", "raw": 55700}, {"metric": "Timeouts", "value": "7", "raw": 7}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "103.174.107.43": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "280.03 ms", "raw": 280033}, {"metric": "Timeouts", "value": "7", "raw": 7}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "180.179.176.102": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "195.61 ms", "raw": 195608}, {"metric": "Retransmitted Packets Internal", "value": "209 pkts", "raw": 209}, {"metric": "Timeouts", "value": "10", "raw": 10}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "103.174.107.60": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "220.85 ms", "raw": 220848}, {"metric": "Retransmitted Packets Internal", "value": "2,817 pkts", "raw": 2817}, {"metric": "Timeouts", "value": "8", "raw": 8}, {"metric": "Retransmission Rate % Internal", "value": "1.00%", "raw": 1}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}], "infra": null}, "138.246.253.24": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "2,212.20 ms", "raw": 2212203}, {"metric": "Timeouts", "value": "1", "raw": 1}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "200.57.149.148": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "737.67 ms", "raw": 737669}, {"metric": "Timeouts", "value": "5", "raw": 5}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "157.50.5.40": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "2,985.60 ms", "raw": 2985604}, {"metric": "Retransmission Rate % External", "value": "15.00%", "raw": 15}, {"metric": "Retransmitted Packets External", "value": "5 pkts", "raw": 5}, {"metric": "Poor Quality Flows", "value": "1", "raw": 1}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}], "infra": null}, "44.198.248.209": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "2,978.16 ms", "raw": 2978162}, {"metric": "Timeouts", "value": "8", "raw": 8}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "204.141.43.62": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "250.88 ms", "raw": 250878}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}, {"metric": "Retransmission Rate % Internal", "value": "0.00%", "raw": 0}], "infra": null}, "103.174.107.87": {"metrics": [{"metric": "Retransmitted Packets Internal", "value": "7,329 pkts", "raw": 7329}, {"metric": "Latency Internal (\u00b5s)", "value": "0.03 ms", "raw": 34}, {"metric": "Timeouts", "value": "9", "raw": 9}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "103.174.107.255": {"metrics": [{"metric": "Retransmitted Packets Internal", "value": "2,143 pkts", "raw": 2143}, {"metric": "Latency Internal (\u00b5s)", "value": "0.80 ms", "raw": 800}, {"metric": "Timeouts", "value": "6", "raw": 6}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "103.174.107.39": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "10.05 ms", "raw": 10049}, {"metric": "Retransmitted Packets Internal", "value": "1,390 pkts", "raw": 1390}, {"metric": "Timeouts", "value": "6", "raw": 6}, {"metric": "Retransmission Rate % Internal", "value": "2.00%", "raw": 2}, {"metric": "Poor Quality Flows", "value": "1", "raw": 1}], "infra": null}, "15.206.138.61": {"metrics": [{"metric": "Retransmitted Packets External", "value": "23,532 pkts", "raw": 23532}, {"metric": "Latency External (\u00b5s)", "value": "2.58 ms", "raw": 2575}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmission Rate % Internal", "value": "0.00%", "raw": 0}], "infra": null}, "74.125.130.188": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "61.74 ms", "raw": 61739}, {"metric": "Retransmitted Packets External", "value": "8,280 pkts", "raw": 8280}, {"metric": "Retransmission Rate % External", "value": "41.00%", "raw": 41}, {"metric": "Poor Quality Flows", "value": "1", "raw": 1}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}], "infra": null}, "183.82.32.21": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "31.73 ms", "raw": 31729}, {"metric": "Retransmitted Packets External", "value": "807 pkts", "raw": 807}, {"metric": "Retransmission Rate % External", "value": "2.00%", "raw": 2}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}], "infra": null}, "52.172.254.38": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "2.96 ms", "raw": 2961}, {"metric": "Retransmitted Packets External", "value": "18 pkts", "raw": 18}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmission Rate % Internal", "value": "0.00%", "raw": 0}], "infra": null}, "45.254.36.71": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "2.38 ms", "raw": 2385}, {"metric": "Retransmitted Packets External", "value": "113 pkts", "raw": 113}, {"metric": "Retransmission Rate % External", "value": "5.00%", "raw": 5}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}], "infra": null}, "103.174.107.227": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "14.76 ms", "raw": 14761}, {"metric": "Retransmitted Packets Internal", "value": "7 pkts", "raw": 7}, {"metric": "Timeouts", "value": "6", "raw": 6}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "103.174.107.243": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "1.83 ms", "raw": 1834}, {"metric": "Retransmitted Packets Internal", "value": "734 pkts", "raw": 734}, {"metric": "Timeouts", "value": "6", "raw": 6}, {"metric": "Retransmission Rate % Internal", "value": "1.00%", "raw": 1}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}], "infra": null}, "103.174.107.145": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "18.35 ms", "raw": 18354}, {"metric": "Timeouts", "value": "9", "raw": 9}, {"metric": "Retransmitted Packets Internal", "value": "7 pkts", "raw": 7}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "79.133.171.13": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "139.43 ms", "raw": 139425}, {"metric": "Retransmitted Packets External", "value": "6 pkts", "raw": 6}, {"metric": "Retransmission Rate % External", "value": "5.00%", "raw": 5}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}], "infra": null}, "192.178.211.188": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "2.26 ms", "raw": 2260}, {"metric": "Retransmission Rate % External", "value": "20.00%", "raw": 20}, {"metric": "Retransmitted Packets External", "value": "7 pkts", "raw": 7}, {"metric": "Poor Quality Flows", "value": "1", "raw": 1}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}], "infra": null}, "185.201.3.101": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "50.20 ms", "raw": 50203}, {"metric": "Retransmitted Packets External", "value": "4 pkts", "raw": 4}, {"metric": "Retransmission Rate % External", "value": "2.00%", "raw": 2}, {"metric": "Timeouts", "value": "1", "raw": 1}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}], "infra": null}, "8.8.4.4": {"metrics": [{"metric": "Latency External (\u00b5s)", "value": "1.54 ms", "raw": 1540}, {"metric": "Retransmission Rate % External", "value": "10.00%", "raw": 10}, {"metric": "Retransmitted Packets External", "value": "4 pkts", "raw": 4}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}], "infra": null}, "103.174.107.134": {"metrics": [{"metric": "Latency Internal (\u00b5s)", "value": "29.22 ms", "raw": 29220}, {"metric": "Timeouts", "value": "10", "raw": 10}, {"metric": "Retransmitted Packets Internal", "value": "5 pkts", "raw": 5}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "103.174.107.12": {"metrics": [{"metric": "Timeouts", "value": "148", "raw": 148}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "122.187.68.46": {"metrics": [{"metric": "Timeouts", "value": "141", "raw": 141}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "115.231.78.3": {"metrics": [{"metric": "Timeouts", "value": "128", "raw": 128}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "204.76.203.73": {"metrics": [{"metric": "Timeouts", "value": "117", "raw": 117}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}, "204.76.203.212": {"metrics": [{"metric": "Timeouts", "value": "80", "raw": 80}, {"metric": "Latency Internal (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Latency External (\u00b5s)", "value": "0.00 ms", "raw": 0}, {"metric": "Retransmitted Packets Internal", "value": "0 pkts", "raw": 0}, {"metric": "Retransmitted Packets External", "value": "0 pkts", "raw": 0}], "infra": null}};
+    var PREFETCH_IP_GEO = {"180.179.176.101": {"country": "India", "state": "Maharashtra", "city": "Powai", "isp": "Netmagic Solution Network"}, "103.174.107.230": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "103.174.107.43": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "180.179.176.102": {"country": "India", "state": "Maharashtra", "city": "Powai", "isp": "Netmagic Solution Network"}, "103.174.107.60": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "138.246.253.24": {"country": "Germany", "state": "Bavaria", "city": "Munich", "isp": "Leibniz-Rechenzentrum"}, "200.57.149.148": {"country": "Mexico", "state": "Mexico City", "city": "Mexico City", "isp": "Triara.com S.A. de C.V."}, "157.50.5.40": {"country": "India", "state": "Tamil Nadu", "city": "Coimbatore", "isp": "Reliance Jio Infocomm Limited"}, "44.198.248.209": {"country": "United States", "state": "Virginia", "city": "Ashburn", "isp": "Amazon.com"}, "204.141.43.62": {"country": "United States", "state": "Washington", "city": "Seattle", "isp": "Zoho Corp"}, "103.174.107.87": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "103.174.107.255": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "103.174.107.39": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "15.206.138.61": {"country": "India", "state": "Maharashtra", "city": "Mumbai", "isp": "Amazon Technologies Inc."}, "74.125.130.188": {"country": "United States", "state": "California", "city": "Mountain View", "isp": "Google LLC"}, "183.82.32.21": {"country": "India", "state": "Tamil Nadu", "city": "Chennai", "isp": "Atria Convergence Technologies Pvt. Ltd."}, "52.172.254.38": {"country": "India", "state": "Maharashtra", "city": "Pune", "isp": "Microsoft Corporation"}, "45.254.36.71": {"country": "India", "state": "Maharashtra", "city": "Navi Mumbai", "isp": "Acronis Asia Pte. Ltd"}, "103.174.107.227": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "103.174.107.243": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "103.174.107.145": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "79.133.171.13": {"country": "Germany", "state": "Hesse", "city": "Frankfurt am Main", "isp": "Kaspersky Lab Switzerland GmbH"}, "192.178.211.188": {"country": "United States", "state": "California", "city": "Mountain View", "isp": "Google LLC"}, "185.201.3.101": {"country": "United Kingdom", "state": "England", "city": "Cheltenham", "isp": "Kaspersky Lab Switzerland GmbH"}, "8.8.4.4": {"country": "United States", "state": "Virginia", "city": "Ashburn", "isp": "Google LLC"}, "103.174.107.134": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "103.174.107.12": {"country": "India", "state": "Karnataka", "city": "Bengaluru", "isp": "Zybisys Consulting Services LLP"}, "122.187.68.46": {"country": "India", "state": "Tamil Nadu", "city": "Chennai", "isp": "Bharti Airtel"}, "115.231.78.3": {"country": "China", "state": "Zhejiang", "city": "Hangzhou", "isp": "Chinanet"}, "204.76.203.73": {"country": "Netherlands", "state": "Limburg", "city": "Eygelshoven", "isp": "Pfcloud UG"}, "204.76.203.212": {"country": "Netherlands", "state": "Limburg", "city": "Eygelshoven", "isp": "Pfcloud UG"}};
 
     function escapeHtml(text) {
         return String(text)
